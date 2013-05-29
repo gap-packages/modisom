@@ -1,0 +1,20 @@
+syntax: glob
+
+htm
+doc/manual.log
+doc/manual.toc
+doc/manual.lab
+doc/manual.idx
+doc/manual.six
+doc/manual.aux
+doc/manual.dvi
+doc/manual.ps
+doc/manual.blg
+doc/manual.bbl
+doc/manual.ind
+doc/manual.ilg
+doc/manual.pdf
+doc/manual.mst
+doc/answers.tex
+doc/manual.example-*.tst
+doc/tthout
