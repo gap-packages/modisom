@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.0",
-Date := "01/09/2011",
+Version := "2.1",
+Date := "18/11/2011",
 
 Persons := [
   rec( 
@@ -22,11 +22,26 @@ Persons := [
                        "Germany" ] ),
     Place         := "Braunschweig",
     Institution   := "TU Braunschweig"
+  ),
+  rec(
+    LastName      := "Konovalov",
+    FirstNames    := "Alexander",
+    IsAuthor      := false,
+    IsMaintainer  := true,
+    Email         := "alexk@mcs.st-andrews.ac.uk",
+    WWWHome       := "http://www.cs.st-andrews.ac.uk/~alexk/",
+    PostalAddress := Concatenation( [
+                     "School of Computer Science\n",
+                     "University of St Andrews\n",
+                     "Jack Cole Building, North Haugh,\n",
+                     "St Andrews, Fife, KY16 9SX, Scotland" ] ),
+    Place         := "St Andrews",
+    Institution   := "University of St Andrews"
   ) ],
 
 Status := "dev",
 
-PackageWWWHome := "http://www-public.tu-bs.de:8080/~beick/soft/modisom/",
+PackageWWWHome := "http://www.icm.tu-bs.de/~beick/soft/modisom/",
 
 ArchiveFormats := ".tar.gz",
 ArchiveURL     := Concatenation( ~.PackageWWWHome, "modisom-", ~.Version ),
