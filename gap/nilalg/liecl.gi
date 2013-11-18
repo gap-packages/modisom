@@ -135,18 +135,18 @@ MyWeightedBasis := function( T, wf, rf )
     return rec(basis := A, weights := w);
 end;
 
-WeightVector := function( T, wf, rf )
+WeightVector@ := function( T, wf, rf )
     local w;
     w := MyWeightedBasis(T,wf,rf).weights;
     return List(Collected(w), x -> x[2]);
 end;
 
 WeightVectorDS := function(T)
-    return WeightVector(T, DSWf, DSRf);
+    return WeightVector@(T, DSWf, DSRf);
 end;
 
 WeightVectorLCS := function(T)
-    return WeightVector(T, LCSWf, LCSRf);
+    return WeightVector@(T, LCSWf, LCSRf);
 end;
 
 WeightVectorPS := function(T)
