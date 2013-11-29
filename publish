@@ -1,0 +1,54 @@
+#!/bin/sh
+#############################################################################
+
+export PKGNAME="modisom"
+export PKGVERSION="2.1"
+export TOOLPATH="/Users/alexk/HGREPS/gap/dev/DistributionUpdate/dist45"
+
+cp ${TOOLPATH}/classifyfiles.py ../
+cp ${TOOLPATH}/patternstextbinary.txt ../
+cp patternscolor.txt ../
+
+echo 'making a list of files to wrap'
+
+cd ..
+
+chmod 644 $PKGNAME/doc/*
+chmod 755 $PKGNAME/doc/make_doc
+chmod 644 $PKGNAME/gap/*/*
+chmod 644 $PKGNAME/htm/*
+chmod 644 $PKGNAME/COPYRIGHT
+chmod 644 $PKGNAME/VERSION
+chmod 644 $PKGNAME/README
+chmod 644 $PKGNAME/*.g
+
+python ./classifyfiles.py $PKGNAME
+
+echo '======================================================================'
+echo 'list of text files to include'
+cat listtextfiles.txt
+echo '======================================================================'
+echo 'list of binary files to include'
+cat listbinaryfiles.txt
+echo '======================================================================'
+echo 'list of ignored files'
+cat listignoredfiles.txt
+echo '======================================================================'
+
+cat listtextfiles.txt listbinaryfiles.txt > filestowrap.txt
+
+rm -rf $PKGNAME-$PKGVERSION.tar.gz
+
+tar -cvzf $PKGNAME-$PKGVERSION.tar.gz -T filestowrap.txt
+
+rm listtextfiles.txt
+rm listbinaryfiles.txt
+rm listignoredfiles.txt
+rm listtextfilesfortools.txt
+rm listbinaryfilesfortools.txt
+rm classifyfiles.py
+rm patternscolor.txt
+rm patternstextbinary.txt
+rm filestowrap.txt
+
+echo "DONE!"
