@@ -9,7 +9,7 @@ end;
 BaseMatT := function(M)
     local j;
     if Length(M)=0 then return M; fi;
-    M := ShallowCopy(M);
+    M := MutableCopyMat(M);
     TriangulizeMat(M);
     j := Position(M, 0*M[1]);
     if IsBool(j) then return M; fi;
