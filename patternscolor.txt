@@ -23,13 +23,15 @@
 # package root directory
 +COPYRIGHT
 +VERSION
-+*.g
 +README
++*.g
 # directory 'doc'
 +doc/*
 # directory 'gap'
 +gap/*
 # directory 'htm'
 +htm/*
+# directory 'tst'
++tst/*
 # the rest is excluded
 -*
