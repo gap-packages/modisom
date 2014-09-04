@@ -2,7 +2,7 @@
 #############################################################################
 
 export PKGNAME="modisom"
-export PKGVERSION="2.1"
+export PKGVERSION="2.3.1"
 export TOOLPATH="/Users/alexk/HGREPS/gap/dev/DistributionUpdate/dist45"
 
 cp ${TOOLPATH}/classifyfiles.py ../
