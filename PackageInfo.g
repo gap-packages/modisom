@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.3",
-Date := "10/07/2014",
+Version := "2.3.1",
+Date := "04/07/2014",
 
 Persons := [
   rec( 
@@ -39,7 +39,9 @@ Persons := [
     Institution   := "University of St Andrews"
   ) ],
 
-Status := "deposited",
+Status := "accepted",
+CommunicatedBy := "Alexander Konovalov (St. Andrews)",
+AcceptDate := "11/2013",
 
 PackageWWWHome := "http://www.icm.tu-bs.de/~beick/soft/modisom/",
 
@@ -69,7 +71,7 @@ Dependencies := rec(
   ExternalConditions := []
 ),
 
-BannerString := "Loading ModIsom 2.3... \n",
+BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
 Autoload := false,
 Keywords := ["modular isomorphism problem",
