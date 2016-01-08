@@ -1,3 +1,4 @@
+gap> START_TEST("ModIsom package: manexamples.tst");
 gap> LoadPackage("modisom",false);
 true
 
@@ -191,3 +192,5 @@ rec( bas := [ [ 1, 0, 0, 0 ], [ 0, 1, 1, 0 ], [ 0, 0, 0, 1 ], [ 0, 1, 0, 0 ] ]
   tab := [ [ [ 0, 0, 0 ], [ 0, 0, -1 ], [ 0, 0, 0 ] ], 
       [ [ 0, 0, 1 ], [ 0, 0, 0 ], [ 0, 0, 0 ] ] ], wds := [ ,, [ 2, 1 ] ], 
   wgs := [ 1, 1, 2 ] )
+gap> STOP_TEST("manexamples.tst",10000);
+
