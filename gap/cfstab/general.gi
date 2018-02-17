@@ -63,7 +63,7 @@ MyBaseMat := function(mat)
     return new{[1..j-1]};
 end;
 
-IsInvariant := function( base, mats )
+IsInvariantAssert := function( base, mats )
     local mat, b;
     for mat in mats do
         for b in base do

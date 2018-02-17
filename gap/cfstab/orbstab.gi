@@ -208,10 +208,10 @@ HybridMatrixCanoForm := function( G, U )
     # check if required
     if CHECK_STB then 
         for g in G.glAutos do
-            if not IsInvariant(C.cf, [c*g[2]*b]) then Error("no gl-stab"); fi;
+            if not IsInvariantAssert(C.cf, [c*g[2]*b]) then Error("no gl-stab"); fi;
         od;
         for g in G.agAutos do
-            if not IsInvariant(C.cf, [c*g[2]*b]) then Error("no ag-stab"); fi;
+            if not IsInvariantAssert(C.cf, [c*g[2]*b]) then Error("no ag-stab"); fi;
         od;
         if not MyBaseMat(U*C.tv[2]) = C.cf then Error("no trans"); fi;
     fi;
