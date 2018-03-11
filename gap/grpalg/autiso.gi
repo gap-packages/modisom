@@ -22,7 +22,7 @@ end;
 
 MatPlus := function( mat, F, k )
     local M, i, j;
-    M := MutableNullMat( Length(mat)+1, Length(mat)+1, F );
+    M := NullMat( Length(mat)+1, Length(mat)+1, F );
     M[1][k] := One(F);
     for i in [1..Length(mat)] do
         for j in [1..Length(mat)] do

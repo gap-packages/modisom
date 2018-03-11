@@ -3,7 +3,7 @@ CoeffsNatBasisOfAug := function(A)
     local d, F, I, i;
     d := Dimension(A);
     F := LeftActingDomain(A);
-    I := MutableIdentityMat(d, F){[2..d]};
+    I := IdentityMat(d, F){[2..d]};
     for i in [1..d-1] do I[i][1] := -One(F); od;
     return I;
 end;

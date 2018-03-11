@@ -46,7 +46,7 @@ AutoActionOnMult := function(C, T)
     h := [];
     if C.mul > C.nuc then 
         for i in [d+1..T.dim] do
-            n := MutableIdentityMat(T.dim, F){[1..d]}; n[1][i] := One(F);
+            n := IdentityMat(T.dim, F){[1..d]}; n[1][i] := One(F);
             n := InduceAutoToMult(C,n);
             h := CloseSubspace(g, h, MutableCopyMat(n-n^0));
         od;

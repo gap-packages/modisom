@@ -20,7 +20,7 @@ TestVectorCanoForm := function( d, F )
 
     # translate to matrices and then to tuples
     pcgs := List( Pcp(V), x -> MappedVector( Exponents(x), U!.mats ) );
-    pcgs := List( pcgs, x -> Tuple([1,x]) );
+    pcgs := List( pcgs, x -> DirectProductElement([1,x]) );
 
     # compute cano form
     r := VectorCanonicalForm( pcgs, v, F, d, fail );
@@ -61,7 +61,7 @@ TestSubspaceCanoForm := function( d, F )
 
     # translate to matrices
     m := List( Pcp(V), x -> MappedVector( Exponents(x), U!.mats ) );
-    m := List( m, x -> Tuple([1,x]) );
+    m := List( m, x -> DirectProductElement([1,x]) );
     o := [1,m[1]^0];
 
     # compute cano form

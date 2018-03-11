@@ -130,13 +130,13 @@ BlockCanonicalFormBySeries := function(G, U, ser)
                 # add action on layer
                 for j in [1..Length(G.glAutos)] do
                     m := IndMatrix( h, G.glAutos[j][2] );
-                    G.glAutos[j] := Tuple([G.glAutos[j], m]);
+                    G.glAutos[j] := DirectProductElement([G.glAutos[j], m]);
                 od;
                 for j in [1..Length(G.agAutos)] do
                     m := IndMatrix( h, G.agAutos[j][2] );
-                    G.agAutos[j] := Tuple([G.agAutos[j], m]);
+                    G.agAutos[j] := DirectProductElement([G.agAutos[j], m]);
                 od;
-                G.one := Tuple( [G.one, IndMatrix(h, G.one[2])]);
+                G.one := DirectProductElement( [G.one, IndMatrix(h, G.one[2])]);
 
                 # stabilize in layer
                 cf := BlockCanonicalForm( G, W );
@@ -181,10 +181,10 @@ HybridMatrixCanoForm := function( G, U )
 
     # adjust action in 2. component
     for i in [1..Length(G.glAutos)] do
-        G.glAutos[i] := Tuple([G.glAutos[i][1], b*G.glAutos[i][2]*c]);
+        G.glAutos[i] := DirectProductElement([G.glAutos[i][1], b*G.glAutos[i][2]*c]);
     od;
     for i in [1..Length(G.agAutos)] do
-        G.agAutos[i] := Tuple([G.agAutos[i][1], b*G.agAutos[i][2]*c]);
+        G.agAutos[i] := DirectProductElement([G.agAutos[i][1], b*G.agAutos[i][2]*c]);
     od;
 
     # adjust point
@@ -202,7 +202,7 @@ HybridMatrixCanoForm := function( G, U )
     # set up result - translate to old basis
     C := rec();
     C.cf := MyBaseMat( V.cano*b );
-    C.tv := Tuple([V.tran[1], c*V.tran[2]*b]);
+    C.tv := DirectProductElement([V.tran[1], c*V.tran[2]*b]);
     C.ti := C.tv^-1;
 
     # check if required

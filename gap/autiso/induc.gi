@@ -80,15 +80,15 @@ InduceAutosToMult := function( G, C, R )
 
     for i in [1..Length(G.glAutos)] do
         m := InduceAutoToMult( C, G.glAutos[i] );
-        G.glAutos[i] := Tuple( [G.glAutos[i], m] );
+        G.glAutos[i] := DirectProductElement( [G.glAutos[i], m] );
     od;
 
     for i in [1..Length(G.agAutos)] do
         m := InduceAutoToMult( C, G.agAutos[i] );
-        G.agAutos[i] := Tuple( [G.agAutos[i], m] );
+        G.agAutos[i] := DirectProductElement( [G.agAutos[i], m] );
     od;
 
-    G.one := Tuple( [G.one, IdentityMat(C.mul, C.fld)] );
+    G.one := DirectProductElement( [G.one, IdentityMat(C.mul, C.fld)] );
 
 end;
 
@@ -129,7 +129,7 @@ InduceAutoToQuot := function( Q, mat )
     n := Length(mat[1]);
 
     # compute
-    new := MutableNullMat( q, q, Q.fld );
+    new := NullMat( q, q, Q.fld );
     for i in [1..d] do new[i]{[1..n]} := mat[1][i]; od;
     for i in [d+1..q] do
         new[i] := MultByTable( Q, new[Q.wds[i][1]], new[Q.wds[i][2]] );

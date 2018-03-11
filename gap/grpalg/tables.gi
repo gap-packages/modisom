@@ -6,7 +6,7 @@ TableByWeightedBasisOfRad := function(A)
     n := Dimension(A)-1;
     F := LeftActingDomain(A);
     q := Size(F);
-    N := MutableNullMat(n+1,n+1,F);
+    N := NullMat(n+1,n+1,F);
 
     # get coeffs for basis C = {v_c | c coeff, c <> 0} of I
     C := WeightedBasisOfRad(A);

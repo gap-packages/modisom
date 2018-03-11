@@ -59,7 +59,7 @@ ChainStabilizer := function( wgt, F )
         # construct gens on diag
         if p = 2 then
             if n >= 2 then
-                mat := MutableIdentityMat(d, F);
+                mat := IdentityMat(d, F);
                 mat[l+1][l+n] := One( F );
                 mat[l+1][l+1] := Zero( F );
                 for j in [ 2 .. n ] do
@@ -68,17 +68,17 @@ ChainStabilizer := function( wgt, F )
                 od;
                 Add( mats, mat );
 
-                mat := MutableIdentityMat(d, F);
+                mat := IdentityMat(d, F);
                 mat[l+1][l+2] := One( F );
                 Add( mats, mat );
             fi;
         else
-            mat := MutableIdentityMat(d, F);
+            mat := IdentityMat(d, F);
             mat[l+1][l+1] := PrimitiveRoot( F );
             Add( mats, mat );
 
             if n >= 2 then
-                mat := MutableIdentityMat(d, F);
+                mat := IdentityMat(d, F);
                 mat[l+1][l+1] := -One( F );
                 mat[l+1][l+n] := One( F );
                 for j in [ 2 .. n ] do
@@ -94,7 +94,7 @@ ChainStabilizer := function( wgt, F )
 
         # add gens off diag
         if l < d then
-            mat := MutableIdentityMat(d, F);
+            mat := IdentityMat(d, F);
             mat[l][l+1] := One( F );
             Add( mats, mat );
         fi;

@@ -55,7 +55,7 @@ ProductWeights := function( R )
     local pw, i, j, a, b;
 
     # init 
-    pw := MutableNullMat(R.dim, R.dim);
+    pw := NullMat(R.dim, R.dim);
 
     # start with sum-weights
     for i in [1..R.dim] do
@@ -120,7 +120,7 @@ TailsTableCom := function( R, pw )
     #Print("      extend table of dim ",r," by ",l,"\n");
 
     # create table of tails
-    S := List([1..r], x -> MutableNullMat(r,l,F));
+    S := List([1..r], x -> NullMat(r,l,F));
     rl := [];
     df := [];
     for i in [1..r] do
@@ -171,7 +171,7 @@ TailsTable := function( R, pw )
     #Print("      extend table of dim ",r," by ",l,"\n");
 
     # create table of tails
-    S := List([1..r], x -> MutableNullMat(r,l,F));
+    S := List([1..r], x -> NullMat(r,l,F));
     rl := [];
     df := [];
     for i in [1..r] do

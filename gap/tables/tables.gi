@@ -135,7 +135,7 @@ end;
 
 ListToMat := function(l,dim,fld)
     local mat, i;
-    mat := MutableNullMat(dim,dim,fld);
+    mat := NullMat(dim,dim,fld);
     for i in [1..Length(l)] do
         mat[l[i][1]][l[i][2]] := l[i][3]*One(fld);
     od;

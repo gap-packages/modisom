@@ -39,7 +39,7 @@ InstallMethod( TableByBasis, [IsAlgebra, IsList], function( A, B )
     a := List(B, x -> Coefficients(b,x));
     n := Length(B);
     F := LeftActingDomain(A);
-    S := rec( tab := List( [1..n], x -> MutableNullMat(n,n,F)), 
+    S := rec( tab := List( [1..n], x -> NullMat(n,n,F)),
               wds := [], fld := F, dim := n );
     for i in [1..n] do
         for j in [1..n] do
