@@ -44,7 +44,7 @@ CommunicatedBy := "Alexander Konovalov (St. Andrews)",
 AcceptDate := "11/2013",
 
 PackageWWWHome  := "https://gap-packages.github.io/modisom/",
-README_URL      := Concatenation( ~.PackageWWWHome, "README" ),
+README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
 PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 SourceRepository := rec(
     Type := "git",
