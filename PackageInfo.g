@@ -80,7 +80,7 @@ Dependencies := rec(
 BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
 Autoload := false,
-TestFile := "tst/manexamples.tst",
+TestFile := "tst/testall.g",
 Keywords := ["modular isomorphism problem",
              "automorphism group", 
              "isomorphism testing",
