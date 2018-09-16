@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.3.3",
-Date := "08/01/2016",
+Version := "2.4.0",
+Date := "16/09/2018",
 
 Persons := [
   rec( 
