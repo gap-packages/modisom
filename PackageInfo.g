@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.3.3",
-Date := "08/01/2016",
+Version := "2.4.0",
+Date := "16/09/2018",
 
 Persons := [
   rec( 
@@ -43,12 +43,18 @@ Status := "accepted",
 CommunicatedBy := "Alexander Konovalov (St. Andrews)",
 AcceptDate := "11/2013",
 
-PackageWWWHome := "http://www.icm.tu-bs.de/~beick/soft/modisom/",
-
+PackageWWWHome  := "https://gap-packages.github.io/modisom/",
+README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+SourceRepository := rec(
+    Type := "git",
+    URL := "https://github.com/gap-packages/modisom",
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                 "/releases/download/v", ~.Version,
+                                 "/modisom-", ~.Version ),
 ArchiveFormats := ".tar.gz",
-ArchiveURL     := Concatenation( ~.PackageWWWHome, "modisom-", ~.Version ),
-README_URL     := Concatenation( ~.PackageWWWHome, "README" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 
 AbstractHTML := 
   "The <span class=\"pkgname\">ModIsom</span> package contains various methods for computing with nilpotent associative algebras. In particular, it contains a method to determine the automorphism group and to test isomorphis of such algebras over finite fields and of modular group algebras of finite p-groups, and it contains a nilpotent quotient algorithm for finitely presented associative algebras and a method to determine Kurosh algebras.",
@@ -74,7 +80,7 @@ Dependencies := rec(
 BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
 Autoload := false,
-TestFile := "tst/manexamples.tst",
+TestFile := "tst/testall.g",
 Keywords := ["modular isomorphism problem",
              "automorphism group", 
              "isomorphism testing",
