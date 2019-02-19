@@ -1,5 +1,17 @@
+Copyright and authors
 
-The programs of this package are copyright by Bettina Eick.
-You are free to use the programs and distribute them, provided
-you do not change them nor remove this copyright notice.
+The principal author and copyright holder of the ModIsom package is
+Bettina Eick.
 
+This package contains additional code and other contributions by:
+- Max Horn
+- Alexander Konovalov
+
+License
+
+ModIsom is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+For details see the LICENSE file.
