@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.5.1",
-Date := "28/01/2020", # dd/mm/yyyy format
+Version := "2.5.2",
+Date := "29/04/2022", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -28,11 +28,11 @@ Persons := [
   ),
   rec(
     LastName      := "Konovalov",
-    FirstNames    := "Alexander",
+    FirstNames    := "Olexandr",
     IsAuthor      := false,
     IsMaintainer  := true,
-    Email         := "alexk@mcs.st-andrews.ac.uk",
-    WWWHome       := "http://blogs.cs.st-andrews.ac.uk/alexk/",
+    Email         := "obk1@st-andrews.ac.uk",
+    WWWHome       := "https://alex-konovalov.github.io/",
     PostalAddress := Concatenation( [
                      "School of Computer Science\n",
                      "University of St Andrews\n",
@@ -43,7 +43,7 @@ Persons := [
   ) ],
 
 Status := "accepted",
-CommunicatedBy := "Alexander Konovalov (St. Andrews)",
+CommunicatedBy := "Olexandr Konovalov (St Andrews)",
 AcceptDate := "11/2013",
 
 PackageWWWHome  := "https://gap-packages.github.io/modisom/",
