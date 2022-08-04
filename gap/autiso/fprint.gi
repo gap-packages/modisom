@@ -10,7 +10,7 @@ end );
 
 BindGlobal( "SiftIntoBasis", function( bas, wgt, rel, b, w )
     local d, n, c, v, a;
-    d := DepthVector(b);
+    d := PositionNonZero(b);
     n := Length(b);
     while d <= n do
         if IsBool(wgt[d]) then 
@@ -21,12 +21,12 @@ BindGlobal( "SiftIntoBasis", function( bas, wgt, rel, b, w )
             return;
         elif wgt[d] >= w then
             AddRowVector( b, bas[d], - b[d]);
-            d := DepthVector(b);
+            d := PositionNonZero(b);
         elif wgt[d] < w then 
             c := bas[d]; bas[d] := b[d]^-1 * b; b := bas[d] - c;
             v := wgt[d]; wgt[d] := w; w := v;
             rel[d] := true;
-            d := DepthVector(b);
+            d := PositionNonZero(b);
         fi;
     od;
 end );

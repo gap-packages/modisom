@@ -38,7 +38,7 @@ BindGlobal( "TableByWeightedBasisOfRad", function(A)
             T[i] := T[i]{[1..n]}{[1..n]};
             #ConvertToMatrixRepNC(T[i], q);
         else
-            d := DepthVector(C.exps[i]);
+            d := PositionNonZero(C.exps[i]);
             v := 0*C.exps[i]; v[d] := 1; l := Position(C.exps, v);
             w := C.exps[i]-v; k := Position(C.exps, w);
             W[i] := [l,k];

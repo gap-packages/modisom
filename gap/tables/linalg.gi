@@ -7,9 +7,9 @@ BindGlobal( "SiftInto", function( B, c )
     if Length(B) = Length(B[1]) then return false; fi;
 
     # sift
-    dep := List(B, DepthVector);
+    dep := List(B, PositionNonZero);
     while true do
-        d := DepthVector(c);
+        d := PositionNonZero(c);
         if d > Length(c) then return false; fi;
         i := Position(dep,d);
         if IsBool(i) then
@@ -22,7 +22,7 @@ BindGlobal( "SiftInto", function( B, c )
 end );
 
 BindGlobal( "OrderByDepth", function( U )
-    SortParallel(List(U, DepthVector), U);
+    SortParallel(List(U, PositionNonZero), U);
     return U;
 end );
 
