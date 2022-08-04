@@ -2,7 +2,7 @@
 ##
 #F RefineBins . . . . . . . . . . . . . . . . . .refine bins by function func
 ##
-RefineBins := function( o, bins, func, prnt )
+BindGlobal( "RefineBins", function( o, bins, func, prnt )
     local i, j, k, res, inv, new;
 
     for i in [1..Length(bins)] do
@@ -32,13 +32,13 @@ RefineBins := function( o, bins, func, prnt )
 
     # return result
     return SortedList(Concatenation(bins));
-end;
+end );
 
 #############################################################################
 ##
 #F Group Theoretic Infos
 ##
-ConjugacyClassInfo := function(G)
+BindGlobal( "ConjugacyClassInfo", function(G)
     local p, e, c, s, o;
 
     p := PrimePGroup(G);
@@ -59,9 +59,9 @@ ConjugacyClassInfo := function(G)
     until Length(e) = 1;
 
     return s;
-end;
+end );
 
-SubgroupsInfo := function(G)
+BindGlobal( "SubgroupsInfo", function(G)
     local lat, cls, max, sub, new, U, p, l, d, i, j, k;
 
     # all elementary-abelian subgroups
@@ -92,17 +92,17 @@ SubgroupsInfo := function(G)
 
     d := List(max, x -> RankPGroup(Representative(x)));
     return List([1..Maximum(d)], x -> Length(Filtered(d, y -> y=x)));
-end;
+end );
 
-GroupInfo := function(G)
+BindGlobal( "GroupInfo", function(G)
     if not IsBool(ID_AVAILABLE(Size(G))) then 
         return IdGroup(G);
     else
         return [Size(G), AbelianInvariants(G)];
     fi;
-end;
+end );
 
-JenningsInfo := function(G)
+BindGlobal( "JenningsInfo", function(G)
     local s, r, i, a;
     s := JenningsSeries(G);
     r := [];
@@ -117,21 +117,21 @@ JenningsInfo := function(G)
         Add(r, a);
     od;
     return r;
-end;
+end );
 
-SandlingInfo := function(G)
+BindGlobal( "SandlingInfo", function(G)
     local s, p, U;
     s := LowerCentralSeries(G);
     p := PrimePGroup(G);
     U := Subgroup(G, Concatenation(Pcgs(s[3]), List(Pcgs(s[2]), x -> x^p)));
     return GroupInfo(G/U);
-end;
+end );
 
 #############################################################################
 ##
 #F Determine bins with group theory
 ##
-BinsByGT := function( p, n )
+BindGlobal( "BinsByGT", function( p, n )
     local bins, cent;
 
     bins := [[1..NumberSmallGroups(p^n)]];
@@ -180,13 +180,13 @@ BinsByGT := function( p, n )
     if Length(bins)=0 then return bins; fi;
 
     return bins;
-end;
+end );
 
 #############################################################################
 ##
 #F Center and Commutator 
 ##
-CoeffsCenterBasis := function(A)
+BindGlobal( "CoeffsCenterBasis", function(A)
     local G, F, e, c, b, i, j, k;
 
     # set up
@@ -214,9 +214,9 @@ CoeffsCenterBasis := function(A)
         if Length(c[i]) = 1 then b[i][1] := -One(F); fi;
     od;
     return b;
-end;
+end );
 
-CoeffsCommutatorBasis := function(A)
+BindGlobal( "CoeffsCommutatorBasis", function(A)
     local G, F, e, c, b, i, j, k, h, v;
 
     # set up
@@ -243,13 +243,13 @@ CoeffsCommutatorBasis := function(A)
  
     # that's it
     return b;
-end;
+end );
 
 #############################################################################
 ##
 #F Compute powers for ideals in series
 ##
-LinearPowersBySeries := function( A, bases )
+BindGlobal( "LinearPowersBySeries", function( A, bases )
     local l, r, i, w, p;
 
     l := Length(bases);
@@ -272,13 +272,13 @@ LinearPowersBySeries := function( A, bases )
     od;
 
     return Filtered(r, x -> Length(x)>0); 
-end;
+end );
 
 #############################################################################
 ##
 #F Compute maximal abelian factors
 ##
-IsAbFac := function( I, J )
+BindGlobal( "IsAbFac", function( I, J )
     local b, i, j;
 
     b := Basis(I);
@@ -290,9 +290,9 @@ IsAbFac := function( I, J )
         od;
     od;
     return true;
-end;
+end );
 
-MaximalAbelianFactors := function( A, ids )
+BindGlobal( "MaximalAbelianFactors", function( A, ids )
     local f, i, n;
 
     n := Length(ids);
@@ -307,13 +307,13 @@ MaximalAbelianFactors := function( A, ids )
             return Concatenation( f, List([i+1..n], x -> n) );
         fi;
     od;
-end;
+end );
 
 #############################################################################
 ##
 #F power map on center
 ##
-PowerMapCenter := function(A)
+BindGlobal( "PowerMapCenter", function(A)
     local s, c, d, l, t, n, k, r;
 
     # set up
@@ -334,13 +334,13 @@ PowerMapCenter := function(A)
 
     # return dimensions
     return List(r, x -> List(x, Length) );
-end;
+end );
 
 #############################################################################
 ##
 #F power map on abelian factors
 ##
-PowerMapAbelian := function(A)
+BindGlobal( "PowerMapAbelian", function(A)
     local s, d, l, ids, bas, res, bcm, bct, b, I, f, r, cm, ct, i, j, k, n;
 
     # set up
@@ -399,18 +399,18 @@ PowerMapAbelian := function(A)
     od;
 
     return res;
-end;
+end );
     
 #############################################################################
 ##
 #F power map on small factors
 ##
-MyIsMember := function( bas, u )
+BindGlobal( "MyIsMember", function( bas, u )
     if Length(bas) = 0 then return (u = 0*u); fi;
     return not IsBool(SolutionMat(bas, u));
-end;
+end );
 
-PowerMapKernels := function( A, bas, n, m )
+BindGlobal( "PowerMapKernels", function( A, bas, n, m )
     local p, dim, siz, ppp, fac, k, q, l, v, w, u, h;
 
     p := PrimePGroup(UnderlyingMagma(A));
@@ -439,9 +439,9 @@ PowerMapKernels := function( A, bas, n, m )
     until siz[k] = p^dim;
  
     return siz;
-end;
+end );
             
-PowerMapSmall := function(A)
+BindGlobal( "PowerMapSmall", function(A)
     local s, d, l, p, bas, n, k, b, res, i, j, dim;
 
     # set up
@@ -473,9 +473,9 @@ PowerMapSmall := function(A)
     od;
 
     return res;
-end;
+end );
 
-PowerMapFLSmall := function(A)
+BindGlobal( "PowerMapFLSmall", function(A)
     local s, d, l, p, bas, n, k, b, res, j, dim;
 
     # set up
@@ -503,13 +503,13 @@ PowerMapFLSmall := function(A)
     od;
 
     return res;
-end;
+end );
 
 #############################################################################
 ##
 #F Refine bins with ring theory
 ##
-RefineBinByFunc := function( bin, obj, func )
+BindGlobal( "RefineBinByFunc", function( bin, obj, func )
     local res, inv, new, j, k;
 
     res := List( [1..Length(bin)], x -> func(obj[x]) );
@@ -522,9 +522,9 @@ RefineBinByFunc := function( bin, obj, func )
         Add( new[k], bin[j] );
     od;
     return new;
-end;
+end );
 
-RefineBinByRT := function( bin, alg )
+BindGlobal( "RefineBinByRT", function( bin, alg )
     local new, i, w, l, j, d, func;
 
     # translate
@@ -564,9 +564,9 @@ RefineBinByRT := function( bin, alg )
 
     # translate remaining bins
     return List(new, x -> bin{x});
-end;
+end );
 
-RefineBinsByRT := function( p, n, bins )
+BindGlobal( "RefineBinsByRT", function( p, n, bins )
     local news, grps, algs, i, j;
 
     news := [];
@@ -584,6 +584,6 @@ RefineBinsByRT := function( p, n, bins )
     od;
 
     return Concatenation(news);
-end;
+end );
 
 

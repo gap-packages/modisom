@@ -1,13 +1,13 @@
 
-DepthVector := function ( vec )
+BindGlobal( "DepthVector", function ( vec )
     local  i;
     for i  in [ 1 .. Length( vec ) ]  do
         if vec[i] <> 0 * vec[i]  then return i; fi;
     od;
     return Length( vec ) + 1;
-end;
+end );
 
-MySolutionMat := function( mat, vec )
+BindGlobal( "MySolutionMat", function( mat, vec )
     local s;
     if vec=0*vec then 
         return List(mat, x -> 0); 
@@ -16,9 +16,9 @@ MySolutionMat := function( mat, vec )
     fi;
     s := SolutionMat(mat, vec);
     if IsBool(s) then return s; else return IntVecFFE(s); fi;
-end;
+end );
 
-MyEcheloniseMat := function ( mat )
+BindGlobal( "MyEcheloniseMat", function ( mat )
     local  ech, tmp, i;
     if Length( mat ) = 0  then return mat; fi;
     ech := SemiEchelonMat( mat );
@@ -29,9 +29,9 @@ MyEcheloniseMat := function ( mat )
         fi;
     od;
     return tmp;
-end;
+end );
 
-CoeffsMinimalElement := function( vec, base )
+BindGlobal( "CoeffsMinimalElement", function( vec, base )
     local mat, cof, d;
     if Length(base)=0 then return []; fi;
     cof := List(base, x -> 0*vec[1]);
@@ -43,9 +43,9 @@ CoeffsMinimalElement := function( vec, base )
         fi;
     od;
     return IntVecFFE(cof * mat.coeffs);
-end;
+end );
 
-MyBaseMat := function(mat)
+BindGlobal( "MyBaseMat", function(mat)
     local new, j;
     if Length(mat) = 0 then return mat; fi;
     new := StructuralCopy(mat);
@@ -53,9 +53,9 @@ MyBaseMat := function(mat)
     j := Position(new, 0*new[1]);
     if IsBool(j) then return new; fi;
     return new{[1..j-1]};
-end;
+end );
 
-IsInvariantAssert := function( base, mats )
+BindGlobal( "IsInvariantAssert", function( base, mats )
     local mat, b;
     for mat in mats do
         for b in base do
@@ -63,7 +63,7 @@ IsInvariantAssert := function( base, mats )
         od;
     od;
     return true;
-end;
+end );
 
 #LastNonZero := function( list, F )
 #    local i;
@@ -73,12 +73,12 @@ end;
 #    return false;
 #end;
 
-IndVector := function( g, d, base )
+BindGlobal( "IndVector", function( g, d, base )
     if IsBool(base) then return g; fi;
     return SolutionMat(base, g){[1..d]};
-end;
+end );
 
-IndMatrix := function( hom, mat )
+BindGlobal( "IndMatrix", function( hom, mat )
     local ind, baseI, baseS, b, e, f, g;
     ind := [];
     baseI := Basis( ImagesSource( hom ) );
@@ -92,9 +92,9 @@ IndMatrix := function( hom, mat )
     ind := Immutable(ind);
     ConvertToMatrixRep( ind );
     return ind;
-end;
+end );
 
-BasisSocleSeries := function( G )
+BindGlobal( "BasisSocleSeries", function( G )
     local d, F, s, m, M, L, N, W, U, b, i, c, w;
 
     # set up
@@ -128,13 +128,13 @@ BasisSocleSeries := function( G )
 
     # return basis
     return rec( basis := b, weights := w );
-end;
+end );
 
-SeriesByWeights := function( w, F )
+BindGlobal( "SeriesByWeights", function( w, F )
     local d, s, I;
     d := Length(w);
     I := IdentityMat( d, F );
     s := List( Set(w), x -> I{[Position(w,x)..d]} ); Add(s, []);
     return s;
-end;
+end );
 

@@ -1,13 +1,13 @@
 
-SparseZeroVec := function( d, F )
+BindGlobal( "SparseZeroVec", function( d, F )
     return [];
-end;
+end );
 
-SparseNullMat := function(d,n,F) 
+BindGlobal( "SparseNullMat", function(d,n,F) 
     return List([1..d], x -> []); 
-end;
+end );
 
-SparseVecMatMult := function( w, mat, n, z )
+BindGlobal( "SparseVecMatMult", function( w, mat, n, z )
     local v, i, e, j;
     v := [];
     for i in [1..n] do
@@ -20,9 +20,9 @@ SparseVecMatMult := function( w, mat, n, z )
         if e <> z then v[i] := e; fi;
     od;
     return v;
-end;
+end );
 
-SparseAddVec := function( v, w, e, n, z )
+BindGlobal( "SparseAddVec", function( v, w, e, n, z )
     local i;
     if e = z then return; fi;
     for i in [1..n] do
@@ -33,17 +33,17 @@ SparseAddVec := function( v, w, e, n, z )
             v[i] := e*w[i];
         fi;
     od;
-end;
+end );
 
-SparseDepthVec := function( v, n )
+BindGlobal( "SparseDepthVec", function( v, n )
     local i;
     for i in [1..n] do
         if IsBound(v[i]) then return i; fi;
     od;
     return n+1;
-end;
+end );
 
-SparseCutVec := function( v, l, r )
+BindGlobal( "SparseCutVec", function( v, l, r )
     local w, i;
     w := [];
     for i in [l..r] do
@@ -52,9 +52,9 @@ SparseCutVec := function( v, l, r )
         fi;
     od;
     return w;
-end;
+end );
 
-SparseLimit := function( v, r )
+BindGlobal( "SparseLimit", function( v, r )
     local w, i;
     w := [];
     for i in [1..Length(r)] do
@@ -63,18 +63,18 @@ SparseLimit := function( v, r )
         fi;
     od;
     return w;
-end;
+end );
 
-SparseInsert := function( v, w, r )
+BindGlobal( "SparseInsert", function( v, w, r )
     local i;
     for i in [1..Length(r)] do
         if IsBound(w[i]) then 
             v[r[i]] := w[i];
         fi;
     od;
-end;
+end );
 
-SparseConcat := function( v, w, r, z )
+BindGlobal( "SparseConcat", function( v, w, r, z )
     local i;
     for i in [1..Length(w)] do
         if w[i] <> z then
@@ -82,9 +82,9 @@ SparseConcat := function( v, w, r, z )
         fi;
     od;
     return v;
-end;
+end );
 
-VecToSparseVec := function( v, n, z )
+BindGlobal( "VecToSparseVec", function( v, n, z )
     local w, i;
     w := [];
     for i in [1..n] do
@@ -93,9 +93,9 @@ VecToSparseVec := function( v, n, z )
         fi;
     od;
     return w;
-end;
+end );
 
-SparseVecToVec := function( w, n, z )
+BindGlobal( "SparseVecToVec", function( w, n, z )
     local v, i;
     v := List([1..n], x -> z);
     for i in [1..n] do
@@ -104,6 +104,6 @@ SparseVecToVec := function( w, n, z )
         fi;
     od;
     return v;
-end;
+end );
  
 

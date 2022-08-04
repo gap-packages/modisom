@@ -1,14 +1,14 @@
 
-CoeffsNatBasisOfAug := function(A)
+BindGlobal( "CoeffsNatBasisOfAug", function(A)
     local d, F, I, i;
     d := Dimension(A);
     F := LeftActingDomain(A);
     I := IdentityMat(d, F){[2..d]};
     for i in [1..d-1] do I[i][1] := -One(F); od;
     return I;
-end;
+end );
 
-PcgsJenningsSeries := function(G)
+BindGlobal( "PcgsJenningsSeries", function(G)
     local s, b, w, i, g;
     s := JenningsSeries( G );
     b := [];
@@ -19,9 +19,9 @@ PcgsJenningsSeries := function(G)
         Append(w, List(g, x -> i));
     od;
     return rec( pcgs := b, weights := w );
-end;
+end );
 
-WeightedBasisOfRad := function(A)
+BindGlobal( "WeightedBasisOfRad", function(A)
     local G, p, n, js, jb, jw, ww, wb, wc, df, i, h;
 
     # set up
@@ -52,13 +52,13 @@ WeightedBasisOfRad := function(A)
     return rec( basis := Permuted(wb, h),
                 weights := ww,
                 exps := Permuted(wc, h) );
-end;
+end );
 
-CoeffsWeightedBasisOfRad := function(A)
+BindGlobal( "CoeffsWeightedBasisOfRad", function(A)
     local B;
     B := WeightedBasisOfRad(A);
     B.basis := List(B.basis, x -> Coefficients(Basis(A),x));
     return B;
-end;
+end );
 
 

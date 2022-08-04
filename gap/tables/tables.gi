@@ -20,7 +20,7 @@
 ##   T[i] may be bound for larger i as well.
 ## 
 
-TrivialTable := function(d, fld)
+BindGlobal( "TrivialTable", function(d, fld)
    return rec(
         tab := List([1..d], x -> NullMat(d,d,fld)),
         wds := [],
@@ -28,9 +28,10 @@ TrivialTable := function(d, fld)
         dim := d,
         rnk := d,
         fld := fld );
-end;
+end );
 
-GetEntryTable := function( T, i, j )
+DeclareGlobalFunction( "GetEntryTable" );
+InstallGlobalFunction( "GetEntryTable", function( T, i, j )
     local l, k, w, v, h;
 
     # out of range
@@ -70,13 +71,13 @@ GetEntryTable := function( T, i, j )
 
     # that's it
     return v;
-end;
+end );
 
-GetEntryTableSparse := function(T, i, j)
+BindGlobal( "GetEntryTableSparse", function(T, i, j)
     return VecToSparseVec(GetEntryTable(T,i,j), T.dim, Zero(T.fld));
-end;
+end );
 
-MultByTable := function( T, v, w )
+BindGlobal( "MultByTable", function( T, v, w )
     local u, i, j;
     u := List([1..T.dim], x -> Zero(T.fld));
     for i in [1..T.dim] do
@@ -89,9 +90,9 @@ MultByTable := function( T, v, w )
         fi;
     od;
     return u;
-end;
+end );
 
-PowerByTable := function( T, v, n )
+BindGlobal( "PowerByTable", function( T, v, n )
     local d, u, i;
     d := DepthVector(v);
     if d > T.dim or n*T.wgs[d] > T.wgs[T.dim] then 
@@ -100,9 +101,9 @@ PowerByTable := function( T, v, n )
     u := ShallowCopy(v);
     for i in [2..n] do u := MultByTable( T, u, v ); od;
     return u;
-end;
+end );
 
-MultByTableMod := function( T, v, w, l )
+BindGlobal( "MultByTableMod", function( T, v, w, l )
     local n, u, i, j, t, g;
     u := List([1..l], x -> Zero(T.fld));
     for i in [1..l] do
@@ -114,9 +115,9 @@ MultByTableMod := function( T, v, w, l )
         od;
     od;
     return u;
-end;
+end );
 
-MatToList := function(mat)
+BindGlobal( "MatToList", function(mat)
     local l, i, j;
     l := [];
     for i in [1..Length(mat)] do
@@ -131,18 +132,18 @@ MatToList := function(mat)
         od;
     od;
     return l;
-end;
+end );
 
-ListToMat := function(l,dim,fld)
+BindGlobal( "ListToMat", function(l,dim,fld)
     local mat, i;
     mat := NullMat(dim,dim,fld);
     for i in [1..Length(l)] do
         mat[l[i][1]][l[i][2]] := l[i][3]*One(fld);
     od;
     return mat;
-end;
+end );
 
-PrintCompressedTable := function( A, name, file )
+BindGlobal( "PrintCompressedTable", function( A, name, file )
     local i;
 
     # init
@@ -173,9 +174,9 @@ PrintCompressedTable := function( A, name, file )
     AppendTo(file,"return A; \n");
     AppendTo(file,"end; \n");
 
-end;
+end );
 
-CompleteTable := function( T )
+BindGlobal( "CompleteTable", function( T )
     local i, j;
     for i in [1..T.dim] do
         if not IsBound(T.tab[i]) then T.tab[i] := []; fi;
@@ -185,9 +186,9 @@ CompleteTable := function( T )
             fi;
         od;
     od;
-end;
+end );
 
-CompareTables := function( A, B )
+BindGlobal( "CompareTables", function( A, B )
     local i;
     if A.fld <> B.fld then return false; fi;
     if A.dim <> B.dim then return false; fi;
@@ -197,6 +198,6 @@ CompareTables := function( A, B )
         if A.tab[i] <> B.tab[i] then return false; fi;
     od;
     return true;
-end;
+end );
 
 

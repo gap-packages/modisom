@@ -1,5 +1,5 @@
 
-Example := function( arg )
+BindGlobal( "Example", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 4);
@@ -8,9 +8,9 @@ Example := function( arg )
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
-Example0 := function( arg )
+BindGlobal( "Example0", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 2);
@@ -19,9 +19,9 @@ Example0 := function( arg )
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
-Example1 := function( arg )
+BindGlobal( "Example1", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 4);
@@ -31,9 +31,9 @@ Example1 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,2];
     return A;
-end;
+end );
 
-Example2 := function( arg )
+BindGlobal( "Example2", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 4);
@@ -43,9 +43,9 @@ Example2 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,2];
     return A;
-end;
+end );
 
-Example3 := function( arg )
+BindGlobal( "Example3", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 4);
@@ -55,9 +55,9 @@ Example3 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,2];
     return A;
-end;
+end );
 
-Example4 := function( arg )
+BindGlobal( "Example4", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -67,9 +67,9 @@ Example4 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example5 := function( arg )
+BindGlobal( "Example5", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -79,9 +79,9 @@ Example5 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example6 := function( arg )
+BindGlobal( "Example6", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -92,9 +92,9 @@ Example6 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example7 := function( arg )
+BindGlobal( "Example7", function( arg )
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -105,9 +105,9 @@ Example7 := function( arg )
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example8 := function( arg )
+BindGlobal( "Example8", function( arg )
     local K, p, F, g, r, i, j, A;
     K := arg[1];
     p := arg[2];
@@ -126,9 +126,9 @@ Example8 := function( arg )
     A!.grading := List([1..p-1], x -> 2*x-1); 
     Add(A!.grading, [1, 2, 2*p-1, 2*p]);
     return A;
-end;
+end );
 
-Example9 := function(arg)
+BindGlobal( "Example9", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -139,9 +139,9 @@ Example9 := function(arg)
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example10 := function(arg)
+BindGlobal( "Example10", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 5);
@@ -151,9 +151,9 @@ Example10 := function(arg)
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     A!.grading := [1,1,2,3,4];
     return A;
-end;
+end );
 
-Example11 := function(a,b,c,K,com)
+BindGlobal( "Example11", function(a,b,c,K,com)
     local F, g, r, A;
     F := FreeAssociativeAlgebra(K, 3);
     g := GeneratorsOfAlgebra(F);
@@ -162,23 +162,20 @@ Example11 := function(a,b,c,K,com)
     A := F/r; 
     if com then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
 #############################################################################
-AssocComm := function( list )
-    local l, a;
-    l := Length(list);
-    if l = 1 then return list[1]; fi;
-    if l = 2 then 
-        return list[1]*list[2] - list[2]*list[1];
-    fi;
-    if l > 2 then 
-        a := AssocComm( list{[2..l]} ); 
-        return AssocComm( [list[1], a] );
-    fi;
-end;
+BindGlobal( "AssocComm", function( list )
+    local n, a, i;
+    n := Length(list);
+    a := list[n];
+    for i in [n-1, n-2 .. 1] do
+        a := list[i]*a - a*list[i];
+    od;
+    return a;
+end );
 
-Paper1 := function(arg)
+BindGlobal( "Paper1", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 2);
@@ -187,9 +184,9 @@ Paper1 := function(arg)
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
-Paper2 := function(arg)
+BindGlobal( "Paper2", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 2);
@@ -201,9 +198,9 @@ Paper2 := function(arg)
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
-Paper3 := function(arg)
+BindGlobal( "Paper3", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 2);
@@ -213,9 +210,9 @@ Paper3 := function(arg)
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
-Paper4 := function(arg)
+BindGlobal( "Paper4", function(arg)
     local K, F, g, r, A;
     K := arg[1];
     F := FreeAssociativeAlgebra(K, 2);
@@ -226,6 +223,6 @@ Paper4 := function(arg)
     A := F/r; 
     if Length(arg)=2 and arg[2] then SetIsCommutative(A, true); fi;
     return A;
-end;
+end );
 
 

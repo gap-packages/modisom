@@ -1,5 +1,5 @@
 
-AddIsomCover := function( C, R, T, l )
+BindGlobal( "AddIsomCover", function( C, R, T, l )
     local F, r, d, z, A, I, i;
 
     # catch arguments
@@ -25,9 +25,9 @@ AddIsomCover := function( C, R, T, l )
 
     # store result
     C.iso := Concatenation( A, I );
-end;
+end );
 
-AllowableSubspace := function( C, R, T, l )
+BindGlobal( "AllowableSubspace", function( C, R, T, l )
     local I;
 
     # get isomorphism 
@@ -38,5 +38,5 @@ AllowableSubspace := function( C, R, T, l )
 
     # adjust and return
     return TriangulizedNullspaceMat(I);
-end;
+end );
 

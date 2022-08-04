@@ -1,4 +1,4 @@
-SiftInto := function( B, c )
+BindGlobal( "SiftInto", function( B, c )
     local dep, d, i;
 
     # catch some simple cases
@@ -19,10 +19,10 @@ SiftInto := function( B, c )
         AddRowVector( c, B[i], -c[d] );
     od;
 
-end;
+end );
 
-OrderByDepth := function( U )
+BindGlobal( "OrderByDepth", function( U )
     SortParallel(List(U, DepthVector), U);
     return U;
-end;
+end );
 

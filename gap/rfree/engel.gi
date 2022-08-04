@@ -1,5 +1,5 @@
 
-SubspaceByEngelLaw := function( C, M, n )
+BindGlobal( "SubspaceByEngelLaw", function( C, M, n )
     local U, m, w, v, u;
 
     # init with radical
@@ -16,9 +16,9 @@ SubspaceByEngelLaw := function( C, M, n )
     #Print("    subspace has dim ",Length(U),"\n");
 
     return U;
-end;
+end );
 
-EngelAlgebra := function(d, c, n, F)
+BindGlobal( "EngelAlgebra", function(d, c, n, F)
     local i, T, C, M, U;
 
     # the init step
@@ -39,9 +39,9 @@ EngelAlgebra := function(d, c, n, F)
     od;
 
     return T;
-end;
+end );
 
-EngelLieClass := function(d, n, F)
+BindGlobal( "EngelLieClass", function(d, n, F)
     local i, T, C, M, U, w;
 
     # the init step
@@ -65,4 +65,4 @@ EngelLieClass := function(d, n, F)
     od;
 
     return T;
-end;
+end );

@@ -1,5 +1,5 @@
 
-TestVectorCanoForm := function( d, F )
+BindGlobal( "TestVectorCanoForm", function( d, F )
     local p, U, v, V, l, pcgs, r, i, u, w, f;
 
     # set up
@@ -39,9 +39,9 @@ TestVectorCanoForm := function( d, F )
         if Length(f.stab) <> Length(r.stab) then Error("wrong stab"); fi;
     od;
     return true;
-end;
+end );
     
-TestSubspaceCanoForm := function( d, F )
+BindGlobal( "TestSubspaceCanoForm", function( d, F )
     local p, U, l, b, V, m, r, i, v, c, f, o;
 
     # set up
@@ -77,6 +77,6 @@ TestSubspaceCanoForm := function( d, F )
         if Length(f.stab) <> Length(r.stab) then Error("wrong stab"); fi;
     od;
     return true;
-end;
+end );
         
     

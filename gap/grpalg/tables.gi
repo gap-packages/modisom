@@ -1,5 +1,5 @@
 
-TableByWeightedBasisOfRad := function(A)
+BindGlobal( "TableByWeightedBasisOfRad", function(A)
     local n, F, q, N, C, m, e, b, c, T, W, i, j, d, v, w, k, l;
 
     # set up
@@ -52,9 +52,9 @@ TableByWeightedBasisOfRad := function(A)
                 dim := n,
                 wgs := C.weights,
                 rnk := RankByWeights(C.weights) );
-end;
+end );
 
-NilpotentTableOfRad := function( A )
+BindGlobal( "NilpotentTableOfRad", function( A )
     return TableByWeightedBasisOfRad(A);
-end;
+end );
 

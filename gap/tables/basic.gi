@@ -1,5 +1,5 @@
 
-CheckAssociativity := function(T)
+BindGlobal( "CheckAssociativity", function(T)
     local i, j, k, a, b, l, c;
 
     for i in [1..T.dim] do
@@ -27,9 +27,9 @@ CheckAssociativity := function(T)
     od;
 
     return true;
-end;
+end );
 
-CheckConsistency := function( T )
+BindGlobal( "CheckConsistency", function( T )
     local i, w, j;
     for i in [1..T.dim] do
         if IsBound(T.wds[i]) then 
@@ -41,9 +41,9 @@ CheckConsistency := function( T )
         fi;
     od;
     return true;
-end;
+end );
 
-CheckCommutativity := function( T )
+BindGlobal( "CheckCommutativity", function( T )
     local i, j;
     for i in [1..T.rnk] do
         for j in [1..T.rnk] do
@@ -55,6 +55,6 @@ CheckCommutativity := function( T )
     od;
     T.com := true;
     return true;
-end;
+end );
 
 

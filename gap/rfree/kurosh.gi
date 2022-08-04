@@ -1,9 +1,9 @@
 
-CloseSubspace := function( mats, basis, new )
+BindGlobal( "CloseSubspace", function( mats, basis, new )
     return SpinnUpEchelonBase( basis, new, mats, OnRight );
-end;
+end );
 
-SubspaceByExponentLaw := function( C, M, n )
+BindGlobal( "SubspaceByExponentLaw", function( C, M, n )
     local U, m, w, u;
 
     # init with radical
@@ -18,9 +18,9 @@ SubspaceByExponentLaw := function( C, M, n )
     Print("    subspace has dim ",Length(U),"\n");
 
     return U;
-end;
+end );
 
-AutoActionOnMult := function(C, T)
+BindGlobal( "AutoActionOnMult", function(C, T)
     local d, F, z, g, i, j, h, n;
 
     # init
@@ -53,9 +53,9 @@ AutoActionOnMult := function(C, T)
     fi;
 
     return rec( gl := g, ag := h );
-end;
+end );
 
-KuroshAlgebra := function(arg)
+BindGlobal( "KuroshAlgebra", function(arg)
     local i, d, n, F, com, T, C, M, U;
 
     # get args
@@ -87,9 +87,9 @@ KuroshAlgebra := function(arg)
         if Length(U) = C.mul then return T; fi;
         T := QuotientTableAllowableSpace(C,U);
     od;
-end;
+end );
 
-ExpandExponentLaw := function(T, n)
+BindGlobal( "ExpandExponentLaw", function(T, n)
     local m, l, s, F, x, f, g, r, i, j, k, h, v;
 
     # get info
@@ -135,5 +135,5 @@ ExpandExponentLaw := function(T, n)
     od;
   
     return g;
-end;
+end );
 

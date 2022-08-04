@@ -3,21 +3,21 @@
 ##
 #F RefineBins( bins, vals )
 ##
-RefineBinByVals := function( bin, vals )
+BindGlobal( "RefineBinByVals", function( bin, vals )
     return List(Set(vals{bin}), x -> Filtered(bin, y -> vals[y]=x));
-end;
+end );
     
-RefineBinsByVals := function( bins, vals )
+BindGlobal( "RefineBinsByVals", function( bins, vals )
     local refs;
     refs := Concatenation(List(bins, x -> RefineBinByVals(x, vals )));
     return Filtered(refs, x -> Length(x)>1);
-end;
+end );
 
 #############################################################################
 ##
 #F CheckBin(p, n, k, list)
 ##
-CheckBin := function(p, n, k, list)
+BindGlobal( "CheckBin", function(p, n, k, list)
     local grps, algs, tabs, bins, l, m, vals, todo, i, j, d;
 
     l := Length(list);
@@ -77,5 +77,5 @@ CheckBin := function(p, n, k, list)
     od;
  
     return bins;
-end;
+end );
 

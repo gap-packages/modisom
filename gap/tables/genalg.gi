@@ -1,13 +1,13 @@
 
-RankByWeights := function( list )
+BindGlobal( "RankByWeights", function( list )
     local i;
     for i in [1..Length(list)] do
         if list[i] = 2 then return i-1; fi;
     od;
     return Length(list);
-end;
+end );
 
-VecToList := function(vec)
+BindGlobal( "VecToList", function(vec)
     local l, i;
     l := [];
     for i in [1..Length(vec)] do
@@ -17,7 +17,7 @@ VecToList := function(vec)
         fi;
     od;
     return l;
-end;
+end );
 
 InstallMethod( AlgebraByTable, [IsObject], function( T )
     local n, F, S, i, j, v;
@@ -97,15 +97,15 @@ InstallMethod( WeightedBasis, [IsAlgebra], function(J)
     return rec( basis := b, weights := w);
 end );
 
-TableByWeightedBasis := function(A)
+BindGlobal( "TableByWeightedBasis", function(A)
     local b, T;
     b := WeightedBasis(A);
     T := TableByBasis(A, b.basis);
     T.wgs := b.weights;
     T.rnk := RankByWeights(T.wgs);
     return T;
-end;
+end );
 
-NilpotentTable := function(A)
+BindGlobal( "NilpotentTable", function(A)
     return TableByWeightedBasis(A);
-end;
+end );

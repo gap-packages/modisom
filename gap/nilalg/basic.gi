@@ -1,5 +1,5 @@
 
-AnnihilatorByTable := function( T )
+BindGlobal( "AnnihilatorByTable", function( T )
     local d, n, M, j, m, i;
 
     d := T.rnk;
@@ -16,9 +16,9 @@ AnnihilatorByTable := function( T )
     od;
 
     return TriangulizedNullspaceMat(M);
-end;
+end );
 
-AnnihilatorByLayer := function( T, s, l )
+BindGlobal( "AnnihilatorByLayer", function( T, s, l )
     local a, b, M, i, j, m;
 
     a := Position(T.wgs, s);
@@ -39,9 +39,9 @@ AnnihilatorByLayer := function( T, s, l )
     od;
 
     return TriangulizedNullspaceMat(M);
-end;
+end );
 
-CenterByTable := function( T )
+BindGlobal( "CenterByTable", function( T )
     local d, n, M, j, m, i;
 
     d := T.rnk;
@@ -57,9 +57,9 @@ CenterByTable := function( T )
     od;
 
     return TriangulizedNullspaceMat(M);
-end;
+end );
 
-CenterByLayer := function( T, s, l )
+BindGlobal( "CenterByLayer", function( T, s, l )
     local a, b, M, i, j, m;
 
     a := Position(T.wgs, s);
@@ -80,6 +80,6 @@ CenterByLayer := function( T, s, l )
     od;
 
     return TriangulizedNullspaceMat(M);
-end;
+end );
 
 
