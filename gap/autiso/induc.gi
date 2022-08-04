@@ -1,5 +1,5 @@
 
-InduceAutoToMult := function( C, mat )
+BindGlobal( "InduceAutoToMult", function( C, mat )
     local m, r, d, z, i, img, new;
 
     # set up
@@ -35,9 +35,9 @@ InduceAutoToMult := function( C, mat )
 
     #ConvertToMatrixRepNC(img, C.fld);
     return Immutable(img);
-end;
+end );
 
-InduceCAutoToMult := function( C, mat )
+BindGlobal( "InduceCAutoToMult", function( C, mat )
     local m, r, d, z, i, img, new;
 
     # set up
@@ -73,9 +73,9 @@ InduceCAutoToMult := function( C, mat )
 
     #ConvertToMatrixRepNC(img, C.fld);
     return Immutable(img);
-end;
+end );
 
-InduceAutosToMult := function( G, C, R )
+BindGlobal( "InduceAutosToMult", function( G, C, R )
     local i, m;
 
     for i in [1..Length(G.glAutos)] do
@@ -90,9 +90,9 @@ InduceAutosToMult := function( G, C, R )
 
     G.one := DirectProductElement( [G.one, IdentityMat(C.mul, C.fld)] );
 
-end;
+end );
 
-AddCentralAutos := function( G, Q )
+BindGlobal( "AddCentralAutos", function( G, Q )
     local d, n, q, b, i, j, v, new, mat;
 
     # catch info
@@ -118,9 +118,9 @@ AddCentralAutos := function( G, Q )
 
     # add to G
     Append( G.agAutos, new );
-end;
+end );
 
-InduceAutoToQuot := function( Q, mat )
+BindGlobal( "InduceAutoToQuot", function( Q, mat )
     local q, d, n, new, i;
 
     # set up
@@ -136,9 +136,9 @@ InduceAutoToQuot := function( Q, mat )
     od;
     #ConvertToMatrixRepNC( new, Q.fld );
     return Immutable(new);
-end;
+end );
 
-InduceAutosToQuot := function( G, Q )
+BindGlobal( "InduceAutosToQuot", function( G, Q )
     local i;
 
     # extend gl-autos
@@ -163,5 +163,5 @@ InduceAutosToQuot := function( G, Q )
     else
         G.size := G.glOrder * Characteristic(G.field)^Length(G.agAutos);
     fi;
-end;
+end );
 

@@ -1,4 +1,4 @@
-Kur_2_4_3 := function() 
+BindGlobal( "Kur_2_4_3", function() 
 local A, i; 
 A := rec(); 
 A.rnk := 2; 
@@ -89,4 +89,4 @@ for i in [1..A.rnk] do
     A.tab[i] := ListToMat(A.tab[i],A.dim,A.fld); 
 od; 
 return A; 
-end; 
+end ); 

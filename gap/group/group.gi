@@ -3,7 +3,7 @@
 # multiplication is a*b = a+b+ab
 #
 
-GroupByTable := function(T)
+BindGlobal( "GroupByTable", function(T)
     local V, v, l, p, i, n, j;
     V := T.fld^T.dim;
     v := Elements(V);
@@ -18,5 +18,5 @@ GroupByTable := function(T)
         Add(p, n);
     od;
     return Group(p);
-end;
+end );
 

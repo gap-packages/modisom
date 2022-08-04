@@ -1,14 +1,14 @@
 
-EvalPoly := function( C, elm, pol )
+BindGlobal( "EvalPoly", function( C, elm, pol )
     local d, e, i, c, w;
     c := CoefficientsOfUnivariatePolynomial(pol);
     d := Length(c)-1;
     e := [elm]; for i in [2..d] do e[i] := MultByTable(C, elm, e[i-1]); od;
     w := 0*elm; for i in [2..d] do w := w + c[i+1]*e[i]; od;
     return w;
-end;
+end );
 
-SubspaceByPILaw := function(C, M, f)
+BindGlobal( "SubspaceByPILaw", function(C, M, f)
     local U, w, u;
 
     # init with radical
@@ -23,9 +23,9 @@ SubspaceByPILaw := function(C, M, f)
     Print("    subspace has dim ",Length(U),"\n");
 
     return U;
-end;
+end );
 
-PIAlgebra := function( arg )
+BindGlobal( "PIAlgebra", function( arg )
     local d, f, F, T, C, M, U, com;
 
     # get args
@@ -51,6 +51,6 @@ PIAlgebra := function( arg )
         T := QuotientTableAllowableSpace(C,U);
     od;
 
-end;
+end );
 
 

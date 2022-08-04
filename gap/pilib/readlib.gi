@@ -1,5 +1,5 @@
 
-KuroshAlgebraByLib := function( d, n, F )
+BindGlobal( "KuroshAlgebraByLib", function( d, n, F )
     if n = 2 then 
         return KuroshAlgebra(d,n,F);
     elif n = 3 and d = 2 then 
@@ -54,5 +54,5 @@ KuroshAlgebraByLib := function( d, n, F )
         fi;
     fi;
     return fail;
-end;
+end );
 

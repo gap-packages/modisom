@@ -1,5 +1,5 @@
 
-InitAutomGroup := function( Tab )
+BindGlobal( "InitAutomGroup", function( Tab )
     local d, F, H, G, V, v, m, s, inv, ind, bas, h, P, i, l, w, n, I;
 
     # set up full GL
@@ -72,5 +72,5 @@ InitAutomGroup := function( Tab )
 
     # that's it
     return G;
-end;
+end );
 

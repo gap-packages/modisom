@@ -1,4 +1,4 @@
-BasisBySubspaces := function( bases, F, d )
+BindGlobal( "BasisBySubspaces", function( bases, F, d )
     local V, C, B, new, i, c, basis, weigh;
 
     # initialize
@@ -33,9 +33,9 @@ BasisBySubspaces := function( bases, F, d )
 
     # that' it
     return rec( basis := basis, weights := weigh );
-end;
+end );
 
-ChainStabilizer := function( wgt, F )
+BindGlobal( "ChainStabilizer", function( wgt, F )
     local d, l, p, mats, size, i, j, n, mat, G;
 
     # set up
@@ -104,5 +104,5 @@ ChainStabilizer := function( wgt, F )
     G := Group( mats, IdentityMat(d,F) );
     SetSize(G, size );
     return G;
-end;
+end );
 

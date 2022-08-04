@@ -1,5 +1,5 @@
 
-QuotientTableAllowableSpace := function( C, U )
+BindGlobal( "QuotientTableAllowableSpace", function( C, U )
     local Q, d, m, r, w, c, B, I, J, v, BB, i, j, a, b;
 
     # catch a special case
@@ -83,9 +83,9 @@ QuotientTableAllowableSpace := function( C, U )
     # that's it
     Q.bas := B;
     return Q;
-end;
+end );
 
-QuotientTableOfCover := function( C, W )
+BindGlobal( "QuotientTableOfCover", function( C, W )
     local Q, z;
    
     # get quotient by space
@@ -101,6 +101,6 @@ QuotientTableOfCover := function( C, W )
 
     # that's it
     return Q;
-end;
+end );
 
 

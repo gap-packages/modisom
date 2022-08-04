@@ -1,14 +1,14 @@
 
-CleanBasis := function( bas, wgt, d )
+BindGlobal( "CleanBasis", function( bas, wgt, d )
     local i;
     for i in [1..d-1] do
         if IsBound(bas[i]) and wgt[i] < wgt[d] then 
             AddRowVector( bas[i], bas[d], bas[i][d] );
         fi;
     od;
-end;
+end );
 
-SiftIntoBasis := function( bas, wgt, rel, b, w )
+BindGlobal( "SiftIntoBasis", function( bas, wgt, rel, b, w )
     local d, n, c, v, a;
     d := DepthVector(b);
     n := Length(b);
@@ -29,9 +29,9 @@ SiftIntoBasis := function( bas, wgt, rel, b, w )
             d := DepthVector(b);
         fi;
     od;
-end;
+end );
 
-PowerBasisWeights := function( T, U, limit )
+BindGlobal( "PowerBasisWeights", function( T, U, limit )
     local n, d, bas, wgt, rel, i, w, j, b;
 
     # set up
@@ -75,9 +75,9 @@ PowerBasisWeights := function( T, U, limit )
 
     # return weights
     return SortedList(Filtered(wgt, IsInt));
-end;
+end );
 
-FPMinOverIdeals := function( T, v, limit )
+BindGlobal( "FPMinOverIdeals", function( T, v, limit )
     local I, d, m, i, U;
     I := IdentityMat(T.dim, T.fld);
     d := Length(Filtered(T.wgs, x -> x=1));
@@ -89,5 +89,5 @@ FPMinOverIdeals := function( T, v, limit )
         Info( InfoModIsom, 1, "   found weights ",m[i]);
     od;
     return m;
-end;
+end );
 

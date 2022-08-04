@@ -1,9 +1,9 @@
 
-RandomPcPres := function(G)
+BindGlobal( "RandomPcPres", function(G)
     return PcGroupCode( RandomSpecialPcgsCoded(G), Size(G) );
-end;
+end );
 
-TestCanoForm := function(F, G)
+BindGlobal( "TestCanoForm", function(F, G)
     local T, S, A, B, C, H, i, d;
 
     A := GroupRing(F,G);
@@ -21,9 +21,9 @@ TestCanoForm := function(F, G)
     od;
 
     return true;
-end;
+end );
 
-TestCanoForms := function(n)
+BindGlobal( "TestCanoForms", function(n)
     local i, G, p;
     p := Factors(n)[1];
     for i in [1..NumberSmallGroups(n)] do
@@ -31,5 +31,5 @@ TestCanoForms := function(n)
         if not TestCanoForm(GF(p),G) then Error("wrong form"); fi;
         Print(i," done \n\n");
     od;
-end;
+end );
 

@@ -5,7 +5,7 @@
 ## Pcgs consists of 2-tuples, component 2 acts per right multiplication.
 ## Computes modulo base{[l+1..n]} or mod [] if base=fail
 ##
-VectorCanonicalForm := function( pcgs, v, F, l, base )
+BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
     local p, f, d, o, stab, tran, cano, indu, tail, B,
           i, j, k, e, ec, w, wc, b, s, t; 
 
@@ -83,7 +83,7 @@ VectorCanonicalForm := function( pcgs, v, F, l, base )
     fi;
 
     return rec( cano := cano, stab := stab, tran := tran );
-end;
+end );
 
 
 #############################################################################
@@ -93,7 +93,7 @@ end;
 ## Assumes that base is echelonised.
 ## Pcgs consists of 2-tuples, component 2 acts per right multiplication.
 ##
-SubspaceCanonicalForm := function( pcgs, id, base, F )
+BindGlobal( "SubspaceCanonicalForm", function( pcgs, id, base, F )
     local d, l, I, stab, cano, tran, n, c, b, f;
 
     # a preliminary check
@@ -146,5 +146,5 @@ SubspaceCanonicalForm := function( pcgs, id, base, F )
     fi;
 
     return rec( cano := cano, stab := stab, tran := tran );
-end;
+end );
         

@@ -1,5 +1,5 @@
 
-IsAutomorphismByTable := function( T, m )
+BindGlobal( "IsAutomorphismByTable", function( T, m )
     local i, j, a, b;
     if Length(m) <> T.dim then return false; fi;
     if RankMat(m) <> T.dim then return false; fi;
@@ -11,9 +11,9 @@ IsAutomorphismByTable := function( T, m )
         od;
     od;
     return true;
-end;
+end );
 
-IsAutomorphismByAlgebra := function( A, m )
+BindGlobal( "IsAutomorphismByAlgebra", function( A, m )
     local  i, j, B, l, r;
     B := Basis( A );
     for i  in [ 1 .. Length(B) ]  do
@@ -24,9 +24,9 @@ IsAutomorphismByAlgebra := function( A, m )
         od;
     od;
     return true;
-end;
+end );
 
-CheckGroupByTable := function( G, T )
+BindGlobal( "CheckGroupByTable", function( G, T )
     local g;
     for g in G.glAutos do
         if not IsAutomorphismByTable( T, g ) then 
@@ -42,9 +42,9 @@ CheckGroupByTable := function( G, T )
         return false;
     fi;
     return true;
-end;
+end );
 
-CheckGroupByAlgebra := function( G, A )
+BindGlobal( "CheckGroupByAlgebra", function( G, A )
     local g, hom;
     for g in G.glAutos do
         hom := AlgebraHomomorphismByImages( A, A, Basis(A), Basis(A)*g );
@@ -59,9 +59,9 @@ CheckGroupByAlgebra := function( G, A )
         fi;
     od;
     return true;
-end;
+end );
 
-CheckIsomByTables := function( T, S, epi )
+BindGlobal( "CheckIsomByTables", function( T, S, epi )
     local d, l, n, i, j, a, b; 
 
     # extend iso
@@ -84,5 +84,5 @@ CheckIsomByTables := function( T, S, epi )
         od;
     od;
     return true;
-end;
+end );
 

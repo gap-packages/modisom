@@ -1,12 +1,12 @@
 
-ExponentSum := function(m)
+BindGlobal( "ExponentSum", function(m)
     local a, i;
     a := 0;
     for i in [2, 4 .. Length(m)] do a := a+m[i]; od;
     return a;
-end;
+end );
 
-BaseMatT := function(M)
+BindGlobal( "BaseMatT", function(M)
     local j;
     if Length(M)=0 then return M; fi;
     M := MutableCopyMat(M);
@@ -14,9 +14,9 @@ BaseMatT := function(M)
     j := Position(M, 0*M[1]);
     if IsBool(j) then return M; fi;
     return M{[1..j-1]};
-end;
+end );
 
-InitNQ := function(A)
+BindGlobal( "InitNQ", function(A)
     local F, r, g, n, d, M, w, v, e, R, I, J, dep, ndp, C, i, j, B;
 
     # set up
@@ -69,9 +69,9 @@ InitNQ := function(A)
 
     # that's it
     return R;
-end;
+end );
 
-EvalMonomial := function( T, img, word )
+BindGlobal( "EvalMonomial", function( T, img, word )
     local z, l, w, v, i, k, e, j;
 
     # set up
@@ -99,9 +99,9 @@ EvalMonomial := function( T, img, word )
         v[1] := MultByTable( T, v[1], v[i] );
     od;
     return v[1];
-end;
+end );
 
-EvalRelator := function( T, img, word )
+BindGlobal( "EvalRelator", function( T, img, word )
     local v, e, i, u;
 
     # set up
@@ -115,9 +115,9 @@ EvalRelator := function( T, img, word )
     od;
 
     return v;
-end;
+end );
 
-ExtendNQ := function( A, B )
+BindGlobal( "ExtendNQ", function( A, B )
     local F, r, n, d, s, l, C, m, z, img, i, W, v, U, V, Q, c, I, t;
 
     # set up
@@ -192,9 +192,9 @@ ExtendNQ := function( A, B )
     od;
     Unbind(Q.bas);
     return Q;
-end;
+end );
 
-NilpotentQuotientOfFpAlgebra := function( arg )
+BindGlobal( "NilpotentQuotientOfFpAlgebra", function( arg )
     local A, c, B, k, C, i;
     A := arg[1];
     if IsBound(arg[2]) then c := arg[2]; else c := infinity; fi;
@@ -211,9 +211,9 @@ NilpotentQuotientOfFpAlgebra := function( arg )
         fi;
     od;
     return B;
-end;
+end );
 
-NQOfFpAlgebra := function( A )
+BindGlobal( "NQOfFpAlgebra", function( A )
     local B, i, t, s;
     s := 0;
     t := Runtime();
@@ -230,9 +230,9 @@ NQOfFpAlgebra := function( A )
         Print("step ",i,":  dim = ", B.dim, " -- time: ", StringTime(s),"\n"); 
     od;
     return B;
-end;
+end );
 
-CHECK_NQ_QUOT := function( A, NA )
+BindGlobal( "CHECK_NQ_QUOT", function( A, NA )
     local B, b, c, C, a, r, i, v;
 
     # get algebra
@@ -250,9 +250,9 @@ CHECK_NQ_QUOT := function( A, NA )
         if v <> Zero(B) then return r[i]; fi;
     od;
     return true;
-end;
+end );
 
-CHECK_EPI := function( A, T, img )
+BindGlobal( "CHECK_EPI", function( A, T, img )
     local B, b, c, C, a, r, i, v;
 
     # get algebra
@@ -270,6 +270,6 @@ CHECK_EPI := function( A, T, img )
         if v <> Zero(B) then return r[i]; fi;
     od;
     return true;
-end;
+end );
 
 

@@ -2,7 +2,7 @@
 ##
 #F BlockCanonicalForm( G, U )
 ##
-BlockCanonicalForm := function( G, U )
+BindGlobal( "BlockCanonicalForm", function( G, U )
     local F, C, P, Q, V, W, orbit, trans, ptran, trivl, nonst, stabl, pstab,
           i, j, k, g, o, s, t, p, a;
 
@@ -95,13 +95,13 @@ BlockCanonicalForm := function( G, U )
     od;
 
     Error("block cano form yields no result");
-end;
+end );
 
 #############################################################################
 ##
 #F BlockCanonicalFormBySeries( G, U, ser )
 ##
-BlockCanonicalFormBySeries := function(G, U, ser)
+BindGlobal( "BlockCanonicalFormBySeries", function(G, U, ser)
     local pt, tv, i, k, j, S, W, T, h, m, cf;
 
     # set up for loop
@@ -160,13 +160,13 @@ BlockCanonicalFormBySeries := function(G, U, ser)
 
     # return canonical form
     return rec( cano := pt, tran := tv );
-end;
+end );
 
 #############################################################################
 ##
 #F HybridMatrixCanoForm( G, U )
 ##
-HybridMatrixCanoForm := function( G, U )
+BindGlobal( "HybridMatrixCanoForm", function( G, U )
     local b, c, i, W, V, C, B, g, s;
 
     # some trivial cases
@@ -218,5 +218,5 @@ HybridMatrixCanoForm := function( G, U )
 
     # return canonical form 
     return C;
-end;
+end );
 

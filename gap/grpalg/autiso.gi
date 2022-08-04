@@ -1,15 +1,15 @@
 
-CanoFormWithAutGroupOfRad := function(A)
+BindGlobal( "CanoFormWithAutGroupOfRad", function(A)
     local T;
     T := TableByWeightedBasisOfRad(A);
     return CanoFormWithAutGroupOfTable(T);
-end;
+end );
 
-CanonicalFormOfRad := function(A)
+BindGlobal( "CanonicalFormOfRad", function(A)
     return CanoFormWithAutGroupOfRad(A).cano;
-end;
+end );
 
-AutomorphismGroupOfRad := function(A)
+BindGlobal( "AutomorphismGroupOfRad", function(A)
     local G, d, F, a, B;
     G := CanoFormWithAutGroupOfRad(A).auto;
     d := Length(G.one);
@@ -18,9 +18,9 @@ AutomorphismGroupOfRad := function(A)
     B := Subgroup(GL(d, F), a);
     SetSize(B, G.size);
     return B;
-end;
+end );
 
-MatPlus := function( mat, F, k )
+BindGlobal( "MatPlus", function( mat, F, k )
     local M, i, j;
     M := NullMat( Length(mat)+1, Length(mat)+1, F );
     M[1][k] := One(F);
@@ -30,5 +30,5 @@ MatPlus := function( mat, F, k )
         od;
     od;
     return M;
-end;
+end );
 

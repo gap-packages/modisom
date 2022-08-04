@@ -4,7 +4,7 @@
 ## sparse vectors
 ##
 
-AssocRelation1 := function( R, S, i, j, k, n )
+BindGlobal( "AssocRelation1", function( R, S, i, j, k, n )
     local a, v, r, d;
 
     # (ij) k  
@@ -24,9 +24,9 @@ AssocRelation1 := function( R, S, i, j, k, n )
     od;
 
     return SparseVecToVec( a, S.dim, Zero(R.fld) );
-end;
+end );
 
-AssocRelation2 := function( R, S, i, j, k, n )
+BindGlobal( "AssocRelation2", function( R, S, i, j, k, n )
     local b, v, s, d, w;
 
     # i (jk)
@@ -50,9 +50,9 @@ AssocRelation2 := function( R, S, i, j, k, n )
     od;
 
     return SparseVecToVec( b, S.dim, Zero(R.fld) );
-end;
+end );
 
-CheckAssoc := function( R, S, i, j, k )
+BindGlobal( "CheckAssoc", function( R, S, i, j, k )
     local w, v, a, b, n;
 
     # set up
@@ -75,9 +75,9 @@ CheckAssoc := function( R, S, i, j, k )
     else 
         return false;
     fi;
-end;
+end );
 
-TailsTable := function( R )
+BindGlobal( "TailsTable", function( R )
     local d, r, F, n, S, df, rl, i, j, h, k, v, s, com, l;
    
     # catch com
@@ -140,9 +140,9 @@ TailsTable := function( R )
 
     # return
     return rec( tab := S, dim := l, rl := rl, df := df );
-end;
+end );
 
-EvalAssoc := function( R, S )
+BindGlobal( "EvalAssoc", function( R, S )
     local d, r, u, i, j, k, v;
 
     d := R.rnk;
@@ -162,9 +162,9 @@ EvalAssoc := function( R, S )
     od;
 
     return OrderByDepth(u);
-end;
+end );
 
-SetEntryCover := function( C, R, S, BB, u, i, j )
+BindGlobal( "SetEntryCover", function( C, R, S, BB, u, i, j )
     local a, b;
 
     # catch players
@@ -180,9 +180,9 @@ SetEntryCover := function( C, R, S, BB, u, i, j )
  
     # add
     C.tab[i][j] := Immutable( Concatenation(a, b) );
-end;
+end );
 
-QuotientTableAssoc := function( R, S, U )
+BindGlobal( "QuotientTableAssoc", function( R, S, U )
     local r, u, c, d, n, s, F, C, I, B, w, J, i, j, k, t, BB;
 
     # set up table
@@ -267,9 +267,9 @@ QuotientTableAssoc := function( R, S, U )
     for i in [r+1..c] do C.wgs[i] := R.wgs[r]+1; od;
 
     return C;
-end;
+end );
 
-CoveringTable := function( R )
+BindGlobal( "CoveringTable", function( R )
     local S, U;
 
     # set up tails
@@ -280,5 +280,5 @@ CoveringTable := function( R )
 
     # get quotient and return
     return QuotientTableAssoc( R, S, U );
-end;
+end );
 

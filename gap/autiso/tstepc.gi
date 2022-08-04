@@ -1,5 +1,5 @@
 
-TwoStepCents := function( arg )
+BindGlobal( "TwoStepCents", function( arg )
     local T, w, d, n, cents, l, s, m, f, M, i, j, v, u, N;
 
     # catch arguments and set up
@@ -31,5 +31,5 @@ TwoStepCents := function( arg )
     od;
 
     return cents;
-end;
+end );
 

@@ -1,18 +1,18 @@
 
-RingComm := function(T,a,b)
+BindGlobal( "RingComm", function(T,a,b)
     return MultByTable(T,a,b) - MultByTable(T,b,a);
-end;
+end );
 
-EngelComm := function(T,a,b,n)
+BindGlobal( "EngelComm", function(T,a,b,n)
     local x, i;
     x := a;
     for i in [1..n] do
         x := RingComm(T,x,b);
     od;
     return x;
-end;
+end );
 
-CommutatorIdealByTable := function(T, B, C)
+BindGlobal( "CommutatorIdealByTable", function(T, B, C)
     local A, b, c;
     A := [];
     for b in B do
@@ -21,9 +21,9 @@ CommutatorIdealByTable := function(T, B, C)
         od;
     od;
     return A;
-end;
+end );
 
-DerivedSeriesByTable := function(T)
+BindGlobal( "DerivedSeriesByTable", function(T)
     local ser, U, V;
     U := IdentityMat(T.dim,T.fld);
     ser := [U];
@@ -34,9 +34,9 @@ DerivedSeriesByTable := function(T)
         Add(ser, U);
     od;
     return ser;
-end;
+end );
 
-LowerCentralSeriesByTable := function(T)
+BindGlobal( "LowerCentralSeriesByTable", function(T)
     local ser, U, V, I;
     I := IdentityMat(T.dim,T.fld);
     U := IdentityMat(T.dim,T.fld);
@@ -48,22 +48,22 @@ LowerCentralSeriesByTable := function(T)
         Add(ser, U);
     od;
     return ser;
-end;
+end );
 
-LCSWf := function(w,i,j)
+BindGlobal( "LCSWf", function(w,i,j)
     #return Maximum(w[i],w[j])+1;
     return w[i]+w[j];
-end;
+end );
 
-DSWf := function(w,i,j)
+BindGlobal( "DSWf", function(w,i,j)
     if w[i]=w[j] then 
         return w[i]+1; 
     else
         return Maximum(w[i],w[j]);
     fi;
-end;
+end );
 
-SiftIntoPlus := function(A, w, t, c, v)
+BindGlobal( "SiftIntoPlus", function(A, w, t, c, v)
     local d;
     d := DepthVector(c);
     while d <= Length(A) do
@@ -77,9 +77,9 @@ SiftIntoPlus := function(A, w, t, c, v)
         fi; 
         d := DepthVector(c);
     od;
-end;
+end );
 
-DSRf := function(w, t, l, i, j)
+BindGlobal( "DSRf", function(w, t, l, i, j)
 
     # if nothing has changed
     if t[i] = false and t[j] = false then return false; fi;
@@ -89,9 +89,9 @@ DSRf := function(w, t, l, i, j)
 
     # consider antisymmetry
     return i<j; 
-end;
+end );
 
-LCSRf := function(w, t, l, i, j)
+BindGlobal( "LCSRf", function(w, t, l, i, j)
 
     # if nothing has changed
     if t[i] = false and t[j] = false then return false; fi;
@@ -107,9 +107,9 @@ LCSRf := function(w, t, l, i, j)
 
     # no further ideas
     return true;
-end;
+end );
 
-MyWeightedBasis := function( T, wf, rf )
+BindGlobal( "MyWeightedBasis", function( T, wf, rf )
     local n, A, w, t, i, j, c, v, l;
     n := T.dim;
     A := IdentityMat(n, T.fld);
@@ -133,7 +133,7 @@ MyWeightedBasis := function( T, wf, rf )
     od;
                 
     return rec(basis := A, weights := w);
-end;
+end );
 
 WeightVector@ := function( T, wf, rf )
     local w;
@@ -141,15 +141,15 @@ WeightVector@ := function( T, wf, rf )
     return List(Collected(w), x -> x[2]);
 end;
 
-WeightVectorDS := function(T)
+BindGlobal( "WeightVectorDS", function(T)
     return WeightVector@(T, DSWf, DSRf);
-end;
+end );
 
-WeightVectorLCS := function(T)
+BindGlobal( "WeightVectorLCS", function(T)
     return WeightVector@(T, LCSWf, LCSRf);
-end;
+end );
 
-WeightVectorPS := function(T)
+BindGlobal( "WeightVectorPS", function(T)
     return List(Collected(T.wgs), x -> x[2]);
-end;
+end );
 

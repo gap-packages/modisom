@@ -1,5 +1,5 @@
-
-ProductWeight := function( R, i, j )
+DeclareGlobalFunction( "ProductWeight" );
+InstallGlobalFunction( "ProductWeight", function( R, i, j )
     local l, a, d, b, c;
 
     # swap if commutative
@@ -34,5 +34,5 @@ ProductWeight := function( R, i, j )
 
     # that's it
     return a;
-end;
+end );
 

@@ -1,5 +1,5 @@
 
-InitCanoForm := function( T )
+BindGlobal( "InitCanoForm", function( T )
     local F, d, G, R;
 
     # set up
@@ -16,9 +16,9 @@ InitCanoForm := function( T )
     # add info
     T.cano := R;
     T.auto := G;
-end;
+end );
 
-ExtendCanoForm := function( T, i )
+BindGlobal( "ExtendCanoForm", function( T, i )
     local F, l, p, R, G, C, U, W, Q;
 
     # catch some arguments from  A
@@ -60,9 +60,9 @@ ExtendCanoForm := function( T, i )
     # add info
     T.cano := Q;
     T.auto := G;
-end;
+end );
 
-CheckField := function(T)
+BindGlobal( "CheckField", function(T)
     local F, i, j;
     F := GF(Characteristic(T.fld));
     for i in [1..Length(T.tab)] do
@@ -76,9 +76,9 @@ CheckField := function(T)
             od;
         fi;
     od;
-end;
+end );
 
-CanoFormWithAutGroupOfTable := function(T)
+BindGlobal( "CanoFormWithAutGroupOfTable", function(T)
     local l, i, S, F;
 
     # make mutable
@@ -107,17 +107,17 @@ CanoFormWithAutGroupOfTable := function(T)
     S := rec( cano := T.cano, auto := T.auto );
     Unbind(T.cano); Unbind(T.auto);
     return S;
-end; 
+end ); 
 
-CanonicalFormOfTable := function(T)
+BindGlobal( "CanonicalFormOfTable", function(T)
     return CanoFormWithAutGroupOfTable(T).cano;
-end;
+end );
 
-AutGroupOfTable := function(T)
+BindGlobal( "AutGroupOfTable", function(T)
     return CanoFormWithAutGroupOfTable(T).auto;
-end;
+end );
 
-CoverInfo := function(T)
+BindGlobal( "CoverInfo", function(T)
     local F, l, d, R, r, i, C, U;
 
     # set up
@@ -141,6 +141,6 @@ CoverInfo := function(T)
     od;
 
     return r;
-end;
+end );
 
 

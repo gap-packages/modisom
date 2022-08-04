@@ -4,7 +4,7 @@
 ## sparse vectors
 ##
 
-AssocRelation1 := function( R, S, i, j, k )
+BindGlobal( "AssocRelation1", function( R, S, i, j, k )
     local a, v, r;
 
     # (ij) k  
@@ -16,9 +16,9 @@ AssocRelation1 := function( R, S, i, j, k )
         fi;
     od;
     return a;
-end;
+end );
 
-AssocRelation2 := function( R, S, i, j, k )
+BindGlobal( "AssocRelation2", function( R, S, i, j, k )
     local b, v, s;
 
     # i (jk)
@@ -30,9 +30,9 @@ AssocRelation2 := function( R, S, i, j, k )
         fi;
     od;
     return b;
-end;
+end );
 
-CheckAssoc := function( R, S, pw, n, i, j, k )
+BindGlobal( "CheckAssoc", function( R, S, pw, n, i, j, k )
     local a, b;
     if pw[i][j] + R.wgs[k] <= n+1 and R.wgs[i] + pw[j][k] <= n+1 then
         a := AssocRelation1( R, S, i, j, k );
@@ -44,14 +44,14 @@ CheckAssoc := function( R, S, pw, n, i, j, k )
         return AssocRelation2( R, S, i, j, k );
     fi;
     return false;
-end;
+end );
 
-Weight := function( wg, i )
+BindGlobal( "Weight", function( wg, i )
     if i > Length(wg) then return wg[Length(wg)]+1; fi;
     return wg[i];
-end;
+end );
 
-ProductWeights := function( R )
+BindGlobal( "ProductWeights", function( R )
     local pw, i, j, a, b;
 
     # init 
@@ -98,9 +98,9 @@ ProductWeights := function( R )
     fi;
                  
     return pw;
-end;
+end );
 
-TailsTableCom := function( R, pw )
+BindGlobal( "TailsTableCom", function( R, pw )
     local d, r, n, q, F, l, S, rl, df, i, j, k, h, v, s;
 
     d := R.rnk;
@@ -148,9 +148,9 @@ TailsTableCom := function( R, pw )
         od;
     od;
     return rec( tab := S, rl := rl, dim := l, df := df );
-end;
+end );
 
-TailsTable := function( R, pw )
+BindGlobal( "TailsTable", function( R, pw )
     local d, r, F, q, n, l, S, rl, i, j, k, h, v, s, df;
    
     if IsBound(R.com) and R.com then return TailsTableCom(R, pw); fi;
@@ -196,18 +196,18 @@ TailsTable := function( R, pw )
         od;
     od;
     return rec( tab := S, rl := rl, dim := l, df := df );
-end;
+end );
 
-SetEntryCover := function( C, R, S, BB, pw, u, i, j )
+BindGlobal( "SetEntryCover", function( C, R, S, BB, pw, u, i, j )
     C.tab[i][j] := ShallowCopy(GetEntryTable( R, i, j ));
     if not [i,j] in R.wds and pw[i][j] <= R.wgs[R.dim]+1 then 
         Append( C.tab[i][j], S.tab[i][j] * BB );
     else
         Append( C.tab[i][j], List([u+1..S.dim], x -> Zero(C.fld)) );
     fi;
-end;
+end );
 
-QuotientTable := function( R, S, pw, U )
+BindGlobal( "QuotientTable", function( R, S, pw, U )
     local r, u, c, d, n, s, F, C, I, B, w, J, i, j, k, t, BB;
 
     # catch arguments
@@ -288,9 +288,9 @@ QuotientTable := function( R, S, pw, U )
     for i in [r+1..c] do C.wgs[i] := R.wgs[r]+1; od;
 
     return C;
-end;
+end );
 
-CoveringTable := function( R )
+BindGlobal( "CoveringTable", function( R )
     local r, d, n, pw, S, u, v, i, j, k, V, U, h;
 
     # catch arguments
@@ -320,5 +320,5 @@ CoveringTable := function( R )
 
     # get quotient and return
     return QuotientTable( R, S, pw, OrderByDepth(u));
-end;
+end );
 

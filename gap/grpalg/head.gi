@@ -1,6 +1,6 @@
 
 
-HaveIsomorphicModularGroupAlgebras := function(G, H)
+BindGlobal( "HaveIsomorphicModularGroupAlgebras", function(G, H)
     local p, TG, TH, CG, CH;
     if Size(G) <> Size(H) then return false; fi;
     if RankPGroup(G) <> RankPGroup(H) then return false; fi;
@@ -12,5 +12,5 @@ HaveIsomorphicModularGroupAlgebras := function(G, H)
     CG := CanoFormWithAutGroupOfTable(TG).cano;
     CH := CanoFormWithAutGroupOfTable(TH).cano;
     return CompareTables(CG, CH);
-end;
+end );
 
