@@ -113,9 +113,9 @@ BlockCanonicalFormBySeries := function(G, U, ser)
         for k in [i+1..Length(ser)] do
 
             # get layer
-            S := SumIntersectionMat(SumMat(pt,ser[k-1]),ser[k-i])[2];
-            W := SumIntersectionMat(SumMat(pt,ser[k]),ser[k-i])[2];
-            T := SumIntersectionMat(SumMat(pt,ser[k]),ser[k-i+1])[2];
+            S := SumIntersectionMat(Concatenation(pt,ser[k-1]),ser[k-i])[2];
+            W := SumIntersectionMat(Concatenation(pt,ser[k]),ser[k-i])[2];
+            T := SumIntersectionMat(Concatenation(pt,ser[k]),ser[k-i+1])[2];
 
             if Length(T) < Length(W) and Length(W) < Length(S) then
 
