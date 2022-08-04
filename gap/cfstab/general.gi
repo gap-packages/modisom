@@ -45,14 +45,6 @@ CoeffsMinimalElement := function( vec, base )
     return IntVecFFE(cof * mat.coeffs);
 end;
 
-SumMat := function ( mat1, mat2 )
-    local  tmp;
-    tmp := Concatenation( mat1, mat2 );
-    tmp := MyEcheloniseMat( tmp );
-    TriangulizeMat( tmp );
-    return tmp;
-end;
-
 MyBaseMat := function(mat)
     local new, j;
     if Length(mat) = 0 then return mat; fi;

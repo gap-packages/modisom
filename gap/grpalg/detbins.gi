@@ -387,10 +387,10 @@ PowerMapAbelian := function(A)
                 b := MyBaseMat( Concatenation( r[i][k], bas[j] ) );
 
                 # relate to comms
-                bcm := Length(SumMat( cm, b ));
+                bcm := RankMat(Concatenation( cm, b ));
 
                 # relate to cent
-                bct := Length(SumMat( ct, b ));
+                bct := RankMat(Concatenation( ct, b ));
             
                 # store info
                 res[i][j][k] := [Length(b), bcm, bct];
