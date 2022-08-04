@@ -16,7 +16,7 @@ InstallGlobalFunction( "ProductWeight", function( R, i, j )
     
     # look up table if available
     if IsBound(R.tab[i]) and IsBound(R.tab[i][j]) then 
-        d := DepthVector(R.tab[i][j]);
+        d := PositionNonZero(R.tab[i][j]);
         if d > R.dim then 
             a := l; 
         else

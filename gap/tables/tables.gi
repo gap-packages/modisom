@@ -94,7 +94,7 @@ end );
 
 BindGlobal( "PowerByTable", function( T, v, n )
     local d, u, i;
-    d := DepthVector(v);
+    d := PositionNonZero(v);
     if d > T.dim or n*T.wgs[d] > T.wgs[T.dim] then 
         return List([1..T.dim], x -> Zero(T.fld));
     fi;

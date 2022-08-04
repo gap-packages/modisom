@@ -65,7 +65,7 @@ end );
 
 BindGlobal( "SiftIntoPlus", function(A, w, t, c, v)
     local d;
-    d := DepthVector(c);
+    d := PositionNonZero(c);
     while d <= Length(A) do
         if w[d] < v then 
             A[d] := c[d]^-1 * c;
@@ -75,7 +75,7 @@ BindGlobal( "SiftIntoPlus", function(A, w, t, c, v)
         else
             c := c - c[d] * A[d];
         fi; 
-        d := DepthVector(c);
+        d := PositionNonZero(c);
     od;
 end );
 
