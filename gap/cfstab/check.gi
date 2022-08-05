@@ -50,7 +50,7 @@ BindGlobal( "TestSubspaceCanoForm", function( d, F )
 
     # take a random subspace
     l := Random([1..d]);
-    b := MyBaseMat(RandomMat( l, d, F ));
+    b := MyTriangulizedBaseMat(RandomMat( l, d, F ));
     Print("got subspace of dim ",Length(b),"\n");
 
     # take a pcgs for a random subgroup of U
@@ -71,7 +71,7 @@ BindGlobal( "TestSubspaceCanoForm", function( d, F )
     for i in [1..10] do
         Print(i," th check \n");
         v := MappedVector( Exponents(Random(V)), U!.mats );
-        c := MyBaseMat( b * v );
+        c := MyTriangulizedBaseMat( b * v );
         f := SubspaceCanonicalForm( m, o, c, F );
         if f.cano <> r.cano then Error("no cano form"); fi;
         if Length(f.stab) <> Length(r.stab) then Error("wrong stab"); fi;

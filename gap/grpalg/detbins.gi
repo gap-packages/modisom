@@ -262,7 +262,7 @@ BindGlobal( "LinearPowersBySeries", function( A, bases )
         w := StructuralCopy(bases[i]);
         while Length(w) > 0 do
             w := List(w, x -> (x*Basis(A))^p);
-            w := MyBaseMat(List(w, x -> Coefficients(Basis(A),x)));
+            w := MyTriangulizedBaseMat(List(w, x -> Coefficients(Basis(A),x)));
             Add(r[i], w);
         od;
         Unbind(r[i][Length(r[i])]);
@@ -384,7 +384,7 @@ BindGlobal( "PowerMapAbelian", function(A)
                 #Print("  consider ",i," mod ",j," with ",k,"th powers \n");
 
                 # take image
-                b := MyBaseMat( Concatenation( r[i][k], bas[j] ) );
+                b := MyTriangulizedBaseMat( Concatenation( r[i][k], bas[j] ) );
 
                 # relate to comms
                 bcm := RankMat(Concatenation( cm, b ));

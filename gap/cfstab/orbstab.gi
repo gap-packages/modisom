@@ -42,7 +42,7 @@ BindGlobal( "BlockCanonicalForm", function( G, U )
         for i in [1..Length(G.glAutos)] do
 
             # compute image 
-            V := MyBaseMat( orbit[k] * G.glAutos[i][2] );
+            V := MyTriangulizedBaseMat( orbit[k] * G.glAutos[i][2] );
             W := SubspaceCanonicalForm( G.agAutos, G.one, V, F );
             j := Position( orbit, W.cano );
 
@@ -125,7 +125,7 @@ BindGlobal( "BlockCanonicalFormBySeries", function(G, U, ser)
                 h := NaturalHomomorphismBySubspaceOntoFullRowSpace( S, T );
 
                 # get point
-                W := MyBaseMat(List(W, x -> Image( h, x )));
+                W := MyTriangulizedBaseMat(List(W, x -> Image( h, x )));
 
                 # add action on layer
                 for j in [1..Length(G.glAutos)] do
@@ -144,7 +144,7 @@ BindGlobal( "BlockCanonicalFormBySeries", function(G, U, ser)
 
                 # adjust canonical form
                 tv := tv * cf.tran[1];
-                pt := MyBaseMat( U * tv[2] );
+                pt := MyTriangulizedBaseMat( U * tv[2] );
 
                 # cut off action on layer
                 for j in [1..Length(G.glAutos)] do
@@ -188,7 +188,7 @@ BindGlobal( "HybridMatrixCanoForm", function( G, U )
     od;
 
     # adjust point
-    W := MyBaseMat( U*c );
+    W := MyTriangulizedBaseMat( U*c );
 
     # compute stabilizer
     if (Length(G.agAutos) = 0 and G.glOrder > MIP_GLLIMIT) or USE_MSERS then 
@@ -201,7 +201,7 @@ BindGlobal( "HybridMatrixCanoForm", function( G, U )
 
     # set up result - translate to old basis
     C := rec();
-    C.cf := MyBaseMat( V.cano*b );
+    C.cf := MyTriangulizedBaseMat( V.cano*b );
     C.tv := DirectProductElement([V.tran[1], c*V.tran[2]*b]);
     C.ti := C.tv^-1;
 
@@ -213,7 +213,7 @@ BindGlobal( "HybridMatrixCanoForm", function( G, U )
         for g in G.agAutos do
             if not IsInvariantAssert(C.cf, [c*g[2]*b]) then Error("no ag-stab"); fi;
         od;
-        if not MyBaseMat(U*C.tv[2]) = C.cf then Error("no trans"); fi;
+        if not MyTriangulizedBaseMat(U*C.tv[2]) = C.cf then Error("no trans"); fi;
     fi;
 
     # return canonical form 

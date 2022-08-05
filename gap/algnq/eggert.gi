@@ -4,7 +4,7 @@ BindGlobal( "PthPowers", function( T )
     p := Characteristic(T.fld);
     I := IdentityMat(T.dim, T.fld);
     B := List(I, x -> PowerByTable( T, x, p ));
-    return MyBaseMat(B);
+    return MyTriangulizedBaseMat(B);
 end );
 
 BindGlobal( "Eggert", function(d, c, p)
@@ -51,7 +51,7 @@ BindGlobal( "FindIdeal", function(N, I)
         m := Filtered(m, x -> IsBool(SolutionMat(L, x)));
         m := List(m, x -> x * B);
         if Length(m) = 0 then return J; fi;
-        J := MyBaseMat(Concatenation(J, m));
+        J := MyTriangulizedBaseMat(Concatenation(J, m));
         B := BaseSteinitzVectors(IdentityMat(N.dim, N.fld), J).factorspace;
         K := InduceModule(M, B, J);
         L := InduceIdeal(I, B, J);
