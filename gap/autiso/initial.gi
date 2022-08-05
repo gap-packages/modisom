@@ -28,7 +28,7 @@ BindGlobal( "InitAutomGroup", function( Tab )
         inv := [1..Length(s)];
         for i in [1..Length(s)] do
             ind := Filtered([1..Length(m)], x -> m[x] = s[i]);
-            inv[i] := MyBaseMat( v{ind} );
+            inv[i] := MyTriangulizedBaseMat( v{ind} );
         od;
 
         # create a chain from invariant subspaces

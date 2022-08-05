@@ -118,7 +118,7 @@ BindGlobal( "SubspaceCanonicalForm", function( pcgs, id, base, F )
 
             stab := c.stab;
             tran := c.tran;
-            cano := MyBaseMat( base * tran[2] );
+            cano := MyTriangulizedBaseMat( base * tran[2] );
 
         # the others 
         elif Length(stab) > 0 then 
@@ -134,13 +134,13 @@ BindGlobal( "SubspaceCanonicalForm", function( pcgs, id, base, F )
             # translate result
             stab := c.stab;
             tran := tran * c.tran;
-            cano := MyBaseMat( base * tran[2] );
+            cano := MyTriangulizedBaseMat( base * tran[2] );
         fi;
 
     od;
 
     if CHECK_CNF then 
-        if not ForAll( stab, x -> cano = MyBaseMat(cano*x[2]) ) then 
+        if not ForAll( stab, x -> cano = MyTriangulizedBaseMat(cano*x[2]) ) then 
             Error("stabilizer does not stabilize in subspace cano form");
         fi;
     fi;

@@ -37,11 +37,14 @@ BindGlobal( "CoeffsMinimalElement", function( vec, base )
     return IntVecFFE(cof * mat.coeffs);
 end );
 
-BindGlobal( "MyBaseMat", function(mat)
+# The following function behaves like `TriangulizedMat`, the only
+# difference is that any zero rows are dropped, i.e., as base of
+# the row-space is returned (like `BaseMat` does, but there it
+# is not necessarily triangular)
+BindGlobal( "MyTriangulizedBaseMat", function(mat)
     local new, j;
     if Length(mat) = 0 then return mat; fi;
-    new := StructuralCopy(mat);
-    TriangulizeMat(new);
+    new := TriangulizedMat(mat);
     j := Position(new, 0*new[1]);
     if IsBool(j) then return new; fi;
     return new{[1..j-1]};
