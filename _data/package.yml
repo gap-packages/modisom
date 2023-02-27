@@ -1,6 +1,6 @@
 name: ModIsom
-version: 2.5.3
-date: 2022-08-09
+version: 2.5.4
+date: 2023-02-27
 description: |
     Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups
 
@@ -12,7 +12,7 @@ maintainers:
     - name: Bettina Eick
       url: http://www.iaa.tu-bs.de/beick
     - name: Olexandr Konovalov
-      url: https://alex-konovalov.github.io/
+      url: https://olexandr-konovalov.github.io/
 
 GAP: ">=4.7"
 
@@ -27,7 +27,7 @@ packageinfo: https://gap-packages.github.io/modisom/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/modisom/releases/download/v2.5.3/modisom-2.5.3.tar.gz
+      url: https://github.com/gap-packages/modisom/releases/download/v2.5.4/modisom-2.5.4.tar.gz
 
 abstract: |
     The <span class="pkgname">ModIsom</span> package contains various methods for computing with nilpotent associative algebras. In particular, it contains a method to determine the automorphism group and to test isomorphis of such algebras over finite fields and of modular group algebras of finite p-groups, and it contains a nilpotent quotient algorithm for finitely presented associative algebras and a method to determine Kurosh algebras.
