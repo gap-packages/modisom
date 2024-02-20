@@ -1,5 +1,6 @@
 name: ModIsom
-version: 2.5.4
+version: "2.5.4"
+license: "GPL-2.0-or-later"
 date: 2023-02-27
 description: |
     Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups
@@ -35,3 +36,34 @@ abstract: |
 status: accepted
 doc-html: htm/chapters.htm
 doc-pdf: doc/manual.pdf
+keywords: |
+    modular isomorphism problem, automorphism group, isomorphism testing, nilpotent algebras, nilpotent quotient, Kurosh algebras.
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>EK23</span>]   <b class='BibAuthor'>Eick, B. and Konovalov, O.</b>,
+     <i class='BibTitle'>ModIsom, Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups,
+             Version 2.5.4</i>
+     (<span class='BibYear'>2023</span>)<br />
+    (<span class='BibNote'>Refereed GAP package</span>),
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/modisom/">https://gap-packages.github.io/modisom/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ ModIsom2.5.4,
+      author =           {Eick, B. and Konovalov, O.},
+      title =            {{ModIsom},   Computing   automorphisms   and  checking
+                          isomorphisms  for  modular  group  algebras  of finite
+                          p-groups, {V}ersion 2.5.4},
+      month =            {Feb},
+      year =             {2023},
+      note =             {Refereed GAP package},
+      howpublished =     {\href        {https://gap-packages.github.io/modisom/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{modisom/}}},
+      keywords =         {modular   isomorphism   problem;  automorphism  group;
+                          isomorphism  testing;  nilpotent  algebras;  nilpotent
+                          quotient; Kurosh algebras},
+      printedkey =       {EK23}
+    }
+
