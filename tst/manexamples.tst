@@ -93,36 +93,91 @@ gap> C.cano.tab;
 # Chapter 4
 #####################################################################
 gap> bins := BinsByGT(2,6);
-refine by abelian invariants of group (Sehgal/Ward) 
-13 bins with 256 groups 
-refine by abelian invariants of center (Sehgal/Ward) 
-30 bins with 237 groups 
-refine by lower central series (Sandling) 
-32 bins with 127 groups 
-refine by jennings series (Passi+Sehgal/Ritter+Sehgal) 
-36 bins with 123 groups 
-refine by conjugacy classes (Roggenkamp/Wursthorn) 
-16 bins with 36 groups 
-refine by elem-ab subgroups (Quillen) 
-  start bin 1 of 16
-  start bin 2 of 16
-  start bin 3 of 16
-  start bin 4 of 16
-  start bin 5 of 16
-  start bin 6 of 16
-  start bin 7 of 16
-  start bin 8 of 16
-  start bin 9 of 16
-  start bin 10 of 16
-  start bin 11 of 16
-  start bin 12 of 16
-  start bin 13 of 16
-  start bin 14 of 16
-  start bin 15 of 16
-  start bin 16 of 16
-9 bins with 21 groups 
-[ [ 13, 14 ], [ 18, 19 ], [ 20, 22 ], [ 97, 101 ], [ 108, 110 ], 
-  [ 155, 157, 159 ], [ 156, 158, 160 ], [ 173, 176 ], [ 179, 180, 181 ] ]
+#I  refine by abelian invariants of group (Sehgal/Ward)
+#I  13 bins with 256 groups
+#I  refine by abelian invariants of center (Sehgal/Ward)
+#I  30 bins with 237 groups
+#I  refine by abelian invariants of center with derived subgroup (Sandling)
+#I  39 bins with 234 groups
+#I  refine by small group algebra (Sandling/Baginski)
+#I  34 bins with 122 groups
+#I  refine by Jennings series (Passi+Sehgal/Ritter+Sehgal/Hertweck)
+#I  36 bins with 120 groups
+#I  refine by Jennings series of derived group (Sandling)
+#I  37 bins with 118 groups
+#I  refine by Baginski criteria
+#I  35 bins with 114 groups
+#I  refine by Baginski-Caranti invariant
+#I  35 bins with 114 groups
+#I  refine by nilpotency class for some cases (Baginski+Konovalov)
+#I  35 bins with 114 groups
+#I  refine by Omega and Agemo (Margolis+Stanojkovski+Sakurai/Garcia-Lucas)
+#I  33 bins with 110 groups
+#I  refine by lower central series (Margolis+Stanojkovski)
+#I  33 bins with 110 groups
+#I  invariants for cyclic derived subgroup (Garcia-Lucas+del Rio+Stanojkovski)
+#I  33 bins with 110 groups
+#I  refine by maximal abelian direct factor (Garcia-Lucas)
+#I  33 bins with 110 groups
+#I  refine by lattice of canonical subgroups (Garcia-Lucas)
+#I  32 bins with 108 groups
+#I  checking if covered by theory
+#I  30 bins with 103 groups
+#I  refine by second cohomology group
+  start bin 1 of 27
+  start bin 2 of 27
+  start bin 3 of 27
+  start bin 4 of 27
+  start bin 5 of 27
+  start bin 6 of 27
+  start bin 7 of 27
+  start bin 8 of 27
+  start bin 9 of 27
+  start bin 10 of 27
+  start bin 11 of 27
+  start bin 12 of 27
+  start bin 13 of 27
+  start bin 14 of 27
+  start bin 15 of 27
+  start bin 16 of 27
+  start bin 17 of 27
+  start bin 18 of 27
+  start bin 19 of 27
+  start bin 20 of 27
+  start bin 21 of 27
+  start bin 22 of 27
+  start bin 23 of 27
+  start bin 24 of 27
+  start bin 25 of 27
+  start bin 26 of 27
+  start bin 27 of 27
+#I  13 bins with 27 groups
+#I  refine by conjugacy classes (Parmenter+Polcino-Milies,Kuelshammer,Roggenkamp/Wursthorn)
+  start bin 1 of 13
+  start bin 2 of 13
+  start bin 3 of 13
+  start bin 4 of 13
+  start bin 5 of 13
+  start bin 6 of 13
+  start bin 7 of 13
+  start bin 8 of 13
+  start bin 9 of 13
+  start bin 10 of 13
+  start bin 11 of 13
+  start bin 12 of 13
+  start bin 13 of 13
+#I  6 bins with 13 groups
+#I  refine by elem-ab subgroups (Quillen)
+  start bin 1 of 6
+  start bin 2 of 6
+  start bin 3 of 6
+  start bin 4 of 6
+  start bin 5 of 6
+  start bin 6 of 6
+#I  4 bins with 9 groups 
+
+[ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ] ]
+
 
 #####################################################################
 gap> CheckBin(2,6,100,bins[1]);
