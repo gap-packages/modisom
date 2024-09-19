@@ -92,6 +92,7 @@ gap> C.cano.tab;
 #####################################################################
 # Chapter 4
 #####################################################################
+gap> SetInfoLevel(InfoModIsom, 1);
 gap> bins := BinsByGT(2,6);
 #I  refine by abelian invariants of group (Sehgal/Ward)
 #I  13 bins with 256 groups
@@ -180,17 +181,144 @@ gap> bins := BinsByGT(2,6);
 
 
 #####################################################################
-gap> CheckBin(2,6,100,bins[1]);
-compute tables through power series 
-  determined table for 1
-  determined table for 2
+gap> MIPSplitGroupsByAlgebras(2,6,bins[1]);
+#I  Refine bin
+#I    Weights yields bins [ [ 1, 2, 3 ] ]
+#I    Layer 1 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 2 of dim 8 aut group has order 168 * 2^0
+#I     cover is determined 
+#I     dim(M) = 9 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 8 aut group has order 168 * 2^0
+#I     cover is determined 
+#I     dim(M) = 9 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 8 aut group has order 168 * 2^0
+#I     cover is determined 
+#I     dim(M) = 9 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 2 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 3 of dim 15 aut group has order 2 * 2^15
+#I     cover is determined 
+#I     dim(M) = 11 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 15 aut group has order 2 * 2^15
+#I     cover is determined 
+#I     dim(M) = 11 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 15 aut group has order 2 * 2^15
+#I     cover is determined 
+#I     dim(M) = 11 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 3 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 4 of dim 23 aut group has order 2 * 2^28
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 23 aut group has order 2 * 2^28
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 23 aut group has order 2 * 2^28
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 4 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 5 of dim 31 aut group has order 2 * 2^41
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 5 of dim 31 aut group has order 2 * 2^41
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 5 of dim 31 aut group has order 2 * 2^41
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 5 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 6 of dim 39 aut group has order 2 * 2^49
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 6 of dim 39 aut group has order 2 * 2^49
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 6 of dim 39 aut group has order 2 * 2^49
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 6 yields bins [ [ 1, 2, 3 ] ]
+#I  layer 7 of dim 47 aut group has order 2 * 2^58
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 7 of dim 47 aut group has order 2 * 2^58
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 7 of dim 47 aut group has order 2 * 2^58
+#I     cover is determined 
+#I     dim(M) = 12 and dim(U) = 4
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 7 yields bins [  ]
+rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 2243 )
 
-refine bin 
-  weights yields bins [ [ 1, 2 ] ]
-  layer 1 yields bins [ [ 1, 2 ] ]
-  layer 2 yields bins [ [ 1, 2 ] ]
-  layer 3 yields bins [ [ 1, 2 ] ]
-  layer 4 yields bins [  ]
 
 #####################################################################
 # Chapter 5
