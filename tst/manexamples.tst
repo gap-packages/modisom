@@ -96,8 +96,10 @@ gap> bins := BinsByGT(2,6);
 [ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ] ]
 
 #####################################################################
-gap> MIPSplitGroupsByAlgebras(2,6,bins[1]);
-rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 2243 )
+gap> MIPSplitGroupsByAlgebras(2,6,bins[1]).bins;
+[  ]
+gap> MIPSplitGroupsByAlgebras(2,6,bins[1]).splits;
+[ [ 7, [ 156, 158, 160 ] ] ]
 
 #####################################################################
 # Chapter 5
