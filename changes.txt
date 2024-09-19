@@ -1,0 +1,80 @@
+Overview of files changeg in respect to ModIsom 2.5.3:
+
+ModIsomExt refers to a GAP package written by Leo Margolis and Tobias Moede the functionality of which is now included in this package, cf. https://www.tu-braunschweig.de/index.php?eID=dumpFile&t=f&f=114036&token=7391a74bb71a93524f0dc24d07e5330c3d3cdf6e and https://doi.org/10.1016/j.jaca.2022.100001.
+
+Changed:
+- detbins.gi: 
+-- New invariants and new functions for all fields. Also new functions which do not need the order as input. 
+-- Some of the existing functions now give more information, e.g. ConjugacyClassInfo or SandlingInfo
+-- Many of the functions are now documented. This concerns both, new and unchanged functions
+
+- checkbin.gi:  
+-- Corrected mistake in main function as done in ModIsomExt. Basically, just copied the file from ModIsomExt
+-- New functionality which allows application to bigger fields
+-- Print info on time etc. as in ModIsomExt 
+
+- fprint.gi: corrected mistake in function PowerBasisWeights as done in ModIsomExt
+
+New files:
+- collect.gi as given in ModIsomExt. Function to efficiently compute with Jennings bases in Loewy series quotients of the augmentation ideal
+- Jennings bound functions which in ModIsomExt are in detbins.gi into new files jenningsBound.g and jenningsConjecture.g
+- kernelsize.gi: to compute kernel sizes of power maps
+- tabletoalgebrandback.gi: functions which allow to convert hence and forth between elements in the group algebra (or rather the augmentation ideal) and the corresponding table
+- detbinsRT.gi: for the ring-theoretic functions of detbins.gi in ModIsom
+
+Technical differences between ModIsom and ModIsomExt:
+- ModIsom uses BindGlobal while ModIsomExt uses InstallMethod. --> Has been changed everywhere to BindGlobal
+- Documentation is generated differently. ModIsom uses GAPMacro --> Fused 
+
+-------------------------------------------------
+------------------------------------------------
+
+Concrete changes:
+
+detbins.gi:
+- RefinBins from ModIsomExt (i.e. to refine lists of groups and not only of ids)
+- MIPConjugcayClassInfo from ModIsomExt (i.e. with the parameter of Parmenter-Polcino Milies)
+- MIPJenningsInfo from ModIsomExt (i.e. incorporating Hertweck's G/D4(G) and better id recognition)
+- MIPSandlingInfo from ModIsomExt (i.e. incorporating Baginski/Margolis-Moede on small group rings)
+- BaginskiInfo from ModIsomExt, implementing Baginski99-results
+- CenterDerivedInfo from ModIsomExt
+- FrattiniInfo from ModIsomExt
+- JenningsDerivedInfo from ModIsomExt
+- BaginskiCarantiInfo from ModIsomExt
+- NilpotencyClassInfo from ModIsomExt
+- DimensionTwoCohomology from ModIsomExt
+
+- MIPJenningsInfoAllFields, only subsequent Jennings quotients
+- DimensionSecondHochschild, computes dimension of second Hochschild cohomology group
+- IsCoveredByTheory extended from ModIsomExt with various new results
+- IsCoveredByTheoryAllFields new function
+- Theorem41MS22 new function for result from Margolis-Stanojkovski
+- MaximalAbelianDirectFactor and MaximalElementaryAbelianDirectFactor new functions for canceling factors
+- AgemoInvariantAllM and OmegaInvariantAllM and AgemoCenterInvariantAllM and NormalSubgroupsInfo new functions based on Garcia-Lucas and Margolis-Sakurai-Stanojkovski
+- CyclicDerivedInfo and CyclicDerivedInfoAllFields new functions based on Garcia-Lucas-Del Rio-Stanojkovski and Garcia-Lucas-Del Rio
+- MIPBinsByGTInternal changed from ModIsomExt to incorporate new invariants and option to shut off cohomology calculations
+- MIPBinsByGT changes to 2-4 variables and with new invariants
+- MIPBinsByGTAllFieldsInternal and MIPBinsByGTAllFields new functions for all fields
+- MIPSplitGroupsByGroupTheoreticalInvariants and MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology and MIPSplitGroupsByGroupTheoreticalInvariantsAllFields and MIPSplitGroupsByGroupTheoreticalInvariantsAllFieldsNoCohomology new user friendly functions which only need list of groups as input
+
+
+checkbin.gi:
+- MIPBinSplit from ModIsomExt with change to allow to increase field
+- MIPSplitGroupsByAlgebras new user friendly function with input list of groups (and optional number to increase field)
+
+fprint.gi: correction of mistake in PowerBasisWeights as already done in ModIsomExt
+
+collect.gi: like in ModIsomExt + new user friendly function ModIsomTable
+
+detbinsRT.gi: functions in the second half of the old checkbin.gi
+
+kernelsize.gi: compute kernel size of power map
+
+jenningsBounds.g: functions on Jennings bound from ModIsomExt
+
+tabletoalgebrandback.gi: MIPElementTableToAlgebra and MIPElementAlgebraToTable functions to convert elements between group algebra and table
+
+Manual:
+- many of the new functions have been documented as well as the changes in the previous functions. Also some functions which remain unchanged are now documented
+
+

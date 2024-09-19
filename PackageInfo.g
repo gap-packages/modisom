@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "2.5.4",
-Date := "27/02/2023", # dd/mm/yyyy format
+Version := "3.0.0",
+Date := "26/02/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -26,13 +26,30 @@ Persons := [
     Place         := "Braunschweig",
     Institution   := "TU Braunschweig"
   ),
+
+  rec( 
+    LastName      := "Garcia-Lucas",
+    FirstNames    := "Diego",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "diego.garcial@um.es",
+    PostalAddress := Concatenation(
+               "Departamento de Matematicas\n",
+               "Facultad de Matematicas\n",
+               "Universidad de Murcia\n",
+               "ES-30100 Murcia\n",
+               "Spain" ),
+    Place         := "Murcia",
+    Institution   := "Universidad de Murcia"
+  ),
+
   rec(
     LastName      := "Konovalov",
     FirstNames    := "Olexandr",
     IsAuthor      := false,
     IsMaintainer  := true,
     Email         := "obk1@st-andrews.ac.uk",
-    WWWHome       := "https://olexandr-konovalov.github.io/",
+    WWWHome       := "https://alex-konovalov.github.io/",
     PostalAddress := Concatenation( [
                      "School of Computer Science\n",
                      "University of St Andrews\n",
@@ -40,7 +57,39 @@ Persons := [
                      "St Andrews, Fife, KY16 9SX, Scotland" ] ),
     Place         := "St Andrews",
     Institution   := "University of St Andrews"
-  ) ],
+  ),
+  rec( 
+    LastName      := "Margolis",
+    FirstNames    := "Leo",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    Email         := "leo.margolis@uam.es",
+    WWWHome       := "http://www.margollo.github.io",
+    PostalAddress := Concatenation(
+               "Departamento de Matematicas\n",
+               "Universidad Autonoma de Madrid\n",
+               "Campus Cantoblanco\n",
+               "28049 Madrid\n",
+               "Spain" ),
+    Place         := "Madrid",
+    Institution   := "Universidad Autonoma de Madrid"
+  ),
+  rec( 
+    LastName      := "Moede",
+    FirstNames    := "Tobias",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "t.moede@tu-braunschweig.de",
+    WWWHome       := "https://www.tu-braunschweig.de/iaa/personal/moede",
+    PostalAddress := Concatenation( [
+                       "Institute of Analysis and Algebra\n",
+                       "TU Braunschweig\n",
+                       "Universitaetsplatz 2, 38106 Braunschweig\n",
+                       "Germany" ] ),
+    Place         := "Braunschweig",
+    Institution   := "TU Braunschweig"
+  )
+ ],
 
 Status := "accepted",
 CommunicatedBy := "Olexandr Konovalov (St Andrews)",

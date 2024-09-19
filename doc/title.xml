@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<TitlePage>
+  <Title>
+    ModIsom
+  </Title>
+  <Subtitle>
+    Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups
+  </Subtitle>
+  <Version>
+    3.0.0
+  </Version>
+  <Author>
+    Bettina Eick<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+Institut Analysis und Algebra<Br/>
+TU Braunschweig<Br/>
+Universitätsplatz 2<Br/>
+D-38106 Braunschweig<Br/>
+Germany<Br/>
+</Address>
+<Email>beick@tu-bs.de</Email>
+<Homepage>http://www.iaa.tu-bs.de/beick</Homepage>
+
+  </Author>
+  <Author>
+    Olexandr Konovalov<Alt Only="LaTeX"><Br/></Alt>
+<Address>
+School of Computer Science<Br/>
+University of St Andrews<Br/>
+Jack Cole Building, North Haugh,<Br/>
+St Andrews, Fife, KY16 9SX, Scotland<Br/>
+</Address>
+<Email>obk1@st-andrews.ac.uk</Email>
+<Homepage>https://alex-konovalov.github.io/</Homepage>
+
+  </Author>
+  <Date>
+    26 February 2024
+  </Date>
+  </TitlePage>

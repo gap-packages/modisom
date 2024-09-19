@@ -65,8 +65,14 @@ ReadPackage("modisom", "gap/grpalg/autiso.gi");
 ReadPackage("modisom", "gap/grpalg/check.gi");
 ReadPackage("modisom", "gap/grpalg/head.gi");
 
+ReadPackage("modisom", "gap/grpalg/jenningsBounds.gi");
 ReadPackage("modisom", "gap/grpalg/detbins.gi");
+ReadPackage("modisom", "gap/grpalg/detbinsRT.gi");
+ReadPackage("modisom", "gap/grpalg/collect.gi");
 ReadPackage("modisom", "gap/grpalg/chkbins.gi");
+ReadPackage("modisom", "gap/grpalg/kernelsize.gi");
+ReadPackage("modisom", "gap/grpalg/tabletoalgebraandback.gi");
+ReadPackage("modisom", "gap/grpalg/jenningsConjecture.gi");
 
 ReadPackage("modisom", "gap/algnq/exam.gi");
 ReadPackage("modisom", "gap/algnq/algnq.gi");

@@ -49,12 +49,18 @@ The nilpotent table $T$ for $A$ (with respect to the basis $(b_1,
 
 \enditems
 
-In a nilpotent table not all structure contants are readily available.
+In a nilpotent table not all structure constants are readily available.
 The following function determines the structure constants for the
 product $b_i b_j$. If the global variable $STORE$ is true, then the
 function stores the computed entry in the table.
 
 \> GetEntryTable( T, i, j ) F
+
+The result of the multiplication of the elements $v$ and $w$ in $T$
+can be obtained using the following function. An example of its use is
+provided below.
+
+\> MultByTable( T, v, w ) F
 
 We consider two nilpotent tables as equal, if they would be equal if
 the full set of structure constants tables would be bound. The following
@@ -144,5 +150,178 @@ rec( dim := 7, fld := GF(2), rnk := 2,
           [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ] ], 
   wds := [ ,, [ 1, 2 ],, [ 1, 4 ], [ 2, 4 ], [ 1, 6 ] ], 
   wgs := [ 1, 1, 2, 2, 3, 3, 4 ] )
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\Section{Tables for the Modular Isomorphism Problem}
+
+A special kind of nilpotent table is available in the context of the
+Modular Isomorphism Problem. Let $G$ be a finite group, $F$ a field of 
+characteristic $p$ and $I(FG)$ the augmentation ideal of $FG$ which equals
+its radical and is a nilpotent ideal. Two functions allow to compute 
+class-$n$ quotient of $I(FG)$, i.e. $I(FG)/I(FG)^{n+1}$. The output is a nilpotent 
+table for this quotient, but in addition to the standard entries of 
+a nilpotent table it contains further entries, which allow more efficient 
+computations and can also facilitate manual calculations.
+This allows to determine the class-$n$ quotient of the augmentation ideal
+without computing the full augmentation ideal using $NilpotentTableOfRad$. 
+The corresponding table can be computed by
+
+\> TableOfRadQuotient( FG, n ) F
+
+or 
+
+\> ModIsomTable( G, n, [f] ) F
+
+Here $ModIsomTable(G, n)$ will produce the quotient with respect to the algebra
+$\F_pG$, while $ModIsomTable( G, n, f )$ will do the same for the algebra $\F_{p^f}G$.
+If $ModIsomTable$ is executed as $ModIsomTable(G, n)$ it provides the table with respect to the algebra $\F_pG$.
+\medskip 
+
+The components $dim$, $fld$, $rnk$, $tab$, $wgs$, $wds$
+ remain unchanged from a usual nilpotent table. The additional components are
+$commwords$, $powwords$ and $pre$. These new components
+contain additional information on precisely which basis of $I(FG)/I(FG)^{n+1}$ is used
+and what the result of multiplying basis elements is. We explain how users
+can understand how the basis looks and how they can multiply two elements in the algebra. 
+The components $T\.commords$ and $T\.powwords$ contain information on how the elements of
+the basis behave with respect to commutators and $p$-th powers. The component $T\.pre$
+contains information on the construction of the basis and we describe it in more detail.
+\medskip
+
+The dimension of $I(FG)/I(FG)^{n+1}$ is recorded in $T\.dim$.
+The basis of $I(FG)/I(FG)^{n+1}$ is found as in the theory of Jennings going back
+to \cite{Jen41}, cf. \cite{MM22} for the information needed here. The elements 
+of $G$ chosen to provide the basis of subsequent quotients of dimension subgroups
+are recorded in $T\.pre\.jen\.pcgs$. Let us call these elements $g_1,\ldots,g_m$.
+Note that $|G| = p^m$.  The weights of the elements $g_1-1,\ldots ,g_m-1$ are recorded
+in $T\.pre\.jen\.weights$. If now $r$ is an integer smaller than $T\.dim+1$, then the
+$r$-th element of the basis of  $I(FG)/I(FG)^{n+1}$ is 
+$(g_1-1)^{e_1} \cdot \ldots (g_m-1)^{e_m}$ where $[e\_1,\ldots,e\_m] = T\.pre\.exps[r]$.
+The weight of this element is recorded in $T\.wgs[r]$ and also $T\.pre\.weights[r]$.
+Moreover, the positions of $g_1-1,\ldots ,g_m-1$ in the chosen basis of $T$ are recorded
+in $T\.pre\.poswone$. We elaborate using an example.
+\medskip
+
+We consider the group $G=SmallGroup(3^7, 19)$. The following calculation shows
+that $I(FG)/I(FG)^9$ has dimension $135$ and that the full augmentation
+ideal $I(FG)$ has dimension $2186$.
+
+\beginexample
+gap> G := SmallGroup(3^7, 19);;
+gap> T := ModIsomTable(G, 8);;
+gap> T.dim;
+135
+
+gap> FG := GroupRing(GF(3), G);;
+gap> TT := TableOfRadQuotient(FG, 8);;
+gap> TT.dim;
+135
+
+gap> T := ModIsomTable(G, 38);;
+gap> T.dim;
+2186
+
+gap> T := ModIsomTable(G, 39);;
+gap> T.dim;
+2186
+\endexample
+
+We next consider an example how the basis used can be recognized.
+
+\beginexample
+gap> G := DihedralGroup(8);;
+gap> T := ModIsomTable(G, 4);;
+gap> T.dim;
+7
+gap> pcgs := T.pre.jen.pcgs;
+Pcgs([ f1, f2, f3 ])
+gap> List(pcgs, Order);
+[ 2, 4, 2 ]
+gap> pcgs[3] in Center(G);
+true
+gap> T.pre.exps{[1..7]};
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ], 
+  [ 1, 1, 1 ]] 
+\endexample
+
+We conclude that $I(kG)/I(kG)^5$ is $7$-dimensional and if we denote by
+  $a$ a reflection and by $b$ a non-central rotation in $G$, then the
+  basis used by $T$ is, in this order: $(a-1)$, $(b-1)$, $(a-1)(b-1)$, $(b^2-1)$,
+   $(a-1)(b^2-1)$, $(b-1)(b^2-1)$, $(a-1)(b-1)(b^2-1)$.    
+\medskip
+
+ Say continuing the previous example we want to multiply $(b-1)+(a-1)(b-1)+(a-1)(b^2-1)$ and $(a-1)+(b-1)+(b^2-1)$.
+\beginexample
+gap> v := Z(2)^0*[0,1,1,0,1,0,0];
+[ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+gap> w := Z(2)^0*[1,1,0,1,0,0,0];
+[ Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2) ]
+gap> MultByTable(T,v,w);
+[ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+\endexample
+
+So the result is $(a-1)(b-1) + (a-1)(b^2-1)$.
+\medskip
+
+To facilitate the translation of elements of the group algebra
+and a corresponding table of a quotient of the augmentation ideal 
+the functions
+
+\> MIPElementTableToAlgebra( v, T, FG ) F
+
+and
+
+\> MIPElementAlgebraToTable( el, FG, T ) F 
+
+can be used. In the second function of course only a possible
+representative of $v$ in $FG$ is provided. Also, only elements 
+from the augmentation ideal of $FG$ can be represented using
+$MIPElementAlgebraToTable$. These functions can be used for 
+instance to obtain representatives in the same class modulo
+a power of the augmentation ideal which are more practical to
+work with, as the following example shows.
+
+\beginexample
+gap> G := SmallGroup(3^7, 19);
+<pc group of size 2187 with 7 generators>
+gap> T := ModIsomTable(G, 4);;
+gap> FG := GroupRing(GF(3), G);
+<algebra-with-one over GF(3), with 7 generators>
+gap> iota := Embedding(G, FG);
+<mapping: Group( [ f1, f2, f3, f4, f5, f6, f7 
+ ] ) -> AlgebraWithOne( GF(3), ... ) >
+gap> a := (T.pre.jen.pcgs[1])^iota;
+(Z(3)^0)*f1
+gap> b := (T.pre.jen.pcgs[2])^iota;
+(Z(3)^0)*f2
+gap> z := One(FG);
+(Z(3)^0)*<identity> of ...
+gap> r := (z + (a-z)*(b-z) )^-1;;  
+gap> Size(Support(r-z));
+1376
+gap> el := MIPElementAlgebraToTable(r-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), Z(3)^0, 0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap> MIPElementTableToAlgebra(el, T, FG);
+(Z(3))*<identity> of ...+(Z(3)^0)*f3+(Z(3)^0)*f1^2+(Z(3))*f1*f2+(Z(3))*f1*f3+(
+Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
+0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
+\endexample
+
+We illustrate the information in $T\.pre\.poswone$:
+
+\beginexample
+gap> d := (T.pre.jen.pcgs[4])^iota;
+(Z(3)^0)*f4
+gap> el := MIPElementAlgebraToTable(d-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap> Position(last, Z(3)^0);
+11
+gap> T.pre.poswone[4];
+11
 \endexample
 

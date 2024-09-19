@@ -1,3 +1,9 @@
+####################################
+#
+#! @Chapter Tables
+#
+####################################
+
 
 DeclareOperation( "AlgebraByTable", [IsObject] );
 DeclareOperation( "TableByBasis", [IsAlgebra, IsList] );
@@ -9,4 +15,5 @@ DeclareAttribute( "PowerSeries", IsAlgebra );
 DeclareAttribute( "WeightedBasis", IsAlgebra );
 
 DeclareInfoClass( "InfoModIsom" );
+
 

@@ -60,7 +60,7 @@ BindGlobal( "PowerBasisWeights", function( T, U, limit )
                 for j in [1..n] do
                     if IsBound(bas[j]) 
                        and (wgt[i]=1 or wgt[j]=1) 
-                       and (wgt[i]+wgt[j]<=limit) 
+                       and Minimum(wgt{[Maximum(i,j)..n]}) <= limit+1 # this line has been corrected in respect to earlier versions of the package 
                     then
                         b := MultByTable( T, bas[i], bas[j] );
                         SiftIntoBasis( bas, wgt, rel, b, wgt[i]+wgt[j] );

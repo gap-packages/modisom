@@ -8,18 +8,26 @@ BindGlobal( "CoeffsNatBasisOfAug", function(A)
     return I;
 end );
 
-BindGlobal( "PcgsJenningsSeries", function(G)
-    local s, b, w, i, g;
-    s := JenningsSeries( G );
-    b := [];
-    w := [];
-    for i in [ 1 .. Length(s)-1 ] do
-        g := ModuloPcgs(s[i],s[i+1]);
-        Append(b,g);
-        Append(w, List(g, x -> i));
-    od;
-    return rec( pcgs := b, weights := w );
-end );
+####################################################################################################################
+# The pcgs of the return can be used as a pcgs of G. Weights are in the sense of Jennings basis, 
+# i.e. in which maximal power of the augmentation ideal they still appear.
+# Input: finite p-group
+# Output: The pcgs of subsequent quotients of a Jennings series and their weights
+BindGlobal("PcgsJenningsSeries", function( G )
+local s, b, w, i, g;
+
+     s := JenningsSeries(G);
+     b := [];
+     w := [];
+     for i in [ 1 .. Length(s)-1 ] do
+         g := ModuloPcgs(s[i],s[i+1]);
+         Append(b,g);
+         Append(w, List(g, x -> i));
+     od;
+
+     return rec( pcgs := PcgsByPcSequence(FamilyObj(One(G)), b), weights := w );
+end);
+
 
 BindGlobal( "WeightedBasisOfRad", function(A)
     local G, p, n, js, jb, jw, ww, wb, wc, df, i, h;

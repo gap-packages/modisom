@@ -1,88 +1,534 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \Chapter{The modular isomorphism problem}
 
-An application of the methods in this package has been the checking
-of the modular isomorphism problems for the groups of order dividing
-$2^8$, $3^6$ and $2^9$ \cite{Eic07,EKo10}. This section contains the 
-functions used for this purpose. 
+Applications of the methods in this package include the study
+of the modular isomorphism problems for the groups of small order
+from the SmallGroupLibrary - first for groups of order dividing
+$2^8$, $3^6$ and $2^9$ \cite{Eic07} \cite{EKo11} and later also $3^7$ and $5^6$
+\cite{MM22}.
+This section contains the functions used for this purpose as well as an
+overview of how the Modular Isomorphism Problem can be studied for any
+set of groups using on one hand group-theoretical invariants and on 
+the other hand the canonical form of nilpotent algebras. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Computing and checking bins}
+\Section{Computing bins and checking bins}
 
-\> BinsByGT( p, n ) F
+A set of groups which share all the group-theoretical invariants implemented
+in the package is called *bin*. To determine such bins the main function
+available is:
 
-returns a partion of the list $[1..NumberSmallGroups(p^n)]$ into 
-sublists so that the modular group algebras of two groups 
-SmallGroup($p^n$, $i$) and SmallGroup($p^n$, $j$) can not be
-isomorphic if $i$ and $j$ are in different lists. The function
-BinsByGT uses various group theoretic invariants to split the
-groups of order $p^n$ in bins.
+\> BinsByGT( p, n, [L], [false] ) F
 
-\> CheckBin( p, n, k, bin ) F
+If the function is called as $BinsByGT(p, n)$, then it returns
+a partition of the list $[1\.\. NumberSmallGroups(p$^$n)]$ into 
+sublists so that the groups in the corresponding lists share
+all the group-theoretical invariants, i.e. the modular group algebras of two groups 
+$SmallGroup(p$^$n, i)$ and $SmallGroup(p$^$n, j)$ over the field
+$\F_p$ can not be isomorphic if $i$ and $j$ are in different lists. 
 
-For $i \in bin$ let $G_i$ denote SmallGroup($p^n$, $i$) and let $A_i$
-be the augementation ideal of $F G_i$. This function computes and
-compares the canonical forms of the algebras $A_i / A_i^j$ for every
-$i \in bin$ and increasing $j \in \{1, \ldots, k+1\}$. 
+If the function is called as $BinsByGT(p, n, L)$, then $L$ must be a 
+list of groups of order $p^n$ and the function will return a partition
+of the groups of $L$ which share all the group-theoretical invariants.
+Alternatively, $L$ can be a list of group Id's of groups of order $p^n$.
+
+If the function is called as $BinsByGT(p, n, L, false)$ then $L$ must be
+a list of groups of order $p^n$ and $false$ disactivates the calculation
+of the dimensions of the second cohomology groups. This can be 
+switched off as for some type of groups $GAP$ can not apply the needed functions
+and since computing the second cohomology groups is arguably the hardest 
+of the invariants to test manually.
+
+
+
+Several variations of $BinsByGT$ are available. The first two
+apply to the case when a list of groups is being studied instead of 
+group Id's.
+
+\> MIPSplitGroupsByGroupTheoreticalInvariants ( L ) F
+
+does the same as $BinsByGT(p,n,L)$ but computes the numbers $p$ and
+$n$ itself. The input variable must be a list of groups of the same
+order. Similarly
+
+\> MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology(L) F	
+
+computes $BinsByGT(p, n, L, false)$.
+
+
+Moreover, all the three functions described before have variations
+where only those group-theoretical invariants are computed that 
+are known to be $\F$-invariants over any field $\F$ of 
+characteristic $p$. The input and output of these functions is exactly 
+as for the three previous functions.
+
+\> BinsByGTAllFields(p, n , [L], [false]) F
+
+\> MIPSplitGroupsByGroupTheoreticalInvariantsAllFields(L) F
+
+\> MIPSplitGroupsByGroupTheoreticalInvariantsAllFieldsNoCohomology(L) F
+
+The group-theoretical invariants used by the function
+$BinsByGT$ and its variations are described below. 
+Moreover, $GAP$ prints more or less information on the progress 
+inside these functions, if $InfoModIsom$ is set to $1$ or $0$,
+respectively. Examples of the use of the functions are included
+below.
+
+The main function to apply the algorithm computing the canonical
+form of nilpotent algebras in the context of the Modular
+Isomorphism Problem is:
+
+\> MIPSplitGroupsByAlgebras( [p, n], bin, [f] ) F
+
+%\> MIPSplitGroupsByAlgebras(bin , [f] ) F
+
+If $MIPSplitGroupsByAlgebras(p, n, bin, [f])$ is called then the algebras
+of groups of order $p^n$ with group Id's contained in $bin$ are studied.
+The underlying field is of order $p^f$ or, if $f$ is not given, of 
+order $p$. 
+
+If the function is called as $MIPSplitGroupsByAlgebras(bin, [f])$ then
+$bin$ must be a list of groups of the same prime power order and the function
+studies the group algebras of the groups in $bin$ over the field with $p^f$
+elements or, if no $f$ is given, of order $p$.
+
+More precisely, in the first case when $bin$ is a list of integers,
+for $i \in bin$ let $G_i$ denote $SmallGroup(p$^$n, i)$.
+In the second case $G_i$ just runs through the groups contained in $bin$.
+Denote by $A_i$ the augmentation ideal of $\F G_i$ where $\F$ is the field
+of order $p^f$ or simply $p$, if $f$ is not given.
+ The function computes and compares the canonical forms of the algebras 
+ $A_i / A_i^j$ for every $i \in bin$ and increasing natural number $j$. 
 
 At each level $j$ it splits the current bins into sub-bins according 
 to the different canonical forms of $A_i/A_i^j$. Bins of length 1 are 
 then discarded.
 
-The function returns if no further bins are available or if $j=k+1$ is
-reached. In the later case the function returns the remaining bins. 
+The function returns if no further bins are available and provides
+information at which level the splitting of the bins took place.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Example for groups of order 64}
+For more evolved calculations one can use the function
 
-We show how to check the modular isomorphism problem for the groups
-of order 64. We first use BinsByGT to determine bins and we then check
-the first of the resulting bins with CheckBin. The fact that CheckBin
-ends with an empty list of bins shows that all groups are splitted.
+\> MIPBinSplit(p, n, k, start, step, L, [f])
+
+Given a list $L$ of small group library Id's or a list of groups of order $p^n$ this functions checks
+isomorphism of the associated modular group algebras using canonical forms for the quotients of the
+augmentation ideals $A$ of $\F G$. Here $\F$ is either $\F_p$ or $\F_{p^f}$, if $f$ is given.
+The parameter $max$ is an integer or $false$ that determines the maximal
+quotients $A/A^{max}$ to be checked (if $false$ is given as input, then the quotients are enlarged
+until non-isomorphic quotients are found or eventually the full augmentation ideal will be checked).
+The parameter $start$ specifies which quotients $A/A^{start}$ are precomputed. The parameter
+$step$ determines in which steps the quotients are enlarged if necessary during the isomorphism check.
+The output is a record containing three entries: $bins$ contains all the groups, for which the non-
+isomorphism of the associated modular group algebras could not be determined; $splits$ contains all
+the groups, for which the associated group algebras were determined to be non-isomorphic (and the
+first non-isomorphic quotient); $time$ contains the time used for the computation (in milliseconds).
+
+For big algebras all of these function can use a lot of time and memory. To have a
+better idea on the progress of the calculations one should set $InfoModIsom$ to 1.
+
+We first show how to study a fixed order:
 
 \beginexample
 gap> bins := BinsByGT(2,6);
-refine by abelian invariants of group (Sehgal/Ward) 
-13 bins with 256 groups 
-refine by abelian invariants of center (Sehgal/Ward) 
-30 bins with 237 groups 
-refine by lower central series (Sandling) 
-32 bins with 127 groups 
-refine by jennings series (Passi+Sehgal/Ritter+Sehgal) 
-36 bins with 123 groups 
-refine by conjugacy classes (Roggenkamp/Wursthorn) 
-16 bins with 36 groups 
-refine by elem-ab subgroups (Quillen) 
-  start bin 1 of 16
-  start bin 2 of 16
-  start bin 3 of 16
-  start bin 4 of 16
-  start bin 5 of 16
-  start bin 6 of 16
-  start bin 7 of 16
-  start bin 8 of 16
-  start bin 9 of 16
-  start bin 10 of 16
-  start bin 11 of 16
-  start bin 12 of 16
-  start bin 13 of 16
-  start bin 14 of 16
-  start bin 15 of 16
-  start bin 16 of 16
-9 bins with 21 groups 
-[ [ 13, 14 ], [ 18, 19 ], [ 20, 22 ], [ 97, 101 ], [ 108, 110 ], 
-  [ 155, 157, 159 ], [ 156, 158, 160 ], [ 173, 176 ], [ 179, 180, 181 ] ]
-
-gap> CheckBin(2,6,100,bins[1]);
-compute tables through power series 
-  determined table for 1
-  determined table for 2
-
-refine bin 
-  weights yields bins [ [ 1, 2 ] ]
-  layer 1 yields bins [ [ 1, 2 ] ]
-  layer 2 yields bins [ [ 1, 2 ] ]
-  layer 3 yields bins [ [ 1, 2 ] ]
-  layer 4 yields bins [  ]
+[ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ], [ 20, 22 ] ]
+gap> List(bins, bin -> MIPSplitGroupsByAlgebras(2, 6, bin));
+[ rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 2195 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 155, 157 ] ] ], time := 1505 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 173, 176 ] ] ], time := 3294 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 179, 180 ] ] ], time := 3233 ), 
+  rec( bins := [  ], splits := [ [ 4, [ 20, 22 ] ] ], time := 160 ) ]
 \endexample
+
+This shows that the Modular Isomorphism Problem has a positive answer for groups
+of order $64$ for the field $\F_2$. The result means e.g. that the smallest quotients
+(of Loewy layers)
+such that the augmentation ideals $A_1$ and $A_2$ of the groups algebras over $\F_2$ of the
+groups $SmallGroup(64, 156)$ and $SmallGroup(64, 158)$ are not isomorphic are $A_1/A_1^8$
+and $A_2/A_2^8$. These are $A_1/A_1^5$ and $A_2/A_2^5$ for the groups
+$SmallGroup(64, 20)$ and $SmallGroup(64, 22)$. 
+
+The following shows that the problem also has a positive answer for the group
+algebras of groups of order $64$ over the field $\F_4$. Note that for the groups
+$SmallGroup(64, 20)$ and $SmallGroup(64, 22)$ one has to consider deeper quotients
+in this case.
+
+\beginexample
+gap> bins := BinsByGTAllFields(2,6);
+[ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ], [ 104, 105 ], 
+  [ 13, 14 ], [ 20, 22 ], [ 18, 19 ] ]
+gap> List(bins, bin -> MIPSplitGroupsByAlgebras(2, 6, bin, 2));
+[ rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 34833 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 155, 157 ] ] ], time := 22479 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 173, 176 ] ] ], time := 9806 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 179, 180 ] ] ], time := 7819 ), 
+  rec( bins := [  ], splits := [ [ 4, [ 104, 105 ] ] ], time := 2226 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 13, 14 ] ] ], time := 707 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 20, 22 ] ] ], time := 3917 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 18, 19 ] ] ], time := 2891 ) ]
+
+\endexample
+
+The other functions allow to study the problem for groups not coming from the
+library. The following groups are studied in \cite{GLM24}.
+
+\beginexample
+R := SmallGroup(64, 19);
+Q := SmallGroup(64, 18);
+
+DR := DirectProduct(R,Q);
+GDR := GeneratorsOfGroup(DR);
+z1 := GDR[3];
+z2 := GDR[9];
+N := Group(z1*z2^(-1));
+G := DR/N;
+
+DR := DirectProduct(Q,Q);
+GDR := GeneratorsOfGroup(DR);
+z1 := GDR[3];
+z2 := GDR[9];
+N := Group(z1*z2^(-1));
+H := DR/N;
+
+gap> MIPSplitGroupsByGroupTheoreticalInvariantsAllFields([G,H]);
+[ [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+      Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ]
+
+# the groups can not be split over all fields by group-theoretical invariants
+
+gap> MIPSplitGroupsByAlgebras([G,H]);
+rec( bins := [  ], 
+  splits := 
+    [ 
+      [ 4, 
+          [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+              Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ] 
+     ], time := 44473 )
+     
+# over the field of 2 elements it is enough to consider
+# the 5-th power of the augmentation ideal
+
+\endexample
+
+The program does not finish in a very reasonable time, if we run it over the field $\F_4$, but we
+can still check that it is not enough to factor out only the 5th power of the augmentation ideal
+in this case. One option is to use info level to do this and the other to use $MIPBinsSplit$:
+
+\beginexample
+gap> SetInfoLevel(InfoModIsom, 1);
+gap> MIPSplitGroupsByAlgebras([G,H], 2);
+#I  Refine bin
+#I    Weights yields bins [ [ 1, 2 ] ]
+#I    Layer 1 yields bins [ [ 1, 2 ] ]
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 2 yields bins [ [ 1, 2 ] ]
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 3 yields bins [ [ 1, 2 ] ]
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 4 yields bins [ [ 1, 2 ] ]
+#I  layer 5 of dim 145 aut group has order 7200 * 2^496
+#I     cover is determined 
+#I     dim(M) = 73 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 5 of dim 145 aut group has order 7200 * 2^496
+#I     cover is determined 
+#I     dim(M) = 73 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 5 yields bins [ [ 1, 2 ] ]
+#I  layer 6 of dim 231 aut group has order 7200 * 2^800
+#I     cover is determined 
+#I     dim(M) = 95 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+^CError, user interrupt in
+  AddRowVector( u, GetEntryTable( T, i, j ), v[i] * w[j] 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/tables/tables.gi:87 called from 
+MultByTable( Q, new[Q.wds[i][1]], new[Q.wds[i][2]] 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/induc.gi:135 called from
+InduceAutoToQuot( Q, G.agAutos[i] 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/induc.gi:151 called from
+InduceAutosToQuot( G, Q 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/autiso.gi:57 called from
+ExtendCanoForm( tabs[i], j 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/grpalg/chkbins.gi:117 called from
+MIPBinSplit( p, n, false, start, step, list, f 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/grpalg/chkbins.gi:177 called from
+...  at *stdin*:39
+you can 'return;'
+brk> quit;   # this was not progressing for several hours
+
+gap> Size(G) = Size(H);
+true
+gap> Size(G) = 2^10;
+true
+
+gap> MIPBinSplit(2, 10, 4, 4, 1, [G,H], 2);
+#I  Refine bin
+#I    Weights yields bins [ [ 1, 2 ] ]
+#I    Layer 1 yields bins [ [ 1, 2 ] ]
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 2 yields bins [ [ 1, 2 ] ]
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 3 yields bins [ [ 1, 2 ] ]
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 4 yields bins [ [ 1, 2 ] ]
+rec( 
+  bins := 
+    [ 
+      [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+          Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ], 
+  splits := [  ], time := 9469981 )
+
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Kernel size}
+
+An idea to study the Modular Isomorphism Problem is to define maps on certain
+quotients of the augmentation ideal $A$ and count the number of elements which map
+to $0$ under this map. The map most typically used for this is a $p$-power map
+$A^n/A^{n+m} \rightarrow A^{n \cdot p^\ell}/A^{n \cdot p^\ell + m}$. This can 
+be done in the package using the function
+
+\> KernelSizePowerMap(T, n, m, l, [f]) F
+
+where $T$ is a table as returned by $ModIsomTable$ and $n, m, l$ are as 
+just described and the calculation is performed over the field $\F_{p^f}$.
+If $f$ is not given, then it is set to $1$.
+We can check for instance the first calculation in \cite{HS06}(Section 4.1).
+
+\beginexample
+gap> G := SmallGroup(64, 20);
+<pc group of size 64 with 6 generators>
+gap> H := SmallGroup(64, 22);
+<pc group of size 64 with 6 generators>
+gap> TG := ModIsomTable(G, 5);;
+gap> TH := ModIsomTable(H, 5);;
+gap> KernelSizePowerMap(TG, 1, 1, 2);
+3
+gap> KernelSizePowerMap(TH, 1, 1, 2);
+1
+\endexample
+
+This shows that the group algebras over $\F_2$ are not isomorphic. This 
+argument does however not work over $\F_4$:
+
+\beginexample
+gap> TG := ModIsomTable(G, 5, 2);;
+gap> TH := ModIsomTable(H, 5, 2);;
+gap> KernelSizePowerMap(TG, 1, 1, 2);
+7
+gap> KernelSizePowerMap(TH, 1, 1, 2);
+7
+\endexample
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The group theoretical invariants}
+
+We document here which group-theoretical invariants are used in $BinsByGT$ and 
+similar functions.
+
+\> GroupInfo(G) F
+
+This is an auxiliary function used in other group-theoretical invariants. 
+If $IdGroup$ is available in $GAP$ for the order of $G$ it returns $IdGroup(G)$.
+Otherwise it returns $[Size(G), AbelianInvariants(G)]$. 
+
+We now describe the invariants in the order they appear in $BinsByGT$. 
+First the isomorphism types of $G/G'$ and $Z(G)$, the abelianization and the center
+of $G$ are used. These are very classical invariants \cite{San85}(Theorems 6.12, 6.7).
+We next list the other functions which are applied, which are all small functions written 
+for the package:
+
+\> CenterDerivedInfo(G) F
+
+calculates the isomorphism types of $Z(G) \cap G'$ and $Z(G)/ Z(G) \cap G'$ 
+\cite{San85}(Theorem 6.11).
+
+\> SandlingInfo(G) F
+
+calculates several invariants coming from the small groups algebra which was first
+used to study the Modular Isomorphism Problem in \cite{San89}. Namely, for $\gamma_i(G)$
+the $i$-th term of the lower central series of $G$ it returns the $GroupInfo$ for
+$G/\gamma_2(G)^p\gamma_3(G)$ \cite{San89}, the $GroupInfo$ of $G/\gamma_2(G)^p\gamma_4(G)$,
+if $G$ is $2$-generated (mentioned in \cite{Bag99}, proved in \cite{MM22}) and if the
+derived subgroup of $G$ is elementary abelian and the Jennings series of $G$ has length
+at most $2p$, it returns $GroupInfo$ for the Frattini subgroup of $G$ \cite{HS06}(p.16).
+This function is not applied in $BinsByGTAllFields$ and its variations.
+
+\> JenningsInfo(G) F
+
+Denoting by $D_i(G)$ the $i$-th member of the Jennings series, this function returns   
+$GroupInfo$ for the different quotients $D_i(G)/D_{i+1}(G)$, $D_i(G)/D_{i+2}(G)$, $D_i(G)D_{2i+1}(G)$
+for meaningful values of $i$ (results \cite{Jen41} \cite{PS72} \cite{RS83}) and if $p$ is odd also for
+$G/D_4(G)$ \cite{Her07}. For $BinsByGTAllFields$ and its variations only the quotients
+$D_i(G)/D_{i+1}(G)$ are computed.
+
+\> JenningsDerivedInfo(G) F
+
+computes $D_i(G')/D_{i+1}(G')$ for all $i$ \cite{San85}(Lemma 6.26).
+
+\> BaginskiInfo(G) F
+
+For $N = C_G(G'/\Phi(G'))$, where $\Phi(G)$ denotes the Frattini subgroup, if $G/N$ is
+cyclic, it returns the $GroupInfo$ for $N/\Phi(G')$ and $G/\Phi(N)$ \cite{Bag99}.
+This function is not applied in $BinsByGTAllFields$ and its variations.
+
+\> BaginskiCarantiInfo(G) F
+
+returns the nilpotency class of $G/\Phi(G')$ \cite{BC88}(Proposition 2.1). 
+This function is not applied in $BinsByGTAllFields$ and its variations.
+
+\> NilpotencyClassInfo(G) F
+
+returns the nilpotency class of $G$, when the exponent of $G$ is $p$ or the class equals 2
+or the derived subgroup is cyclic \cite{BK07}.
+
+\> Theorem41MS22(G) F
+
+If $p$ is odd, $G$ is $2$-generated, the nilpotency class of $G$ is $3$ and $\gamma_3(G)$ 
+has exponent $p$, it returns the isomorphism types of $\gamma_2(G)$ and $\gamma_3(G)$
+\cite{MS22}(Theorem 4.1). This function is not applied in $BinsByGTAllFields$ and its variations.
+
+\> CyclicDerivedInfo(G) F
+
+If $p$ is odd and $G'$ is cyclic this returns several invariants contained in \cite{GLdRS22} \cite{GLdR23}.
+Namely, the quotients $D_i(C_G(G'))/D_{i+1}(C_G(G'))$ for all $i$, the exponent of $C_G(G')$, the isomorphism
+type of $C_G(G')/G'$ and the $GroupInfo$ for $G/R_1(\gamma_3(G))$ and $G/R_3(C_G(G'))$.
+Here $R_i(G)$ denotes the subgroup of $G$ generated by the $p^i$-th powers in $G$.
+If $G$ is additionally $2$-generated, it also computes the $GroupInfo$ for $C_G(G')$ and the
+type invariants of $G$ (cf. \cite{GLdRS22} for the definition). 
+For $BinsByGTAllFields$ and its variations, the $GroupInfo$ for  $G/R_1(\gamma_3(G))$
+ and $G/R_3(C_G(G'))$ is not computed.
+ 
+\> MaximalAbelianDirectFactor(G) F
+
+computes the maximal abelian direct factor of $G$ \cite{GL24}. In $BinsByGTAllFields$ and
+its variations it computes the maximal elementary abelian direct factor instead \cite{MSS23}.
+
+\> NormalSubgroupsInfo(G) F
+
+computes some of the sections of $G$ which are canonical following \cite{GL24}(Lemma 3.6). The starting canonical group is the derived subgroup.
+
+\> IsCoveredByTheory(G) F
+
+determines, whether $G$ belongs to certain classes for which the Modular Isomorphism
+Problem has been solved positively. Namely if $G$ is a $2$-group of maximal class \cite{Bag92},
+$p$ is odd, $G \leq p^{p+1}$, $G$ has a maximal abelian subgroup and $G$ is of maximal class \cite{BC88},
+$[G:Z(G)] = p^2$ \cite{Dre89}, $G$ is a $2$-generated $2$-group of nilpotency class $2$ \cite{BdR21},
+$p$ is odd, $G'$ is elementary abelian, the nilpotency class of $G$ is $3$ and either 
+$C_G(G')$ is a maximal subgroup of $G$ and abelian \cite{MS22}(Theorem 3.3) or a $G$ is
+$3$-generated and a certain condition holds on the commutator map modulo the second center of $G$
+\cite{MS22}(Theorem 3.5), $G$ is a $2$-group with cyclic center and dihedral central
+quotient \cite{MSS23}, $G$ is a $2$-group of nilpotency class $2$ with cyclic center \cite{GLM24},
+$p$ is odd, $G'$ is cyclic and $R_2(G/G')$ is cyclic \cite{GLdR23}(Proposition 3.7). 
+For $BinsByGTAllFields$ and its variations it only checks, if $G$ is a $2$-group of
+maximal class, $[G:Z(G)] = p^2$ or $G$ is a $2$-group with cyclic center and dihedral central
+quotient.
+
+\> DimensionTwoCohomology(G) F
+
+computes the dimensions of the second cohomology group $H^2(FG, F)$ and of the second
+Hochschild cohomology group $HH^2(FG) = H^2(FG, FG)$.
+
+\> ConjugacyClassInfo(G) F
+
+Computes the number of conjugacy classes which are $p^i$-th powers, for all $i$ (Kuelshammer) and
+the number of conjugacy classes of $p^i$-th powers which come from conjugacy classes of the same order
+ (Parmenter-Polcino Milies) \cite{HS06}(Section 2.2) and the dimension of the first Hochschild 
+ cohomology group which equals the number $\sum_{g^G} \log_p(C_G(g)/\Phi(C_G(g))$ where the sum runs over
+ all the conjugacy classes of $G$ \cite{HS06}(Section 2.6). 
+ 
+\> SubgroupsInfo(G) F
+
+Computes the number of conjugacy classes of maximal elementary abelian subgroups of rank 1,2,...
+The return is a list of integers which contains this number for all ranks until the maximal possible.
+This is based on results of Quillen \cite{HS06}(Section 2.5).
+
 
