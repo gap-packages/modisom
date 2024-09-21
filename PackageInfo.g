@@ -1,7 +1,7 @@
 #############################################################################
-##  
+##
 ##  PackageInfo.g for the package `modisom'                      Bettina Eick
-##  
+##
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
@@ -10,7 +10,7 @@ Date := "20/09/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
-  rec( 
+  rec(
     LastName      := "Eick",
     FirstNames    := "Bettina",
     IsAuthor      := true,
@@ -27,7 +27,7 @@ Persons := [
     Institution   := "TU Braunschweig"
   ),
 
-  rec( 
+  rec(
     LastName      := "Garcia-Lucas",
     FirstNames    := "Diego",
     IsAuthor      := true,
@@ -58,7 +58,7 @@ Persons := [
     Place         := "St Andrews",
     Institution   := "University of St Andrews"
   ),
-  rec( 
+  rec(
     LastName      := "Margolis",
     FirstNames    := "Leo",
     IsAuthor      := true,
@@ -74,7 +74,7 @@ Persons := [
     Place         := "Madrid",
     Institution   := "Universidad Autonoma de Madrid"
   ),
-  rec( 
+  rec(
     LastName      := "Moede",
     FirstNames    := "Tobias",
     IsAuthor      := true,
@@ -108,7 +108,7 @@ ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                  "/modisom-", ~.Version ),
 ArchiveFormats := ".tar.gz",
 
-AbstractHTML := 
+AbstractHTML :=
   "The <span class=\"pkgname\">ModIsom</span> package contains various methods for computing with nilpotent associative algebras. In particular, it contains a method to determine the automorphism group and to test isomorphis of such algebras over finite fields and of modular group algebras of finite p-groups, and it contains a nilpotent quotient algorithm for finitely presented associative algebras and a method to determine Kurosh algebras.",
 
 PackageDoc := rec(
@@ -124,7 +124,7 @@ PackageDoc := rec(
 
 Dependencies := rec(
   GAP := ">=4.7",
-  NeededOtherPackages := [["Polycyclic", ">=1.0"]], 
+  NeededOtherPackages := [["Polycyclic", ">=1.0"]],
   SuggestedOtherPackages := [],
   ExternalConditions := []
 ),
@@ -134,7 +134,7 @@ AvailabilityTest := ReturnTrue,
 Autoload := false,
 TestFile := "tst/testall.g",
 Keywords := ["modular isomorphism problem",
-             "automorphism group", 
+             "automorphism group",
              "isomorphism testing",
              "nilpotent algebras",
              "nilpotent quotient",
