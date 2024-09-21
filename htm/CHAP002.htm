@@ -7,6 +7,7 @@
 <oL>
 <li> <A HREF="CHAP002.htm#SECT001">Nilpotent tables</a>
 <li> <A HREF="CHAP002.htm#SECT002">Algebras in the GAP sense</a>
+<li> <A HREF="CHAP002.htm#SECT003">Tables for the Modular Isomorphism Problem</a>
 </ol><p>
 <p>
 Finite dimensional algebras can be described by structure contants tables.
@@ -55,7 +56,7 @@ The nilpotent table <i>T</i> for <i>A</i> (with respect to the basis (<i>b</i><s
 <p>
 </dl>
 <p>
-In a nilpotent table not all structure contants are readily available.
+In a nilpotent table not all structure constants are readily available.
 The following function determines the structure constants for the
 product <i>b</i><sub><i>i</i></sub> <i>b</i><sub><i>j</i></sub>. If the global variable <i>STORE</i> is true, then the
 function stores the computed entry in the table.
@@ -63,30 +64,37 @@ function stores the computed entry in the table.
 <a name = "SSEC001.1"></a>
 <li><code>GetEntryTable( T, i, j ) F</code>
 <p>
+The result of the multiplication of the elements <i>v</i> and <i>w</i> in <i>T</i>
+can be obtained using the following function. An example of its use is
+provided below.
+<p>
+<a name = "SSEC001.2"></a>
+<li><code>MultByTable( T, v, w ) F</code>
+<p>
 We consider two nilpotent tables as equal, if they would be equal if
 the full set of structure constants tables would be bound. The following
 function provides an effective check for this.
 <p>
-<a name = "SSEC001.2"></a>
+<a name = "SSEC001.3"></a>
 <li><code>CompareTables( T1, T2 ) F</code>
 <p>
 A nilpotent table contains redundant information and hence can be 
 inconsistent. The next functions can be used to check this to some
 extend. 
 <p>
-<a name = "SSEC001.3"></a>
+<a name = "SSEC001.4"></a>
 <li><code>CheckAssociativity( T ) F</code>
 <p>
 Checks that (<i>b</i><sub><i>i</i></sub> <i>b</i><sub><i>j</i></sub>) <i>b</i><sub><i>k</i></sub> = <i>b</i><sub><i>i</i></sub> (<i>b</i><sub><i>j</i></sub> <i>b</i><sub><i>k</i></sub>) for all <i>i</i>,<i>j</i>,<i>k</i>. Note that this
 may be time-consuming.
 <p>
-<a name = "SSEC001.4"></a>
+<a name = "SSEC001.5"></a>
 <li><code>CheckCommutativity( T ) F</code>
 <p>
 Checks whether <i>T</i> defines a commutative algebra and sets the entry <i>com</i>
 accordingly.
 <p>
-<a name = "SSEC001.5"></a>
+<a name = "SSEC001.6"></a>
 <li><code>CheckConsistency( T ) F</code>
 <p>
 Checks that <i>wds</i> and <i>tab</i> are compatible. This assumes that 
@@ -161,7 +169,184 @@ rec( dim := 7, fld := GF(2), rnk := 2,
 </pre>
 <p>
 <p>
+<h2><a name="SECT003">2.3 Tables for the Modular Isomorphism Problem</a></h2>
+<p><p>
+A special kind of nilpotent table is available in the context of the
+Modular Isomorphism Problem. Let <i>G</i> be a finite group, <i>F</i> a field of 
+characteristic <i>p</i> and <i>I</i>(<i>FG</i>) the augmentation ideal of <i>FG</i> which equals
+its radical and is a nilpotent ideal. Two functions allow to compute 
+class-<i>n</i> quotient of <i>I</i>(<i>FG</i>), i.e. <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup><i>n</i>+1</sup>. The output is a nilpotent 
+table for this quotient, but in addition to the standard entries of 
+a nilpotent table it contains further entries, which allow more efficient 
+computations and can also facilitate manual calculations.
+This allows to determine the class-<i>n</i> quotient of the augmentation ideal
+without computing the full augmentation ideal using <i>NilpotentTableOfRad</i>. 
+The corresponding table can be computed by
+<p>
+<a name = "SSEC003.1"></a>
+<li><code>TableOfRadQuotient( FG, n ) F</code>
+<p>
+or 
+<p>
+<a name = "SSEC003.2"></a>
+<li><code>ModIsomTable( G, n, [f] ) F</code>
+<p>
+Here <i>ModIsomTable</i>(<i>G</i>, <i>n</i>) will produce the quotient with respect to the algebra
+<b>F</b><sub><i>p</i></sub><i>G</i>, while <i>ModIsomTable</i>( <i>G</i>, <i>n</i>, <i>f</i> ) will do the same for the algebra <b>F</b><sub><i>p</i><sup><i>f</i></sup></sub><i>G</i>.
+If <i>ModIsomTable</i> is executed as <i>ModIsomTable</i>(<i>G</i>, <i>n</i>) it provides the table with respect to the algebra <b>F</b><sub><i>p</i></sub><i>G</i>.
+<p>
+<p>
+The components <i>dim</i>, <i>fld</i>, <i>rnk</i>, <i>tab</i>, <i>wgs</i>, <i>wds</i>
+ remain unchanged from a usual nilpotent table. The additional components are
+<i>commwords</i>, <i>powwords</i> and <i>pre</i>. These new components
+contain additional information on precisely which basis of <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup><i>n</i>+1</sup> is used
+and what the result of multiplying basis elements is. We explain how users
+can understand how the basis looks and how they can multiply two elements in the algebra. 
+The components <i>T</i>.<i>commords</i> and <i>T</i>.<i>powwords</i> contain information on how the elements of
+the basis behave with respect to commutators and <i>p</i>-th powers. The component <i>T</i>.<i>pre</i>
+contains information on the construction of the basis and we describe it in more detail.
+<p>
+<p>
+The dimension of <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup><i>n</i>+1</sup> is recorded in <i>T</i>.<i>dim</i>.
+The basis of <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup><i>n</i>+1</sup> is found as in the theory of Jennings going back
+to <a href="biblio.htm#Jen41"><cite>Jen41</cite></a>, cf. <a href="biblio.htm#MM22"><cite>MM22</cite></a> for the information needed here. The elements 
+of <i>G</i> chosen to provide the basis of subsequent quotients of dimension subgroups
+are recorded in <i>T</i>.<i>pre</i>.<i>jen</i>.<i>pcgs</i>. Let us call these elements <i>g</i><sub>1</sub>,&#8230;,<i>g</i><sub><i>m</i></sub>.
+Note that &#124;<i>G</i>&#124; = <i>p</i><sup><i>m</i></sup>.  The weights of the elements <i>g</i><sub>1</sub>&#8722;1,&#8230;,<i>g</i><sub><i>m</i></sub>&#8722;1 are recorded
+in <i>T</i>.<i>pre</i>.<i>jen</i>.<i>weights</i>. If now <i>r</i> is an integer smaller than <i>T</i>.<i>dim</i>+1, then the
+<i>r</i>-th element of the basis of  <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup><i>n</i>+1</sup> is 
+(<i>g</i><sub>1</sub>&#8722;1)<sup><i>e</i><sub>1</sub></sup> &#183;&#8230;(<i>g</i><sub><i>m</i></sub>&#8722;1)<sup><i>e</i><sub><i>m</i></sub></sup> where [<i>e</i>_1,&#8230;,<i>e</i>_<i>m</i>] = <i>T</i>.<i>pre</i>.<i>exps</i>[<i>r</i>].
+The weight of this element is recorded in <i>T</i>.<i>wgs</i>[<i>r</i>] and also <i>T</i>.<i>pre</i>.<i>weights</i>[<i>r</i>].
+Moreover, the positions of <i>g</i><sub>1</sub>&#8722;1,&#8230;,<i>g</i><sub><i>m</i></sub>&#8722;1 in the chosen basis of <i>T</i> are recorded
+in <i>T</i>.<i>pre</i>.<i>poswone</i>. We elaborate using an example.
+<p>
+<p>
+We consider the group <i>G</i>=<i>SmallGroup</i>(3<sup>7</sup>, 19). The following calculation shows
+that <i>I</i>(<i>FG</i>)/<i>I</i>(<i>FG</i>)<sup>9</sup> has dimension 135 and that the full augmentation
+ideal <i>I</i>(<i>FG</i>) has dimension 2186.
+<p>
+<pre>
+gap&gt; G := SmallGroup(3^7, 19);;
+gap&gt; T := ModIsomTable(G, 8);;
+gap&gt; T.dim;
+135
+
+gap&gt; FG := GroupRing(GF(3), G);;
+gap&gt; TT := TableOfRadQuotient(FG, 8);;
+gap&gt; TT.dim;
+135
+
+gap&gt; T := ModIsomTable(G, 38);;
+gap&gt; T.dim;
+2186
+
+gap&gt; T := ModIsomTable(G, 39);;
+gap&gt; T.dim;
+2186
+</pre>
+<p>
+We next consider an example how the basis used can be recognized.
+<p>
+<pre>
+gap&gt; G := DihedralGroup(8);;
+gap&gt; T := ModIsomTable(G, 4);;
+gap&gt; T.dim;
+7
+gap&gt; pcgs := T.pre.jen.pcgs;
+Pcgs([ f1, f2, f3 ])
+gap&gt; List(pcgs, Order);
+[ 2, 4, 2 ]
+gap&gt; pcgs[3] in Center(G);
+true
+gap&gt; T.pre.exps{[1..7]};
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], [ 0, 1, 1 ], 
+  [ 1, 1, 1 ]] 
+</pre>
+<p>
+We conclude that <i>I</i>(<i>kG</i>)/<i>I</i>(<i>kG</i>)<sup>5</sup> is 7-dimensional and if we denote by
+  <i>a</i> a reflection and by <i>b</i> a non-central rotation in <i>G</i>, then the
+  basis used by <i>T</i> is, in this order: (<i>a</i>&#8722;1), (<i>b</i>&#8722;1), (<i>a</i>&#8722;1)(<i>b</i>&#8722;1), (<i>b</i><sup>2</sup>&#8722;1),
+   (<i>a</i>&#8722;1)(<i>b</i><sup>2</sup>&#8722;1), (<i>b</i>&#8722;1)(<i>b</i><sup>2</sup>&#8722;1), (<i>a</i>&#8722;1)(<i>b</i>&#8722;1)(<i>b</i><sup>2</sup>&#8722;1).    
+<p>
+<p>
+ Say continuing the previous example we want to multiply (<i>b</i>&#8722;1)+(<i>a</i>&#8722;1)(<i>b</i>&#8722;1)+(<i>a</i>&#8722;1)(<i>b</i><sup>2</sup>&#8722;1) and (<i>a</i>&#8722;1)+(<i>b</i>&#8722;1)+(<i>b</i><sup>2</sup>&#8722;1).
+<pre>
+gap&gt; v := Z(2)^0*[0,1,1,0,1,0,0];
+[ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+gap&gt; w := Z(2)^0*[1,1,0,1,0,0,0];
+[ Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2) ]
+gap&gt; MultByTable(T,v,w);
+[ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+</pre>
+<p>
+So the result is (<i>a</i>&#8722;1)(<i>b</i>&#8722;1) + (<i>a</i>&#8722;1)(<i>b</i><sup>2</sup>&#8722;1).
+<p>
+<p>
+To facilitate the translation of elements of the group algebra
+and a corresponding table of a quotient of the augmentation ideal 
+the functions
+<p>
+<a name = "SSEC003.3"></a>
+<li><code>MIPElementTableToAlgebra( v, T, FG ) F</code>
+<p>
+and
+<p>
+<a name = "SSEC003.4"></a>
+<li><code>MIPElementAlgebraToTable( el, FG, T ) F</code>
+<p>
+can be used. In the second function of course only a possible
+representative of <i>v</i> in <i>FG</i> is provided. Also, only elements 
+from the augmentation ideal of <i>FG</i> can be represented using
+<i>MIPElementAlgebraToTable</i>. These functions can be used for 
+instance to obtain representatives in the same class modulo
+a power of the augmentation ideal which are more practical to
+work with, as the following example shows.
+<p>
+<pre>
+gap&gt; G := SmallGroup(3^7, 19);
+&lt;pc group of size 2187 with 7 generators&gt;
+gap&gt; T := ModIsomTable(G, 4);;
+gap&gt; FG := GroupRing(GF(3), G);
+&lt;algebra-with-one over GF(3), with 7 generators&gt;
+gap&gt; iota := Embedding(G, FG);
+&lt;mapping: Group( [ f1, f2, f3, f4, f5, f6, f7 
+ ] ) -&gt; AlgebraWithOne( GF(3), ... ) &gt;
+gap&gt; a := (T.pre.jen.pcgs[1])^iota;
+(Z(3)^0)*f1
+gap&gt; b := (T.pre.jen.pcgs[2])^iota;
+(Z(3)^0)*f2
+gap&gt; z := One(FG);
+(Z(3)^0)*&lt;identity&gt; of ...
+gap&gt; r := (z + (a-z)*(b-z) )^-1;;  
+gap&gt; Size(Support(r-z));
+1376
+gap&gt; el := MIPElementAlgebraToTable(r-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), Z(3)^0, 0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap&gt; MIPElementTableToAlgebra(el, T, FG);
+(Z(3))*&lt;identity&gt; of ...+(Z(3)^0)*f3+(Z(3)^0)*f1^2+(Z(3))*f1*f2+(Z(3))*f1*f3+(
+Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
+0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
+</pre>
+<p>
+We illustrate the information in <i>T</i>.<i>pre</i>.<i>poswone</i>:
+<p>
+<pre>
+gap&gt; d := (T.pre.jen.pcgs[4])^iota;
+(Z(3)^0)*f4
+gap&gt; el := MIPElementAlgebraToTable(d-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap&gt; Position(last, Z(3)^0);
+11
+gap&gt; T.pre.poswone[4];
+11
+</pre>
+<p>
+<p>
 [<a href = "chapters.htm">Up</a>] [<a href ="CHAP001.htm">Previous</a>] [<a href ="CHAP003.htm">Next</a>] [<a href = "theindex.htm">Index</a>]
 <P>
-<address>ModIsom manual<br>February 2023
+<address>ModIsom manual<br>September 2024
 </address></body></html>
