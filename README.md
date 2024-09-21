@@ -33,4 +33,4 @@ your installation is complete. To load the package, call
 
 The manual of ModIsom is contained in `modisom/doc` and `modisom/htm`
 directories.
-# modisom3
+
