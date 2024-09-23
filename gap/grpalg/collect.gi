@@ -44,7 +44,7 @@ end);
 # Reduces the word w
 # Input: Jennings-word
 # Output: Same word where two eqaul factors don't appear one after the other
-BindGlobal("ReducedWord", function( w )
+BindGlobal("MODISOM_ReducedWord", function( w )
 local i, wc;
 
 	wc := StructuralCopy(w);
@@ -288,7 +288,7 @@ local res, sres, slw, t, respart, srespart, s;
   
         # Check if resulting word has weight small enough
         if WordWeight(T, respart[2]) <= wmax then 
-            respart[2] := ReducedWord(respart[2]);
+            respart[2] := MODISOM_ReducedWord(respart[2]);
             sres := sres + 1;
             res[sres] := respart;
         fi;  
@@ -650,7 +650,7 @@ BindGlobal("TableOfRadByCollection", function( T )
                 od;
         
                 # Reduce factor word
-                w1 := ReducedWord(w1); 
+                w1 := MODISOM_ReducedWord(w1);
 
                 # Express factor word as linear combination in Jennings basis and translate 
                 # to vector of underlying field
