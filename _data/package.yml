@@ -1,7 +1,7 @@
 name: ModIsom
 version: "3.0.0"
 license: "GPL-2.0-or-later"
-date: 2024-09-20
+date: 2024-09-23
 description: |
     Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups
 
