@@ -1,3 +1,6 @@
+Changes in version 3.0.1: LAGUNA is now a requiered package. This solves the issue of warnings coming up when ModIsom was loaded without LAGUNA
+
+-----------------------------------------------------------------
 Overview of files changed in Version 3.0.0 in respect to ModIsom 2.5.3:
 
 ModIsomExt refers to a GAP package written by Leo Margolis and Tobias Moede the functionality of which is now included in this package, cf. https://www.tu-braunschweig.de/index.php?eID=dumpFile&t=f&f=114036&token=7391a74bb71a93524f0dc24d07e5330c3d3cdf6e and https://doi.org/10.1016/j.jaca.2022.100001.
