@@ -118,7 +118,6 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Computing with nilpotent associative algebras",
-  Autoload  := true
 ),
 
 
@@ -131,7 +130,6 @@ Dependencies := rec(
 
 BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
-Autoload := false,
 TestFile := "tst/testall.g",
 Keywords := ["modular isomorphism problem",
              "automorphism group",
