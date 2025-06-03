@@ -4,7 +4,7 @@
 ##
 SetPackageInfo( rec(
 PackageName := "ModIsom",
-Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
+Subtitle := "Computing automorphisms and checking isomorphisms for nilpotent associative algebras",
 Version := "3.0.1",
 Date := "28/12/2024", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
