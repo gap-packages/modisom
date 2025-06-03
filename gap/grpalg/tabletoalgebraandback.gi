@@ -24,7 +24,7 @@ local k, maxweight, i, lim, sup, coeffs, v0, res, exps, nonzeroexps, sum, S, ini
     ## for each element g1^e1...gm^em we convert g1^e1...gm^em to an expression in the Jennings basis using the formulas known for this
     for i in [1..Size(sup)] do
         exps := ExponentsOfPcElement(T.pre.jen.pcgs, sup[i]){[1..lim]};
-        nonzeroexps := PosNonzero(exps);
+        nonzeroexps := PositionNonZero(exps);
         sum := ShallowCopy(v0);
         # run over all supsets of non-zero exponents. Each gives a summand
         for S in Combinations( nonzeroexps ) do

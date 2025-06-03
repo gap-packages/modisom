@@ -5,13 +5,6 @@
 ##
 ## functions to work with tables (in the sense of ModIsom) which correspond to quotients of the augmentation ideal I of a group algebra of a finite p-group over a field of characteristic p modulo a power of I. In particular, to generate the table for this quotient
 
-# Input: A list
-# Output: The nonzero positions of the list
-BindGlobal("PosNonzero", function(list)
-    return PositionsProperty(list, x -> not IsZero(x));
-end);
-
-
 # Input: Linear combination of words. A word is a list of pairs of natural numbers. We think e.g. g1^2*g3 = [[1,2],[3,1]]
 # Output: Same linear combination (in the math sense) where each word 
 #         appears at most once
@@ -198,7 +191,7 @@ local w, sw, pos, p;
   
     sw := 0;
     w := [ ];
-    pos := PosNonzero(exp);
+    pos := PositionNonZero(exp);
     
     for p in pos do
         sw := sw + 1;
@@ -443,7 +436,7 @@ local F, p, exp, pos1, i, j, pows, pos, combs, v, c, w, s, m, tup, coefprod, exp
         # Check if weight of p-th power exceeds level
         if p*T.pre.weights[i] <= lvl then 
             pows := StructuralCopy(T.pre.jen.pows[pos1]);
-            pos := PosNonzero(pows);
+            pos := PositionNonZero(pows);
             pows := pows{pos};
             combs := Combinations([1..Length(pos)]);
             Remove(combs, 1); 
@@ -523,7 +516,7 @@ local F, p, exp, pos1, i, j, pows, pos, combs, v, c, w, s, m, tup, coefprod, exp
                     pows := StructuralCopy(T.pre.jen.coms[poscom][2]);
                     pows[pos1] := 1;
                     pows[pos2] := 1;
-                    pos := PosNonzero(pows);
+                    pos := PositionNonZero(pows);
                     pows := pows{pos};
                     combs := Combinations([1..Length(pos)]);
                     v := [ ];
@@ -591,7 +584,7 @@ end);
 # Input: Table and maximal weight we want. Typically output from PreSet
 # Output: None. T.powwords, T.commwords, T.dim, T.wgs are set
 BindGlobal("WordFillTable", function(T, lvl)
-local F, p, s1, l, i, pos1, expw1, w1, sortweights1, sortexpw1, f1, posf1, s2, post2, expw2, w2, sortweights2, sortexpw2, f2, posf2, dep, mm, vec, posvec, fac1, posnonzero, v;
+local F, p, s1, l, i, pos1, expw1, w1, sortweights1, sortexpw1, f1, posf1, s2, post2, expw2, w2, sortweights2, sortexpw2, f2, posf2, dep, mm, vec, posvec, fac1, v;
 
     F := T.fld;
     p := Characteristic(F);
