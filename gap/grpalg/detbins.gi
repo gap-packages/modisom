@@ -241,11 +241,12 @@ end );
 ###### Some new invariants (new compared to ModIsom versions 1 and 2). First an article of Baginski
 
 
-## Baginski 99 Corollary 7 and Theorem 9
+## Baginski 99 Corollary 7 and Theorem 9, also Baginski-Zabielski 25 Lemma 7
 BindGlobal("BaginskiInfo", function(G) 
-local D, N, act, F, r;
+local D, N, act, F, r, p;
     D := DerivedSubgroup(G);
     F := FrattiniSubgroup(D);
+    p := PrimePGroup(G);
  
     # if-condition only for technical reasons, output is the same
     if Size(D) = Size(F) then
@@ -257,6 +258,8 @@ local D, N, act, F, r;
     
     if IsCyclic(G/N) then
         return [GroupInfo(G/FrattiniSubgroup(N)), GroupInfo(N/F)];
+    elif Order(G/N) = p then
+        return [GroupInfo(G/FrattiniSubgroup(N)), GroupInfo(N/F), JenningsInfoAllFields(N)];
     else
         return false;
     fi;
@@ -405,7 +408,7 @@ end);
 #### Some theoretical results follow from the other criteria. In particular metacyclic groups (Sandling 96) and (elem-ab.)-by-cyclic groups (Baginski 99) are covered.
 
 BindGlobal("IsCoveredByTheory", function(G)
-local p, n;
+local p, n, D, F, N, act;
 
     p := PrimePGroup(G);
     n := Log(Size(G),p);
@@ -458,7 +461,22 @@ local p, n;
     if p <> 2 and IsCyclic(DerivedSubgroup(G)) and IsCyclic( Agemo(G/DerivedSubgroup(G), p, 2) ) then
         return true;
     fi;
-   
+
+    # Baginski-Zabielski 25, Proposition 8
+    # if-condition only for technical reasons, output is the same
+    if Size(G/FrattiniSubgroup(G)) = p^2 then
+        D := DerivedSubgroup(G);
+        F := FrattiniSubgroup(D);
+        if Size(D) = Size(F) then
+            N := Centralizer(G, D);
+        else
+            act := AbelianSubfactorAction(G, D, FrattiniSubgroup(D));
+            N := Kernel(act[1]);
+        fi;
+        if IsAbelian(N) and Size(G/N) = p then
+            return true;
+        fi;
+    fi;   
 
     return false;
 end);
@@ -466,7 +484,7 @@ end);
 
 # variation of previous function only where MIP is solved for all fields
 BindGlobal("IsCoveredByTheoryAllFields", function(G)
-local p, n;
+local p, n, q;
 
     p := PrimePGroup(G);
     n := Log(Size(G),p);
@@ -484,6 +502,14 @@ local p, n;
     # Margolis-Sakurai-Stanojkovski23, Theorem 5.6
     if p = 2 and IsCyclic(Center(G)) and IsDihedralGroup(G/Center(G)) then
         return true;
+    fi;
+
+    # GarciaLucas-Margolis24, case of all fields for p=2
+    if p = 2 and IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
+        q := AbelianInvariants(G/Center(G));
+        if Size(q) <= 2 or q[Size(q)] > q[Size(q)-2] then
+            return true;
+        fi;
     fi;
 
     return false;

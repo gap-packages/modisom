@@ -5,6 +5,13 @@
 ##
 ## functions to work with tables (in the sense of ModIsom) which correspond to quotients of the augmentation ideal I of a group algebra of a finite p-group over a field of characteristic p modulo a power of I. In particular, to generate the table for this quotient
 
+#### for some reason this function works well in tests while the GAP function PositionNonZero does not. See a pull request about it by Oleksandr
+# Input: A list
+# Output: The nonzero positions of the list
+BindGlobal("PosNonzero", function(list)
+    return PositionsProperty(list, x -> not IsZero(x));
+end);
+
 # Input: Linear combination of words. A word is a list of pairs of natural numbers. We think e.g. g1^2*g3 = [[1,2],[3,1]]
 # Output: Same linear combination (in the math sense) where each word 
 #         appears at most once
@@ -191,7 +198,7 @@ local w, sw, pos, p;
   
     sw := 0;
     w := [ ];
-    pos := PositionNonZero(exp);
+    pos := PosNonzero(exp);
     
     for p in pos do
         sw := sw + 1;
@@ -436,7 +443,7 @@ local F, p, exp, pos1, i, j, pows, pos, combs, v, c, w, s, m, tup, coefprod, exp
         # Check if weight of p-th power exceeds level
         if p*T.pre.weights[i] <= lvl then 
             pows := StructuralCopy(T.pre.jen.pows[pos1]);
-            pos := PositionNonZero(pows);
+            pos := PosNonzero(pows);
             pows := pows{pos};
             combs := Combinations([1..Length(pos)]);
             Remove(combs, 1); 
@@ -516,7 +523,7 @@ local F, p, exp, pos1, i, j, pows, pos, combs, v, c, w, s, m, tup, coefprod, exp
                     pows := StructuralCopy(T.pre.jen.coms[poscom][2]);
                     pows[pos1] := 1;
                     pows[pos2] := 1;
-                    pos := PositionNonZero(pows);
+                    pos := PosNonzero(pows);
                     pows := pows{pos};
                     combs := Combinations([1..Length(pos)]);
                     v := [ ];
@@ -659,7 +666,7 @@ BindGlobal("TableOfRadByCollection", function( T )
     # Generate the definitions. E.g. [0,2,1,3] = [0,1,0,0]*[0,1,1,3] is saved. 
     for i in [1..n] do 
         if not i in T.pre.poswone then
-            d := PositionNonZero(T.pre.exps[i]);
+            d := PosNonzero(T.pre.exps[i]);
             v := 0*T.pre.exps[i]; v[d] := 1; 
             l := Position(T.pre.exps, v);
             w := T.pre.exps[i]-v; 

@@ -2,20 +2,28 @@
 set -e
 
 echo "TeXing documentation"
-# delete old stuff to avoid spurious or "hidden errors" caused by their presence
-rm -f manual.aux manual.pdf manual.idx manual.ilg manual.ind manual.lab manual.log manual.six manual.toc
+# this was a failed try of Max to update this file. Will comment it out using several ###
+#### delete old stuff to avoid spurious or "hidden errors" caused by their presence  
+###rm -f manual.aux manual.pdf manual.idx manual.ilg manual.ind manual.lab manual.log manual.six manual.toc
 # TeX the manual
-pdftex manual
+tex manual
+###pdftex manual
 # ... and build its bibliography
 bibtex manual
 # TeX the manual again to incorporate the ToC 
-pdftex manual
+tex manual
+tex manual
+#### pdftex manual
 # ... and build the index
 ../../../doc/manualindex manual
 # Finally TeX the manual again to get cross-references right
-pdftex manual
+tex manual
+pdftex manual; pdftex manual
+#### pdftex manual
 
 # The HTML version of the manual
-mkdir -p ../htm
+rm -rf ../htm
+mkdir ../htm
+#### mkdir -p ../htm
 echo "Creating HTML documentation"
 ../../../etc/convert.pl -i -u -c -n ModIsom . ../htm
