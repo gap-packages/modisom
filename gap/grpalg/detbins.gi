@@ -155,9 +155,6 @@ BindGlobal("JenningsInfoAllFields", function(G)
     r := [];
     for i in [1..Length(s)-1] do
         a := [GroupInfo(s[i]/s[i+1])];
-        if i <= Length(s)-2 then
-            Add(a, GroupInfo(s[i]/s[i+2]));
-        fi;
         Add(r, a);
     od;
     return r;
@@ -704,90 +701,90 @@ BindGlobal("OnlyJenningsInfo", function(G)
 end);
 
 BindGlobal("CenterNormalInfo", function(G, N)
-  local ZI,ZQ;
-  ZI:=Intersection(Center(G), N);
-  ZQ:= Subgroup(G, Union(GeneratorsOfGroup(Center(G)), GeneratorsOfGroup(N)))/N;
+  local ZI, ZQ;
+  ZI := Intersection(Center(G), N);
+  ZQ := Subgroup(G, Union(GeneratorsOfGroup(Center(G)), GeneratorsOfGroup(N)))/N;
   return [ AbelianInvariants(ZI), AbelianInvariants(ZQ)];
 end);
 
 
 #L is normal, N contains G'
-BindGlobal("LNInfo", function(G,L,N)
-  local LN,Q1,Q2;
-  LN:= Subgroup(G, Union(GeneratorsOfGroup(N), GeneratorsOfGroup(L)));
-  Q1:=G/LN;
-  Q2:=LN/N;
+BindGlobal("LNInfo", function(G, L, N)
+  local LN, Q1, Q2;
+  LN := Subgroup(G, Union(GeneratorsOfGroup(N), GeneratorsOfGroup(L)));
+  Q1 := G/LN;
+  Q2 := LN/N;
   return [AbelianInvariants(Q1), AbelianInvariants(Q2)];
 end);
 
 
 # The next three functions are the operations preserving canonicity described in Lemma 3.6.
-BindGlobal("OmegaModuloN", function(G,N,p,t)
-  local f, Q,R;
+BindGlobal("OmegaModuloN", function(G, N, p, t)
+  local f, Q, R;
   if Size(N)=Size(G) then return G; else
-  f:= NaturalHomomorphismByNormalSubgroup( G, N );
-  Q:=Image(f);
-  R:=Omega(Q,p, t);
-  return PreImage(f,R);
+  f := NaturalHomomorphismByNormalSubgroup( G, N );
+  Q := Image(f);
+  R := Omega(Q, p, t);
+  return PreImage(f, R);
   fi;
 end);
 
-BindGlobal("AgemoLModuloN", function(G,L,N,p,t)
+BindGlobal("AgemoLModuloN", function(G, L, N, p, t)
   local AgemoL;
-  AgemoL:=Agemo(L, p,t);
+  AgemoL := Agemo(L, p, t);
   return Subgroup(G, Union(GeneratorsOfGroup(AgemoL), GeneratorsOfGroup(N)));
 end);
 
 
 BindGlobal("OmegaCenterN", function(G,N,p,t)
     local OmegaCenter;
-    OmegaCenter:=Omega(Center(G), p,t);
+    OmegaCenter := Omega(Center(G), p, t);
     return Subgroup(G, Union(GeneratorsOfGroup(OmegaCenter), GeneratorsOfGroup(N)));
 end);
 
 #N is a subgroup containing G'. Then the following function computes the subgroups obtained using the previous operations.
 #(Observe that if L=G, t doesn't really matter since the output for different values of t can be obtained iterating of the operation).
-BindGlobal("SuccessorsN", function(G,L,N,p)
-  local S1,S2,S3, SizeN, successorsN;
-  successorsN:=[];
-  SizeN:=Size(N);
-  S1:=OmegaModuloN(G,N,p,1);
-  if Size(S1)<>SizeN then Add(successorsN, S1); fi;
-  S2:=AgemoLModuloN(G,L,N,p,1);
-  if Size(S2)<>SizeN then Add(successorsN, S2); fi;
-  S3:=OmegaCenterN(G,N,p,1);
-  if Size(S3)<>SizeN then Add(successorsN, S3); fi;
+BindGlobal("SuccessorsN", function(G, L, N, p)
+  local S1, S2, S3, SizeN, successorsN;
+  successorsN := [ ];
+  SizeN := Size(N);
+  S1 := OmegaModuloN(G, N, p, 1);
+  if Size(S1) <> SizeN then Add(successorsN, S1); fi;
+  S2 := AgemoLModuloN(G, L, N, p, 1);
+  if Size(S2) <> SizeN then Add(successorsN, S2); fi;
+  S3 := OmegaCenterN(G, N, p, 1);
+  if Size(S3) <> SizeN then Add(successorsN, S3); fi;
   return successorsN;
 end);
 
 #!
 BindGlobal("CanonicalNormalSubgroups", function(G)
-  local normalSubgroups, normalSubgroupsLeveli,normalSubgroupsLevelip1,e,Gprime,Ab, SN,N,p, normalSubgroups0, i;
-  Gprime:=DerivedSubgroup(G);
-  normalSubgroups:=[Gprime];
-  p:=Factors(Order(G))[1];
-  Ab:=G/Gprime;
-  e:=3*Log(Exponent(Ab),p);  #Probably using this e as a bound makes no sense.
-  normalSubgroupsLeveli:=normalSubgroups;
+  local normalSubgroups, normalSubgroupsLeveli, normalSubgroupsLevelip1, e, Gprime, Ab, SN, N, p, normalSubgroups0, i;
+  Gprime := DerivedSubgroup(G);
+  normalSubgroups := [Gprime];
+  p := Factors(Order(G))[1];
+  Ab := G/Gprime;
+  e := 3*Log(Exponent(Ab), p);  #Probably using this e as a bound makes no sense.
+  normalSubgroupsLeveli := normalSubgroups;
   for i in [1..e] do
-    normalSubgroupsLevelip1:=[];
+    normalSubgroupsLevelip1 := [ ];
     for N in normalSubgroupsLeveli do
-        SN:=SuccessorsN(G,G,N,p);
-        normalSubgroupsLevelip1:=Concatenation(normalSubgroupsLevelip1, SN);
+        SN := SuccessorsN(G, G, N, p);
+        normalSubgroupsLevelip1 := Concatenation(normalSubgroupsLevelip1, SN);
     od;
-    normalSubgroupsLeveli:=normalSubgroupsLevelip1;
-    normalSubgroups:=Concatenation(normalSubgroups, normalSubgroupsLevelip1);
+    normalSubgroupsLeveli := normalSubgroupsLevelip1;
+    normalSubgroups := Concatenation(normalSubgroups, normalSubgroupsLevelip1);
   od;
   #Some subgroups are missing, for examples the last ones in Remark 3.6 (3), because when L is not G the value of t matters.
-  normalSubgroups0:=normalSubgroups;
+  normalSubgroups0 := normalSubgroups;
   return normalSubgroups;
 end);
 
 #The next function collects the data arising from the Jenning series of the (major part of) canonical normal subgroups.
 BindGlobal("NormalSubgroupsInfo", function(G)
   local normalSubgroups,Gprime;
-  Gprime:=DerivedSubgroup(G);
-  return List(CanonicalNormalSubgroups(G), x->[OnlyJenningsInfo(x), CenterNormalInfo(G,x), LNInfo(G,x,Gprime)]);
+  Gprime := DerivedSubgroup(G);
+  return List(CanonicalNormalSubgroups(G), x -> [OnlyJenningsInfo(x), CenterNormalInfo(G, x), LNInfo(G, x, Gprime)]);
 end);
 #####################
 

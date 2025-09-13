@@ -1,3 +1,9 @@
+
+Changes in 3.0.2: 
+- corrected a mistake in the function JenningsInfoAllFields
+- slight modification of manual
+
+------------------------------------------
 Changes in version 3.0.1: LAGUNA is now a requiered package. This solves the issue of warnings coming up when ModIsom was loaded without LAGUNA
 
 -----------------------------------------------------------------

@@ -110,7 +110,7 @@ information at which level the splitting of the bins took place.
 
 For more evolved calculations one can use the function
 
-\> MIPBinSplit(p, n, k, start, step, L, [f])
+\> MIPBinSplit(p, n, max, start, step, L, [f])
 
 Given a list $L$ of small group library Id's or a list of groups of order $p^n$ this functions checks
 isomorphism of the associated modular group algebras using canonical forms for the quotients of the
@@ -524,6 +524,8 @@ the number of conjugacy classes of $p^i$-th powers which come from conjugacy cla
  (Parmenter-Polcino Milies) \cite{HS06}(Section 2.2) and the dimension of the first Hochschild 
  cohomology group which equals the number $\sum_{g^G} \log_p(C_G(g)/\Phi(C_G(g))$ where the sum runs over
  all the conjugacy classes of $G$ \cite{HS06}(Section 2.6). 
+ 
+ The return contains first the Roggenkamp parameter, then the Kuelshammer invariants (starting from $i = 0)$ and then the invariant of Parmenter-Polcino Milies.
  
 \> SubgroupsInfo(G) F
 
