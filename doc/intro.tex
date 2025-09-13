@@ -13,9 +13,9 @@ nilpotent associative algebras. It also contains many group-theoretical
 functions related to the Modular Isomorphism Problem.
 We first give a brief introduction to finite dimensional
 nilpotent algebras and then an overview of the main algorithms.
-\medskip
 
-{\bf Associative algebras and nilpotency}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Associative algebras and nilpotency}
 
 Let $A$ be an associative algebra of dimension $d$ over a field $F$.
 Let $\{b_1, \ldots, b_d\}$ be a basis for $A$. We identify the 
@@ -51,9 +51,9 @@ $a_{i,j,k}$ for all $i$ with $w_i = 1$ and $1 \leq j,k \leq d$. For $i$
 with $w_i > 1$ it either contains a description as $b_i = b_k b_l$ or the 
 structure constants $a_{i,j,k}$ for $1 \leq j,k \leq d$. It may also 
 contain both or some partial overlap of these informations.
-\medskip
 
-{\bf Isomorphisms and Automorphisms}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Isomorphisms and Automorphisms}
 
 Let $A$ be a finite dimensional nilpotent associative algebra over a 
 finite field. This package contains an implementation of the methods 
@@ -68,9 +68,9 @@ table for $A$ which is unique for the isomorphism type of $A$;
 that is, two algebras $A$ and $B$ are isomorphic if and only if $Can(A) 
 = Can(B)$ holds. Hence the canonical form can be used to solve the 
 isomorphism problem. 
-\medskip
 
-{\bf The Modular Isomorphism Problem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{The Modular Isomorphism Problem}
 
 The modular isomorphism problem asks whether an isomorphism of algebras $\F_p G \cong \F_p H$ implies
 an isomorphism of groups $G \cong H$ for two $p$-groups $G$ and $H$ and $\F_p$ the field with $p$
@@ -118,18 +118,18 @@ Problem with a bigger field of characteristic $p$ will change the outcome
 of the problem for a given pair of groups. The package includes several 
 functions which allow to investigate this question by applying the algorithm
 for the same groups varying the field.
-\medskip
 
-{\bf A nilpotent quotient algorithm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{A nilpotent quotient algorithm}
 
 Given a finitely presented associative algebra $A$ over an arbitrary
 field $F$, this package contains an algorithm to determine a nilpotent
 structure constants table for the class-$c$ nilpotent quotient of $A$,
 i.e. the algebra $A/A^{c+1}$. 
 See \cite{Eic11} for details on the underlying algorithm.
-\medskip
 
-{\bf Kurosh Algebras}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Section{Kurosh Algebras}
 
 Let $F(d,F)$ denote the free non-unital associative algebra on $d$ 
 generators over the field $F$. Then 

@@ -5,12 +5,12 @@
 ##
 ## functions to work with tables (in the sense of ModIsom) which correspond to quotients of the augmentation ideal I of a group algebra of a finite p-group over a field of characteristic p modulo a power of I. In particular, to generate the table for this quotient
 
-#### for some reason this function works well in tests while the GAP function PositionNonZero does not. See a pull request about it by Oleksandr
 # Input: A list
 # Output: The nonzero positions of the list
 BindGlobal("PosNonzero", function(list)
     return PositionsProperty(list, x -> not IsZero(x));
 end);
+
 
 # Input: Linear combination of words. A word is a list of pairs of natural numbers. We think e.g. g1^2*g3 = [[1,2],[3,1]]
 # Output: Same linear combination (in the math sense) where each word 
@@ -591,7 +591,7 @@ end);
 # Input: Table and maximal weight we want. Typically output from PreSet
 # Output: None. T.powwords, T.commwords, T.dim, T.wgs are set
 BindGlobal("WordFillTable", function(T, lvl)
-local F, p, s1, l, i, pos1, expw1, w1, sortweights1, sortexpw1, f1, posf1, s2, post2, expw2, w2, sortweights2, sortexpw2, f2, posf2, dep, mm, vec, posvec, fac1, v;
+local F, p, s1, l, i, pos1, expw1, w1, sortweights1, sortexpw1, f1, posf1, s2, post2, expw2, w2, sortweights2, sortexpw2, f2, posf2, dep, mm, vec, posvec, fac1, posnonzero, v;
 
     F := T.fld;
     p := Characteristic(F);
@@ -666,7 +666,7 @@ BindGlobal("TableOfRadByCollection", function( T )
     # Generate the definitions. E.g. [0,2,1,3] = [0,1,0,0]*[0,1,1,3] is saved. 
     for i in [1..n] do 
         if not i in T.pre.poswone then
-            d := PosNonzero(T.pre.exps[i]);
+            d := PositionNonZero(T.pre.exps[i]);
             v := 0*T.pre.exps[i]; v[d] := 1; 
             l := Position(T.pre.exps, v);
             w := T.pre.exps[i]-v; 
