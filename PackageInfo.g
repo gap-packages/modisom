@@ -6,7 +6,7 @@ SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
 Version := "3.0.2",
-Date := "28/12/2024", # dd/mm/yyyy format
+Date := "13/09/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -118,7 +118,6 @@ PackageDoc := rec(
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
   LongTitle := "Computing with nilpotent associative algebras",
-  Autoload  := true
 ),
 
 
@@ -131,7 +130,6 @@ Dependencies := rec(
 
 BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
-Autoload := false,
 TestFile := "tst/testall.g",
 Keywords := ["modular isomorphism problem",
              "automorphism group",
