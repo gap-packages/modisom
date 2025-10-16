@@ -199,7 +199,7 @@ BindGlobal("SandlingInfo", function(G)
             Add(r, GroupInfo(G/U));
         fi;
     fi;
-    Add(r, HertweckSorianoFrattiniInfo);
+    Add(r, HertweckSorianoFrattiniInfo(G));
     return(r);
 end);
 
@@ -719,6 +719,18 @@ local p, D, C, JS, a, i, LCS, res1, res2;
   fi;
 end);
 
+## Proposition 2.5 from Margolis-Sakurai 25 "All Fields"
+BindGlobal("CyclicDerivedMargolisSakurai", function(G)
+local p, D;
+p := PrimePGroup(G);
+D := DerivedSubgroup(G);
+if Size(D) > 1 and IsCyclic(D) and Size(G/FrattiniSubgroup(G)) = p^2 then
+    return GroupInfo(G/Agemo(D, p));
+else
+    return false;
+fi;
+end);
+
 #############3 the following function implement part of the subgroup lattice which is canonical as described in Garcia-Lucas24
 ### written by Diego Garcia-Lucas
 ##The next three functions concern the info described in Lemma 3.2
@@ -865,7 +877,7 @@ local bins, cent, i;
     if Length(bins)=0 then return bins; fi;
 
     # CHANGED
-    # refine by jennings series
+    # refine by Jennings series
     Info(InfoModIsom, 1, "refine by Jennings series (Passi+Sehgal/Ritter+Sehgal/Hertweck)");
     bins := RefineBins( p^n, bins, JenningsInfo, false );
     bins := Filtered( bins, x -> Length(x)>1 );
@@ -910,10 +922,14 @@ local bins, cent, i;
     Info(InfoModIsom, 1, "refine by Omega and Agemo (Margolis+Stanojkovski+Sakurai/Garcia-Lucas)");  
     bins := RefineBins( p^n, bins, AgemoInvariantAllM, false );
     bins := Filtered( bins, x -> Length(x)>1 );
-    bins := RefineBins( p^n, bins, OmegaInvariantAllM, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
-    bins := RefineBins( p^n, bins, AgemoCenterInvariantAllM, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
+    if bins <> [ ] then
+        bins := RefineBins( p^n, bins, OmegaInvariantAllM, false );
+        bins := Filtered( bins, x -> Length(x)>1 );
+    fi;
+    if bins <> [ ] then
+        bins := RefineBins( p^n, bins, AgemoCenterInvariantAllM, false );
+        bins := Filtered( bins, x -> Length(x)>1 );
+    fi;
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;
 
@@ -929,6 +945,14 @@ local bins, cent, i;
     # refine by results on p odd with cyclic derived from GarciaLucas-del Rio-Stanojkovski 22 (Theorem 4.2 and Corollaries D, E) and GarciaLucas-del Rio 24 (Theorem A)
     Info(InfoModIsom, 1, "invariants for cyclic derived subgroup (Garcia-Lucas+del Rio+Stanojkovski)");
     bins := RefineBins( p^n, bins, CyclicDerivedInfo, false );
+    bins := Filtered( bins, x -> Length(x)>1 );
+    Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
+    if Length(bins)=0 then return bins; fi;
+
+    # NEW NEW
+    # refine by results on cyclic derived 2-generated from Margolis-Sakurai 25
+    Info(InfoModIsom, 1, "invariants for cyclic derived subgroup and 2-generated (Margolis+Sakurai)");
+    bins := RefineBins( p^n, bins, CyclicDerivedMargolisSakurai, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;
@@ -970,10 +994,12 @@ local bins, cent, i;
         Info(InfoModIsom, 1, "refine by second cohomology group"); 
         bins := RefineBins( p^n, bins, DimensionTwoCohomology, false );
         bins := Filtered( bins, x -> Length(x)>1 );
-        if InfoLevel(InfoModIsom) >= 1 then
-            bins := RefineBins( p^n, bins, DimensionSecondHochschild, true );
-        else
-            bins := RefineBins( p^n, bins, DimensionSecondHochschild, false );
+        if bins <> [ ] then
+            if InfoLevel(InfoModIsom) >= 1 then
+                bins := RefineBins( p^n, bins, DimensionSecondHochschild, true );
+            else
+                bins := RefineBins( p^n, bins, DimensionSecondHochschild, false );
+            fi;
         fi;
         bins := Filtered( bins, x -> Length(x)>1 );
         Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
@@ -1058,7 +1084,7 @@ local bins, cent, i;
     if Length(bins)=0 then return bins; fi;
 
     # CHANGED
-    # refine by jennings series
+    # refine by Jennings series
     Info(InfoModIsom, 1, "refine by Jennings series");
     bins := RefineBins( p^n, bins, JenningsInfoAllFields, false );
     bins := Filtered( bins, x -> Length(x)>1 );
@@ -1087,10 +1113,14 @@ local bins, cent, i;
     Info(InfoModIsom, 1, "refine by Omega and Agemo (Margolis+Stanojkovski+Sakurai/Garcia-Lucas)");  
     bins := RefineBins( p^n, bins, AgemoInvariantAllM, false );
     bins := Filtered( bins, x -> Length(x)>1 );
-    bins := RefineBins( p^n, bins, OmegaInvariantAllM, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
-    bins := RefineBins( p^n, bins, AgemoCenterInvariantAllM, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
+    if bins <> [ ] then  
+        bins := RefineBins( p^n, bins, OmegaInvariantAllM, false );
+        bins := Filtered( bins, x -> Length(x)>1 );
+    fi;
+    if bins <> [ ] then
+        bins := RefineBins( p^n, bins, AgemoCenterInvariantAllM, false );
+        bins := Filtered( bins, x -> Length(x)>1 );
+    fi;
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;
 
@@ -1098,6 +1128,14 @@ local bins, cent, i;
     # refine by results on p odd with cyclic derived from GarciaLucas-del Rio-Stanojkovski 22 (Theorem 4.2 and Corollaries D, E) and GarciaLucas-del Rio 24 (Theorem A)
     Info(InfoModIsom, 1, "lower invariants for cyclic derived (Garcia-Lucas+del Rio+Stanojkovski)");
     bins := RefineBins( p^n, bins, CyclicDerivedInfoAllFields, false );
+    bins := Filtered( bins, x -> Length(x)>1 );
+    Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
+    if Length(bins)=0 then return bins; fi;
+
+    # NEW NEW
+    # refine by results on cyclic derived 2-generated from Margolis-Sakurai 25
+    Info(InfoModIsom, 1, "invariants for cyclic derived subgroup and 2-generated (Margolis+Sakurai)");
+    bins := RefineBins( p^n, bins, CyclicDerivedMargolisSakurai, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;
@@ -1139,10 +1177,12 @@ local bins, cent, i;
         Info(InfoModIsom, 1, "refine by second cohomology group"); 
         bins := RefineBins( p^n, bins, DimensionTwoCohomology, false );
         bins := Filtered( bins, x -> Length(x)>1 );
-        if InfoLevel(InfoModIsom) >= 1 then
-            bins := RefineBins( p^n, bins, DimensionSecondHochschild, true );
-        else
-            bins := RefineBins( p^n, bins, DimensionSecondHochschild, false );
+        if bins <> [ ] then
+            if InfoLevel(InfoModIsom) >= 1 then
+                bins := RefineBins( p^n, bins, DimensionSecondHochschild, true );
+            else
+                bins := RefineBins( p^n, bins, DimensionSecondHochschild, false );
+            fi;
         fi;
         bins := Filtered( bins, x -> Length(x)>1 );
         Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
