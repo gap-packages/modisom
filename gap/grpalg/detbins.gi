@@ -846,7 +846,7 @@ local bins, cent, i;
     bins := [ShallowCopy(L)];
 
     # refine by abelian invariants
-    Info(InfoModIsom, 1, "refine by abelian invariants of group (Sehgal/Ward)");
+    Info(InfoModIsom, 1, "refine by abelian invariants of group");
     bins := RefineBins( p^n, bins, AbelianInvariants, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
@@ -1061,7 +1061,7 @@ local bins, cent, i;
     bins := [ShallowCopy(L)];
 
     # refine by abelian invariants
-    Info(InfoModIsom, 1, "refine by abelian invariants of group (Sehgal/Ward)");
+    Info(InfoModIsom, 1, "refine by abelian invariants of group");
     bins := RefineBins( p^n, bins, AbelianInvariants, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");

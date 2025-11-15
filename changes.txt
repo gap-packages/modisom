@@ -1,9 +1,11 @@
 
 Changes in 3.0.2: 
-- corrected a mistake in the function JenningsInfoAllFields. This lead to theoretical mistakes in versions 3.0.0 and 3.0.1
+- corrected a mistake in the function JenningsInfoAllFields. This lead to theoretical mistakes in versions 3.0.0 and 3.0.1, as it was using an invariant only valid over Fp
+- JenningBoundPairwise is now doing what it claimed to do before. The old function is now called JenningsBoundPairwiseWithIds
 - slight modification of manual
 - a mistake which could lead to break loops in SplitByGT, as functions were applied to empty bins, has been corrected
 - included new invariant G/Agemo(G') for the case G' is cyclic and G is 2-generated (Margolis-Sakurai 25)
+- if the first layers of the group algebras are not isomorphic the return of MIPSplitGroupsByAlgebras is now 1 rather than 0, for more consistency
 
 ------------------------------------------
 Changes in version 3.0.1: LAGUNA is now a requiered package. This solves the issue of warnings coming up when ModIsom was loaded without LAGUNA

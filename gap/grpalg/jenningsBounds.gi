@@ -88,6 +88,49 @@ local grps, js, i, ids, c, ret, idav;
 
     for c in Combinations([1..Length(grps)], 2) do
         if idav then
+            Add(ret, JenningsBound(p, n, grps{c}));
+        elif "IdGroup" in KnownAttributesOfObject(grps[c[1]]) and "IdGroup" in KnownAttributesOfObject(grps[c[2]]) then
+            Add(ret, JenningsBound(p, n, grps{c}));
+        else
+            Add(ret, JenningsBound(p, n, grps{c}));
+        fi;
+    od;
+
+    return Maximum(ret);
+end );
+
+#############################################################################
+##
+#O JenningsBoundPairwisWithIds( p, n, bin )
+##
+## input prime p, number n and list bin of groups of order p^n or group ids of order p^n.
+## output: smallest numbers r such that for all pairs of groups G and H in bin the quotients of G and H modulo the (r+1)-th dimension subgroup are not isomorphic and also the groups
+BindGlobal( "JenningsBoundPairwiseWithIds", function( p, n, bin )
+local grps, js, i, ids, c, ret, idav;
+
+    if not IsPrimeInt(p) then
+        Error("<p> must be a prime integer");
+    fi;
+
+    if ID_AVAILABLE(p^n) <> fail then
+        idav := true;
+    else
+        idav := false;	      
+    fi;
+
+    # Check whether we have a list of integers or a list of groups
+    if ForAll(bin, IsInt) then
+        grps := List(bin, x -> SmallGroup(p^n, x));
+    elif ForAll(bin, IsGroup) then
+        grps := bin;
+    else
+        Error("<L> must be a list of integers or a list of groups");
+    fi;
+
+    ret := [];
+
+    for c in Combinations([1..Length(grps)], 2) do
+        if idav then
             Add(ret, [IdSmallGroup(grps[c[1]]), IdSmallGroup(grps[c[2]]), JenningsBound(p, n, grps{c})]);
         elif "IdGroup" in KnownAttributesOfObject(grps[c[1]]) and "IdGroup" in KnownAttributesOfObject(grps[c[2]]) then
             Add(ret, [IdSmallGroup(grps[c[1]]), IdSmallGroup(grps[c[2]]), JenningsBound(p, n, grps{c})]);
@@ -98,6 +141,5 @@ local grps, js, i, ids, c, ret, idav;
 
     return ret;
 end );
-
 
 

@@ -77,7 +77,7 @@ local grps, algs, tabs, bins, l, m, vals, todo, i, j, d, splits, stime, f, list;
     todo := Flat(bins);
 
     if Length(todo) = 0 then 
-        return rec( bins := [], splits := [[0, list]], time := Runtime()-stime ); 
+        return rec( bins := [], splits := [[1, list]], time := Runtime()-stime ); 
     fi;
 
     # Start up and refine by aut group
