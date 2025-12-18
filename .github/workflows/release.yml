@@ -6,8 +6,8 @@ on:
       dry-run:
         description: "Dry run: only create an archive containing the release instead of publishing it on GitHub"
         type: boolean
-        required: true
-        default: true
+        required: false
+        default: false
       force:
         description: "Force: allow overwriting an existing release, or making a release with an incorrect date"
         type: boolean
