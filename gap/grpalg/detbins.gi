@@ -74,14 +74,14 @@ BindGlobal("ConjugacyClassInfo", function(G)
     # the length
     Add( s, Length(c) );
 
-    # p^n-th powers. Probably Kuelshammer
+    # p^n-th powers. Kuelshammer
     repeat
         e := Set( List(e, x -> x^p) );
         o := Orbits(G, e);
         Add( s, Length(o) );
     until Length(e) = 1;
 
-    # Parmenter+Polcino-Milies. Hertweck-Soriano Lemma 2.4. 
+    # Parmenter+Polcino-Milies. Hertweck+Soriano Lemma 2.4. 
     # This can probably be written much more efficiently!
     exp := Log(Exponent(G), p);
     c := Filtered(c, x -> Size(x) > 1); # Filter out center to improve performance
@@ -113,7 +113,7 @@ end);
 BindGlobal("JenningsInfo", function(G)
     local s, r, i, a;
     s := JenningsSeries(G);
-    r := [];
+    r := [ ];
     for i in [1..Length(s)-1] do
         a := [GroupInfo(s[i]/s[i+1])];
         if i <= Length(s)-2 then
@@ -152,7 +152,7 @@ end);
 BindGlobal("JenningsInfoAllFields", function(G)
     local s, r, i, a;
     s := JenningsSeries(G);
-    r := [];
+    r := [ ];
     for i in [1..Length(s)-1] do
         a := [GroupInfo(s[i]/s[i+1])];
         Add(r, a);
@@ -179,7 +179,10 @@ end);
 
 ## infromation from small group algebra as first done by Sandling
 BindGlobal("SandlingInfo", function(G) 
-    local s, p, U, r;
+    local s, p, U, r, d, W, V;
+    if IsAbelian(G) then # otherwise lower central series has length at least 3 and the following parts work
+        return GroupInfo(G);
+    fi;
     s := LowerCentralSeries(G);
     p := PrimePGroup(G);
     r := [ ];
@@ -190,16 +193,31 @@ BindGlobal("SandlingInfo", function(G)
         Add(r, GroupInfo(G/U));
     fi;
 
-    # Baginski 99 / Margolis-Moede 2022
+    # Baginski 99 / Margolis+Moede 2022
     if RankPGroup(G) <= 2 and Length(s) >= 4 then 
-        U := Subgroup(G, Concatenation(Pcgs(s[4]), List(Pcgs(s[2]), x -> x^p)));
-        if Size(U) = 1 and "IdGroup" in KnownAttributesOfObject(G) then
+        V := Subgroup(G, Concatenation(Pcgs(s[4]), List(Pcgs(s[2]), x -> x^p)));
+        if Size(V) = 1 and "IdGroup" in KnownAttributesOfObject(G) then
             Add(r,IdGroup(G));
         else
-            Add(r, GroupInfo(G/U));
+            Add(r, GroupInfo(G/V));
         fi;
     fi;
+    # from Hertweck+Soriano 06, p.16
     Add(r, HertweckSorianoFrattiniInfo(G));
+
+    # Brenner+Garcia-Lucas 24, Theorem B
+    if p > 2 and Length(s) >= 4 then
+        W := Subgroup(G, Concatenation(Pcgs(FrattiniSubgroup(G)), Pcgs(Center(G))) ); #Phi(G)Z(G)
+        d := Log(Size(G)/Size(W), p);
+        if IsSubgroup(U, Intersection(s[2], Agemo(G, p))) and Size(s[2]/U) = p^Binomial(d, 2) then
+            V := Subgroup(G, Concatenation(Pcgs(s[4]), List(Pcgs(s[2]), x -> x^p)));
+            if Size(V) = 1 and "IdGroup" in KnownAttributesOfObject(G) then
+                Add(r, IdGroup(G));
+            else
+                Add(r, GroupInfo(G/V));
+            fi;
+        fi;
+    fi;
     return(r);
 end);
 
@@ -241,7 +259,7 @@ end );
 ###### Some new invariants (new compared to ModIsom versions 1 and 2). First an article of Baginski
 
 
-## Baginski 99 Corollary 7 and Theorem 9, also Baginski-Zabielski 25 Lemma 7
+## Baginski 99 Corollary 7 and Theorem 9, also Baginski+Zabielski 25 Lemma 7
 BindGlobal("BaginskiInfo", function(G) 
 local D, N, act, F, r, p;
     D := DerivedSubgroup(G);
@@ -265,7 +283,7 @@ local D, N, act, F, r, p;
     fi;
 end);
 
-## Based on Baginski-Caranti 1988 Proposition 1.2
+## Based on Baginski+Caranti 1988 Proposition 1.2
 BindGlobal("BaginskiCarantiInfo", function(G) 
     return NilpotencyClassOfGroup(G/FrattiniSubgroup(DerivedSubgroup(G)));
 end);
@@ -295,7 +313,7 @@ end);
 
 
 ### cases where the nilpotency class is known to be an invariant
-# Baginski-Konovalov 05
+# Baginski+Konovalov 05
 BindGlobal("NilpotencyClassInfo", function(G) 
 local p;
   
@@ -374,10 +392,13 @@ local LM, U, LUM, V;
 end);
 
 # Auxilary function to apply in next function
-# to compute the criterion in MargolisStanojkovski22, Theorem 3.5.
+# to compute the criterion in Margolis+Stanojkovski 22, Theorem 3.5.
 BindGlobal("Theorem35MS22Applies", function(G)
 local p, F, UPS, Z2, Gam, LM, U, KG;
 
+    if IsAbelian(G) then
+        return GroupInfo(G);
+    fi;
     p := PrimePGroup(G);
     F := FrattiniSubgroup(G);
     UPS := UpperCentralSeries(G);
@@ -405,7 +426,62 @@ local p, F, UPS, Z2, Gam, LM, U, KG;
     fi;
 end);
 
-#### Some theoretical results follow from the other criteria. In particular metacyclic groups (Sandling 96) and (elem-ab.)-by-cyclic groups (Baginski 99) are covered.
+# to see if group is metacylic
+BindGlobal("IsMetacyclicGroup", function(G)
+    local LN, N;
+    if IsCyclic(DerivedSubgroup(G)) then
+        LN := NormalSubgroups(G);
+        for N in LN do 
+            if IsCyclic(N) and IsCyclic(G/N) then
+                return true;
+            fi;
+        od;
+    fi;
+    return false;
+end);
+
+### 
+## to apply Roehl 90, Theorem 3.1.2
+# first the dimensions of Jennings quotients of d-generated free pro-p group. Based on Minac+Rogelstad+Tan 2016, Proposition 3.4
+BindGlobal("MinacRogelstadTanWnFunction", function(d, n)
+    local res, m;
+    res := 0;
+    for m in DivisorsInt(n) do
+        res := res + (1/n)*MoebiusMu(m)*d^(n/m);
+    od;
+    return res;
+end);
+
+BindGlobal("MinacRogelstadTanCnFunction", function(d, n, p)
+    local facs, k, m, res, i;
+    facs := FactorsInt(n);
+    k := Size(Positions(facs, p));
+    m := n/(p^k);
+    res := 0;
+    for i in [0..k] do
+        res := res + MinacRogelstadTanWnFunction(d, (p^i)*m);
+    od;
+    return res;
+end);
+
+BindGlobal("SatisfiesRoehl90", function(G)
+    local p, JSS, d, i;
+    p := PrimePGroup(G);
+    JSS := List(JenningsSeries(G), Size);
+    d := Log(Size(G/FrattiniSubgroup(G)), p);
+    if Size(JSS) = 1 then # elementary abelian case 
+        return true;
+    fi;
+    for i in [1..Size(JSS)-2] do
+        if Log(JSS[i]/JSS[i+1], p) <> MinacRogelstadTanCnFunction(d, i, p) then
+            return false;
+       fi;
+    od; 
+    return true;
+end);
+
+
+#### Some theoretical results follow from the other criteria. In particular metacyclic groups (Sandling 96, for prime field) and (elem-ab.)-by-cyclic groups (Baginski 99) are covered.
 
 BindGlobal("IsCoveredByTheory", function(G)
 local p, n, D, F, N, act;
@@ -418,7 +494,7 @@ local p, n, D, F, N, act;
         return true;
     fi;
 
-    # Baginski-Caranti 88
+    # Baginski+Caranti 88
     if p <> 2 and n <= p+1 and HasMaximalAbelianSubgroup(G) and NilpotencyClassOfGroup(G) = n-1 then 
         return true;
     fi;
@@ -427,18 +503,26 @@ local p, n, D, F, N, act;
     if Size(G)/Size(Center(G)) = p^2 then 
         return true;
     fi;
+
+    # Brenner+Garcia-Lucas 24
+    if p > 2 and Size(G)/Size(Center(G)) = p^3 then 
+        return true;
+    fi;
+   
  
-    # Baginski-Konovalov 05. Rather slow, but can be helpful. Case p<>2 covered by other criteria by Lemma 1 (ArXiv-version) of BK05
+    # Baginski+Konovalov 05. Rather slow, but can be helpful. Case p<>2 covered by other criteria by Lemma 1 (ArXiv-version) of BK05
     #if p = 2 and HasCyclicSubgroupIOfIndexP2(G) then 
         #return true;
     #fi;
 
-    # Broche-DelRio 20, Theorem 1. The case of odd primes is covered by other invariants
-    if p = 2 and NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = 4 then 
-        return true;
-    fi;
+    # as Margolis+Sakurai25, proof of Theorem 3.9, shows the following is covered by other invariants (in particular NormalSubgroupsInfo)
+    # Broche+del Rio 20, Theorem 1. The case of odd primes is covered by other invariants
+ #   if NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = p^2 then 
+ #       return true;
+ #   fi;
 
-    # Margolis-Stanojkovski 22: Theorem 3.3, Theorem 3.5
+
+    # Margolis+Stanojkovski 22: Theorem 3.3, Theorem 3.5
     if p <> 2 and NilpotencyClassOfGroup(G) <= 3 and Exponent(DerivedSubgroup(G)) = p then
         if Size(Centralizer(G, DerivedSubgroup(G))) = Size(G)/p and IsAbelian(Centralizer(G, DerivedSubgroup(G))) then 
             return true;
@@ -447,22 +531,22 @@ local p, n, D, F, N, act;
         fi;
     fi;
 
-    # Margolis-Sakurai-Stanojkovski23, Theorem 5.6
+    # Margolis+Sakurai+Stanojkovski23, Theorem 5.6
     if p = 2 and IsCyclic(Center(G)) and IsDihedralGroup(G/Center(G)) then
         return true;
     fi;
 
-    # GarciaLucas-Margolis24. Odd p covered by other invariants
+    # Garcia-Lucas+Margolis24. Odd p covered by other invariants
     if p = 2 and IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
         return true;
     fi;
 
-    # GarciaLucas-del Rio 24, Proposition 3.7
+    # Garcia-Lucas+del Rio 24, Proposition 3.7
     if p <> 2 and IsCyclic(DerivedSubgroup(G)) and IsCyclic( Agemo(G/DerivedSubgroup(G), p, 2) ) then
         return true;
     fi;
 
-    # Baginski-Zabielski 25, Proposition 8
+    # Baginski+Zabielski 25, Proposition 8
     # if-condition only for technical reasons, output is the same
     if Size(G/FrattiniSubgroup(G)) = p^2 then
         D := DerivedSubgroup(G);
@@ -476,7 +560,12 @@ local p, n, D, F, N, act;
         if IsAbelian(N) and Size(G/N) = p then
             return true;
         fi;
-    fi;   
+    fi; 
+
+    #Roehl 90, Proposition 3.2
+    if SatisfiesRoehl90(G) then
+        return true;
+    fi;
 
     return false;
 end);
@@ -499,12 +588,12 @@ local p, n, q;
         return true;
     fi;
  
-    # Margolis-Sakurai-Stanojkovski23, Theorem 5.6
+    # Margolis+Sakurai+Stanojkovski 23, Theorem 5.6
     if p = 2 and IsCyclic(Center(G)) and IsDihedralGroup(G/Center(G)) then
         return true;
     fi;
 
-    # GarciaLucas-Margolis24, case of all fields for p=2
+    # Garcia-Lucas+Margolis 24, case of all fields for p=2
     if p = 2 and IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
         q := AbelianInvariants(G/Center(G));
         if Size(q) <= 2 or q[Size(q)] > q[Size(q)-2] then
@@ -512,11 +601,23 @@ local p, n, q;
         fi;
     fi;
 
+    # as Margolis-Sakurai25 shows the following is covered by other invariants
+    # Margolis-Sakurai25, Theorem 3.9. The case of odd primes is covered by other invariants
+#    if p = 2 and NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = 4 then 
+#        return true;
+#    fi;
+
+   # Margolis+Sakurai 25, Theorem 3.6. For prime field this is covered by other invariants, for all fields those used might not be enough if GroupInfo is not strong enough
+   if IsMetacyclicGroup(G) then
+       return true; 
+   fi;  
+
+
     return false;
 end);
 
 
-### Theorem 4.1 from MargolisStanojkovski22
+### Theorem 4.1 from Margolis+Stanojkovski 22
 BindGlobal("Theorem41MS22", function(G)
 local p, LCS;
 
@@ -558,7 +659,7 @@ local factors, H,e,i,p,F;
 end);
 
 
-#### Invariants from Theorem B of MargolisSakuraiStanojkovski23, Theorem B, and GarciaLucas22, Example 3.7(2)
+#### Invariants from Theorem B of Margolis+Sakurai+Stanojkovski 23, Theorem B, and Garcia-Lucas22, Example 3.7(2)
 # The Agemo*-invariant
 BindGlobal("ZAstar", function(G, m)
 local p, D, A, Z, W, U;
@@ -610,7 +711,7 @@ local res, p, l, m;
     return res;
 end);
 
-# Diego's 3.7(2) invariant: G/G'Agemo_m(Center(G)) and its dual 
+# Garcia-Lucas Example 3.7(2) invariant: G/G'Agemo_m(Center(G)) and its dual 
 BindGlobal("ModuloAgemoCenter", function(G, m)
 local p, D, A, W;
 
@@ -635,7 +736,7 @@ local res, p, l, m;
 end);
 
 
-#### invariants for cyclic derived subgroup and p odd from Garcia-Lucas-del Rio-Stanojkovski22 and Garcia-Lucas-del Rio 24
+#### invariants for cyclic derived subgroup and p odd from Garcia-Lucas+del Rio+Stanojkovski 22, Garcia-Lucas+del Rio 24 and Margolis+Sakurai 25
 
 # auxilary program for Corollary E of GLdRS22
 
@@ -669,70 +770,80 @@ local p, OS, omegas, res, i;
 end);
 
 BindGlobal("CyclicDerivedInfo", function(G)
-local p, D, C, JS, a, i, LCS, res1, res2;
-  
+local p, D, C, JS, a, i, LCS, res1, res2, U;
+
+    if IsAbelian(G) then
+       return GroupInfo(G);
+    fi;  
     p := PrimePGroup(G);
-    if p <> 2 and IsCyclic(DerivedSubgroup(G)) then
-        D := DerivedSubgroup(G);
-        C := Centralizer(G, D);
-        JS := JenningsSeries(C);
-        a := [ ];
-        for i in [1..Size(JS)-1] do
-            Add(a, AbelianInvariants(JS[i]/JS[i+1]));
-        od; 
-        LCS := LowerCentralSeries(G);
-        res1 := [a, Exponent(C), AbelianInvariants(C/D), AbelianInvariants(C), GroupInfo( G/Agemo(LCS[3],p) ), GroupInfo( G/Agemo(D,p,3) ) ]; # from Theorem 4.2 in GLdRS22 and Theorem A in GLdR
-        if Size(G/FrattiniSubgroup(G)) = p^2 then
-            res2 := [GroupInfo(C), TypeInvariants(G)]; # Corollaries D and E from GLdRS22
-            return Concatenation(res1, res2);
-        else
-            return res1;
+    D := DerivedSubgroup(G);
+    res1 := [ ];
+    if IsCyclic(D) then
+        if p <> 2 then
+            C := Centralizer(G, D);
+            JS := JenningsSeries(C);
+            a := [ ];
+            for i in [1..Size(JS)-1] do
+                Add(a, AbelianInvariants(JS[i]/JS[i+1]));
+            od; 
+            LCS := LowerCentralSeries(G);
+            if Length(LCS) = 3 then # just to avoid an error in the following
+                U := TrivialSubgroup(G);
+            else
+                U := Agemo(LCS[3], p);
+            fi;
+            res1 := [a, Exponent(C), AbelianInvariants(C/D), AbelianInvariants(C), GroupInfo( G/U ), GroupInfo( G/Agemo(D,p,3) ) ]; # from Theorem 4.2 in GLdRS22 and Theorem A in GLdR
+            if Size(G/FrattiniSubgroup(G)) = p^2 then
+                res2 := [GroupInfo(C), TypeInvariants(G)]; # Corollaries D and E from GLdRS22
+                res1 := Concatenation(res1, res2);
+            fi;
+        fi;
+        if RankPGroup(G) = 2 then # Sandling/Margolis+Sakurai
+            Add(res1, GroupInfo(G/Agemo(D, p)));
         fi;
     else
-        return false;
+        res1 := false;
     fi;
+    return res1;
 end);
 
 # the results in GLdRS apply to all fields, but those in GLdR do not, so they are removed in the following function
 BindGlobal("CyclicDerivedInfoAllFields", function(G)
 local p, D, C, JS, a, i, LCS, res1, res2;
-  
+ 
+    if IsAbelian(G) then
+       return GroupInfo(G);
+    fi;  
     p := PrimePGroup(G);
-    if p <> 2 and IsCyclic(DerivedSubgroup(G)) then
-        D := DerivedSubgroup(G);
-        C := Centralizer(G, D);
-        JS := JenningsSeries(C);
-        a := [ ];
-        for i in [1..Size(JS)-1] do
-            Add(a, AbelianInvariants(JS[i]/JS[i+1]));
-        od; 
-        LCS := LowerCentralSeries(G);
-        res1 := [a, Exponent(C), AbelianInvariants(C/D), AbelianInvariants(C) ]; # from Theorem 4.2 in GLdRS22 and Theorem A in GLdR
-        if Size(G/FrattiniSubgroup(G)) = p^2 then
-            res2 := [GroupInfo(C), TypeInvariants(G)]; # Corollaries D and E from GLdRS22
-            return Concatenation(res1, res2);
-        else
-            return res1;
+    D := DerivedSubgroup(G);
+    res1 := [ ];
+    if IsCyclic(D) then
+        if p <> 2 then
+            C := Centralizer(G, D);
+            JS := JenningsSeries(C);
+            a := [ ];
+            for i in [1..Size(JS)-1] do
+                Add(a, AbelianInvariants(JS[i]/JS[i+1]));
+            od; 
+            LCS := LowerCentralSeries(G);
+            res1 := [a, Exponent(C), AbelianInvariants(C/D), AbelianInvariants(C) ]; # from Theorem 4.2 in GLdRS22 and Theorem A in GLdR
+            if Size(G/FrattiniSubgroup(G)) = p^2 then
+                res2 := [GroupInfo(C), TypeInvariants(G)]; # Corollaries D and E from GLdRS22
+                res1 := Concatenation(res1, res2);
+            fi;
+        fi;
+        if RankPGroup(G) = 2 then # Margolis-Sakurai 25
+            Add(res1, GroupInfo(G/Agemo(D, p)));
         fi;
     else
-        return false;
-  fi;
+        res1 := false;
+    fi;
+    return res1;
 end);
 
-## Proposition 2.5 from Margolis-Sakurai 25 "All Fields"
-BindGlobal("CyclicDerivedMargolisSakurai", function(G)
-local p, D;
-p := PrimePGroup(G);
-D := DerivedSubgroup(G);
-if Size(D) > 1 and IsCyclic(D) and Size(G/FrattiniSubgroup(G)) = p^2 then
-    return GroupInfo(G/Agemo(D, p));
-else
-    return false;
-fi;
-end);
 
-#############3 the following function implement part of the subgroup lattice which is canonical as described in Garcia-Lucas24
-### written by Diego Garcia-Lucas
+#############3 the following function implement part of the subgroup lattice which is canonical as described in Garcia-Lucas 24
+### written (mostly) by Diego Garcia-Lucas
 ##The next three functions concern the info described in Lemma 3.2
 BindGlobal("OnlyJenningsInfo", function(G)
   return List(JenningsSeries(G), Order);
@@ -774,7 +885,7 @@ BindGlobal("AgemoLModuloN", function(G, L, N, p, t)
 end);
 
 
-BindGlobal("OmegaCenterN", function(G,N,p,t)
+BindGlobal("OmegaCenterN", function(G, N, p, t)
     local OmegaCenter;
     OmegaCenter := Omega(Center(G), p, t);
     return Subgroup(G, Union(GeneratorsOfGroup(OmegaCenter), GeneratorsOfGroup(N)));
@@ -782,39 +893,52 @@ end);
 
 #N is a subgroup containing G'. Then the following function computes the subgroups obtained using the previous operations.
 #(Observe that if L=G, t doesn't really matter since the output for different values of t can be obtained iterating of the operation).
-BindGlobal("SuccessorsN", function(G, L, N, p)
-  local S1, S2, S3, SizeN, successorsN;
+BindGlobal("SuccessorsN", function(G, L, N)
+  local S, SizeN, successorsN,trivialSubgroup, p;
+  p := PrimePGroup(G);
+  trivialSubgroup := Group(One(G));
   successorsN := [ ];
   SizeN := Size(N);
-  S1 := OmegaModuloN(G, N, p, 1);
-  if Size(S1) <> SizeN then Add(successorsN, S1); fi;
-  S2 := AgemoLModuloN(G, L, N, p, 1);
-  if Size(S2) <> SizeN then Add(successorsN, S2); fi;
-  S3 := OmegaCenterN(G, N, p, 1);
-  if Size(S3) <> SizeN then Add(successorsN, S3); fi;
-  return successorsN;
+  if SizeN = 1 then
+    return [ ];
+  else
+    S := OmegaModuloN(G, N, p, 1);
+    if Size(S) <> SizeN then 
+      Add(successorsN, ["Omega", S]); 
+    fi;
+    S := AgemoLModuloN(G, L, N, p, 1);
+    if Size(S) <> SizeN then 
+      Add(successorsN, ["Agemo", S]);  
+    fi;
+    S := OmegaCenterN(G, N, p, 1);
+    if Size(S) <> SizeN then 
+      Add(successorsN, ["OmegaCenter", S]);
+    fi;
+    return successorsN;
+    fi;
 end);
 
 #!
 BindGlobal("CanonicalNormalSubgroups", function(G)
-  local normalSubgroups, normalSubgroupsLeveli, normalSubgroupsLevelip1, e, Gprime, Ab, SN, N, p, normalSubgroups0, i;
+  local normalSubgroups, normalSubgroupsLeveli, normalSubgroupsLevelip1, e, Gprime, Ab, SN, N, p,  i, SS, SString;
   Gprime := DerivedSubgroup(G);
-  normalSubgroups := [Gprime];
-  p := Factors(Order(G))[1];
+  normalSubgroups := [ [[ ], Gprime] ];
+  p := PrimePGroup(G);
   Ab := G/Gprime;
-  e := 3*Log(Exponent(Ab), p);  #Probably using this e as a bound makes no sense.
+  e := 3*Log(Exponent(Ab), p);
   normalSubgroupsLeveli := normalSubgroups;
   for i in [1..e] do
     normalSubgroupsLevelip1 := [ ];
     for N in normalSubgroupsLeveli do
-        SN := SuccessorsN(G, G, N, p);
-        normalSubgroupsLevelip1 := Concatenation(normalSubgroupsLevelip1, SN);
+        SN := SuccessorsN(G, G, N[2]);
+        for SS in SN do
+            SString := Concatenation(N[1], [SS[1]]);
+            Add(normalSubgroupsLevelip1, [SString, SS[2]]);
+        od;
     od;
     normalSubgroupsLeveli := normalSubgroupsLevelip1;
     normalSubgroups := Concatenation(normalSubgroups, normalSubgroupsLevelip1);
   od;
-  #Some subgroups are missing, for examples the last ones in Remark 3.6 (3), because when L is not G the value of t matters.
-  normalSubgroups0 := normalSubgroups;
   return normalSubgroups;
 end);
 
@@ -822,8 +946,9 @@ end);
 BindGlobal("NormalSubgroupsInfo", function(G)
   local normalSubgroups,Gprime;
   Gprime := DerivedSubgroup(G);
-  return List(CanonicalNormalSubgroups(G), x -> [OnlyJenningsInfo(x), CenterNormalInfo(G, x), LNInfo(G, x, Gprime)]);
+  return List(CanonicalNormalSubgroups(G), x -> [x[1], OnlyJenningsInfo(x[2]), CenterNormalInfo(G, x[2]), LNInfo(G, x[2], Gprime)]);
 end);
+#####################
 #####################
 
 ## now all auxilary functions are collected
@@ -870,7 +995,7 @@ local bins, cent, i;
 
     # refine by lower central series
     # Comment changed. This is really more accurate
-    Info(InfoModIsom, 1, "refine by small group algebra (Sandling/Baginski)"); 
+    Info(InfoModIsom, 1, "refine by small group algebra (Sandling/Baginski/Brenner+Garcia-Lucas)"); 
     bins := RefineBins( p^n, bins, SandlingInfo, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
@@ -945,14 +1070,6 @@ local bins, cent, i;
     # refine by results on p odd with cyclic derived from GarciaLucas-del Rio-Stanojkovski 22 (Theorem 4.2 and Corollaries D, E) and GarciaLucas-del Rio 24 (Theorem A)
     Info(InfoModIsom, 1, "invariants for cyclic derived subgroup (Garcia-Lucas+del Rio+Stanojkovski)");
     bins := RefineBins( p^n, bins, CyclicDerivedInfo, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
-    Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
-    if Length(bins)=0 then return bins; fi;
-
-    # NEW NEW
-    # refine by results on cyclic derived 2-generated from Margolis-Sakurai 25
-    Info(InfoModIsom, 1, "invariants for cyclic derived subgroup and 2-generated (Margolis+Sakurai)");
-    bins := RefineBins( p^n, bins, CyclicDerivedMargolisSakurai, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;
@@ -1128,14 +1245,6 @@ local bins, cent, i;
     # refine by results on p odd with cyclic derived from GarciaLucas-del Rio-Stanojkovski 22 (Theorem 4.2 and Corollaries D, E) and GarciaLucas-del Rio 24 (Theorem A)
     Info(InfoModIsom, 1, "lower invariants for cyclic derived (Garcia-Lucas+del Rio+Stanojkovski)");
     bins := RefineBins( p^n, bins, CyclicDerivedInfoAllFields, false );
-    bins := Filtered( bins, x -> Length(x)>1 );
-    Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
-    if Length(bins)=0 then return bins; fi;
-
-    # NEW NEW
-    # refine by results on cyclic derived 2-generated from Margolis-Sakurai 25
-    Info(InfoModIsom, 1, "invariants for cyclic derived subgroup and 2-generated (Margolis+Sakurai)");
-    bins := RefineBins( p^n, bins, CyclicDerivedMargolisSakurai, false );
     bins := Filtered( bins, x -> Length(x)>1 );
     Info(InfoModIsom, 1, Length(bins)," bins with ",Length(Flat(bins))," groups");
     if Length(bins)=0 then return bins; fi;

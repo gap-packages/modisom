@@ -6,8 +6,8 @@ on:
       dry-run:
         description: "Dry run: only create an archive containing the release instead of publishing it on GitHub"
         type: boolean
-        required: false
-        default: false
+        required: true
+        default: true
       force:
         description: "Force: allow overwriting an existing release, or making a release with an incorrect date"
         type: boolean
@@ -18,7 +18,7 @@ permissions: write-all
 
 jobs:
   release:
-    name: "Release the GAP package"
+    name: "Release of ModIsom Version 3.0.2"
     runs-on: ubuntu-latest
 
     steps:
