@@ -47,6 +47,30 @@ rec( dim := 7, fld := GF(2), rnk := 2,
   wds := [ ,, [ 1, 2 ],, [ 1, 4 ], [ 2, 4 ], [ 1, 6 ] ], 
   wgs := [ 1, 1, 2, 2, 3, 3, 4 ] )
 
+####################################################################
+# table to algebra and back
+gap> G := SmallGroup(3^7, 19);;
+gap> T := ModIsomTable(G, 4);;
+gap> FG := GroupRing(GF(3), G);;
+gap> iota := Embedding(G, FG);;
+gap> a := (T.pre.jen.pcgs[1])^iota;
+(Z(3)^0)*f1
+gap> b := (T.pre.jen.pcgs[2])^iota;
+(Z(3)^0)*f2
+gap> z := One(FG);
+(Z(3)^0)*<identity> of ...
+gap> r := (z + (a-z)*(b-z) )^-1;;
+gap> Size(Support(r-z));
+1376
+gap> el := MIPElementAlgebraToTable(r-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), Z(3)^0, 0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap> MIPElementTableToAlgebra(el, T, FG);
+(Z(3))*<identity> of ...+(Z(3)^0)*f3+(Z(3)^0)*f1^2+(Z(3))*f1*f2+(Z(3))*f1*f3+(
+Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
+0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
+
 #####################################################################
 # Chapter 3
 #####################################################################
@@ -120,6 +144,17 @@ gap> List(binsAFNC, x -> List(x, y -> IdGroup(y)[2]));
   [ 168, 175, 179, 180, 181 ], [ 167, 173, 176 ], [ 76, 79 ], [ 74, 80 ], 
   [ 238, 239 ], [ 236, 240 ], [ 208, 212 ], [ 65, 70 ], [ 63, 68 ], 
   [ 104, 105 ], [ 13, 14 ] ]
+
+###
+## to test other functions and functions which only use odd primes
+gap> L := AllGroups(3^6);;
+gap> LS := MIPSplitGroupsByGroupTheoreticalInvariants(L);;
+gap> List(LS, x -> List(x, y -> IdGroup(y)[2]));
+[ [ 46, 47 ], [ 44, 45 ], [ 42, 43 ], [ 53, 55 ], [ 400, 407 ], [ 401, 409 ], 
+  [ 398, 408 ], [ 412, 414 ], [ 411, 413 ], [ 389, 390 ], [ 262, 264 ], 
+  [ 70, 71 ], [ 74, 77 ], [ 72, 73 ], [ 82, 83 ] ]
+gap> BinsByGTAllFields(3,5);
+[ [ 43, 44, 45, 46, 47 ], [ 39, 40 ], [ 19, 20 ] ]
 
 ##########################################################
 # splitting algebras over different fields
