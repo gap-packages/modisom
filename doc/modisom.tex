@@ -452,7 +452,7 @@ Denoting by $D_i(G)$ the $i$-th member of the Jennings series, this function ret
 $GroupInfo$ for the different quotients $D_i(G)/D_{i+1}(G)$, $D_i(G)/D_{i+2}(G)$, $D_i(G)D_{2i+1}(G)$
 for meaningful values of $i$ (results \cite{Jen41} \cite{PS72} \cite{RS83}) and if $p$ is odd also for
 $G/D_4(G)$ \cite{Her07}. For $BinsByGTAllFields$ and its variations only the quotients
-$D_i(G)/D_{i+1}(G)$ are computed.
+$D_i(G)/D_{i+1}(G)$ are computed (by the function $JenningsInfoAllFields$).
 
 \> JenningsDerivedInfo(G) F
 
@@ -512,7 +512,7 @@ Computes a list of the subgroups of $G$ obtained applying iteratively the functi
 
 \> NormalSubgroupsInfo(G) F 
 
-Returns a list with one entry for each of the subgroups obtained with $CanonicalNormalSubgroups(G)$, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to \cite{GL24}(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of $CanonicalNormalSubgroups$. Denoting by $S$ the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of $S$, the third gives the abelian invariants of $Z(G) \cap S$ and $Z(G)S/S$, and the fourth entry contains the abelian invariants of $G/SG'$ and $SG'/G'$.
+Returns a list with one entry for each of the subgroups obtained with $CanonicalNormalSubgroups(G)$, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to \cite{GL24}(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of $CanonicalNormalSubgroups$ (the most left string is the first applied operation). Denoting by $S$ the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of $S$, the third gives the abelian invariants of $Z(G) \cap S$ and $Z(G)S/S$, and the fourth entry contains the abelian invariants of $G/SG'$ and $SG'/G'$.
 
 
 \> IsCoveredByTheory(G) F

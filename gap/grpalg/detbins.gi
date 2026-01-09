@@ -522,8 +522,8 @@ local p, n, D, F, N, act;
  #   fi;
 
 
-    # Margolis+Stanojkovski 22: Theorem 3.3, Theorem 3.5
-    if p <> 2 and NilpotencyClassOfGroup(G) <= 3 and Exponent(DerivedSubgroup(G)) = p then
+    # Margolis+Stanojkovski 22: Theorem 3.3, Theorem 3.5 
+    if p <> 2 and NilpotencyClassOfGroup(G) <= 3 and Exponent(DerivedSubgroup(G)) = p then # note: these conditions imply the class is exactly 3
         if Size(Centralizer(G, DerivedSubgroup(G))) = Size(G)/p and IsAbelian(Centralizer(G, DerivedSubgroup(G))) then 
             return true;
         elif Size(G/FrattiniSubgroup(G)) = p^3 and Size(G)/Size( UpperCentralSeries(G)[Size(UpperCentralSeries(G))-2] ) = p^3 and Theorem35MS22Applies(G) then

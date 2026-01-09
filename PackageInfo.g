@@ -5,8 +5,8 @@
 SetPackageInfo( rec(
 PackageName := "ModIsom",
 Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
-Version := "3.0.2",
-Date := "17/12/2025", # dd/mm/yyyy format
+Version := "3.1.0",
+Date := "09/01/2025", # dd/mm/yyyy format
 License := "GPL-2.0-or-later",
 
 Persons := [
@@ -32,15 +32,16 @@ Persons := [
     FirstNames    := "Diego",
     IsAuthor      := true,
     IsMaintainer  := false,
-    Email         := "diego.garcial@um.es",
+    Email         := "diego.garcial@usc.es",
     PostalAddress := Concatenation(
                "Departamento de Matematicas\n",
                "Facultad de Matematicas\n",
-               "Universidad de Murcia\n",
-               "ES-30100 Murcia\n",
+               "Universidad de Santiago de Compostela\n",
+               "Rua de Lope Gomez de Marzoa, s/n",
+               "ES-15705 Santiago de Compostela\n",
                "Spain" ),
-    Place         := "Murcia",
-    Institution   := "Universidad de Murcia"
+    Place         := "Santiago de Compostela",
+    Institution   := "Universidad de Santiago de Compostela"
   ),
 
   rec(
