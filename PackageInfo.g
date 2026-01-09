@@ -1,103 +1,142 @@
 #############################################################################
-##  
-##  Demo PackageInfo.g for the GitHubPagesForGAP
 ##
-
+##  PackageInfo.g for the package `modisom'                      Bettina Eick
+##
 SetPackageInfo( rec(
-
-PackageName := "GitHubPagesForGAP",
-
-Subtitle := "A GitHub Pages generator for GAP packages",
-Version := "0.4",
-Date := "10/04/2025", # dd/mm/yyyy format
-License := "0BSD",
+PackageName := "ModIsom",
+Subtitle := "Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups",
+Version := "3.1.0",
+Date := "09/01/2026", # dd/mm/yyyy format
+License := "GPL-2.0-or-later",
 
 Persons := [
   rec(
-    LastName      := "Horn",
-    FirstNames    := "Max",
+    LastName      := "Eick",
+    FirstNames    := "Bettina",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "mhorn@rptu.de",
-    WWWHome       := "https://www.quendi.de/math",
-    GitHubUsername:= "fingolfin",
+    Email         := "beick@tu-bs.de",
+    WWWHome       := "http://www.iaa.tu-bs.de/beick",
     PostalAddress := Concatenation(
-                       "Fachbereich Mathematik\n",
-                       "RPTU Kaiserslautern-Landau\n",
-                       "Gottlieb-Daimler-Straße 48\n",
-                       "67663 Kaiserslautern\n",
-                       "Germany" ),
-    Place         := "Kaiserslautern, Germany",
-    Institution   := "RPTU Kaiserslautern-Landau"
+               "Institut Analysis und Algebra\n",
+               "TU Braunschweig\n",
+               "Universitätsplatz 2\n",
+               "D-38106 Braunschweig\n",
+               "Germany" ),
+    Place         := "Braunschweig",
+    Institution   := "TU Braunschweig"
   ),
 
   rec(
-    LastName      := "Thor",
-    FirstNames    := "A. U.",
+    LastName      := "Garcia-Lucas",
+    FirstNames    := "Diego",
     IsAuthor      := true,
     IsMaintainer  := false,
-    #Email         := "author@example.com",
+    Email         := "diego.garcial@usc.es",
+    PostalAddress := Concatenation(
+               "Departamento de Matematicas\n",
+               "Facultad de Matematicas\n",
+               "Universidad de Santiago de Compostela\n",
+               "Rua de Lope Gomez de Marzoa, s/n",
+               "ES-15705 Santiago de Compostela\n",
+               "Spain" ),
+    Place         := "Santiago de Compostela",
+    Institution   := "Universidad de Santiago de Compostela"
   ),
 
   rec(
-    LastName      := "Itor",
-    FirstNames    := "Jan",
+    LastName      := "Konovalov",
+    FirstNames    := "Olexandr",
     IsAuthor      := false,
     IsMaintainer  := true,
-    #Email         := "janitor@example.com",
+    Email         := "obk1@st-andrews.ac.uk",
+    WWWHome       := "https://olexandr-konovalov.github.io/",
+    PostalAddress := Concatenation( [
+                     "School of Computer Science\n",
+                     "University of St Andrews\n",
+                     "Jack Cole Building, North Haugh,\n",
+                     "St Andrews, Fife, KY16 9SX, Scotland" ] ),
+    Place         := "St Andrews",
+    Institution   := "University of St Andrews"
   ),
-],
+  rec(
+    LastName      := "Margolis",
+    FirstNames    := "Leo",
+    IsAuthor      := true,
+    IsMaintainer  := true,
+    Email         := "leo.margolis@uam.es",
+    WWWHome       := "http://www.margollo.github.io",
+    PostalAddress := Concatenation(
+               "Departamento de Matematicas\n",
+               "Universidad Autonoma de Madrid\n",
+               "Campus Cantoblanco\n",
+               "28049 Madrid\n",
+               "Spain" ),
+    Place         := "Madrid",
+    Institution   := "Universidad Autonoma de Madrid"
+  ),
+  rec(
+    LastName      := "Moede",
+    FirstNames    := "Tobias",
+    IsAuthor      := true,
+    IsMaintainer  := false,
+    Email         := "t.moede@tu-braunschweig.de",
+    WWWHome       := "https://www.tu-braunschweig.de/iaa/personal/moede",
+    PostalAddress := Concatenation( [
+                       "Institute of Analysis and Algebra\n",
+                       "TU Braunschweig\n",
+                       "Universitaetsplatz 2, 38106 Braunschweig\n",
+                       "Germany" ] ),
+    Place         := "Braunschweig",
+    Institution   := "TU Braunschweig"
+  )
+ ],
 
-Status := "other",
+Status := "accepted",
+CommunicatedBy := "Olexandr Konovalov (St Andrews)",
+AcceptDate := "11/2013",
 
-# The following are not strictly necessary in your own PackageInfo.g
-# (in the sense that update.g only looks at the usual fields
-# like PackageWWWHome, ArchiveURL etc.). But they are convenient
-# if you use exactly the scheme for your package website that we propose.
-GithubUser := "gap-system",
-GithubRepository := ~.PackageName,
-GithubWWW := Concatenation("https://github.com/", ~.GithubUser, "/", ~.GithubRepository),
+PackageWWWHome  := "https://gap-packages.github.io/modisom/",
+README_URL      := Concatenation( ~.PackageWWWHome, "README.md" ),
+PackageInfoURL  := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+SourceRepository := rec(
+    Type := "git",
+    URL := "https://github.com/gap-packages/modisom",
+),
+IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                 "/releases/download/v", ~.Version,
+                                 "/modisom-", ~.Version ),
+ArchiveFormats := ".tar.gz",
 
-PackageWWWHome := Concatenation("https://", ~.GithubUser, ".github.io/", ~.GithubRepository, "/"),
-README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
-# The following assumes you are using the Github releases system. If not, adjust
-# it accordingly.
-ArchiveURL     := Concatenation(~.GithubWWW,
-                    "/releases/download/v", ~.Version, "/",
-                    ~.GithubRepository, "-", ~.Version),
-
-ArchiveFormats := ".tar.gz .tar.bz2",
-
-AbstractHTML := 
-  "This is a pseudo package that contains no actual\
-  <span class=\"pkgname\">GAP</span> code. Instead, it is a template for other\
-  GAP packages that allows to quickly setup GitHub Pages.",
+AbstractHTML :=
+  "The <span class=\"pkgname\">ModIsom</span> package contains various methods for computing with nilpotent associative algebras. In particular, it contains a method to determine the automorphism group and to test isomorphis of such algebras over finite fields and of modular group algebras of finite p-groups, and it contains a nilpotent quotient algorithm for finitely presented associative algebras and a method to determine Kurosh algebras.",
 
 PackageDoc := rec(
-  BookName  := "GitHubPagesForGAP",
-  ArchiveURLSubset := ["doc"],
-  HTMLStart := "doc/chap0.html",
+  BookName  := "ModIsom",
+  ArchiveURLSubset := ["doc", "htm"],
+  HTMLStart := "htm/chapters.htm",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "A GitHub Pages generator for GAP packages",
+  LongTitle := "Computing with nilpotent associative algebras",
 ),
 
-# The following dependencies are fake and for testing / demo purposes
+
 Dependencies := rec(
-  GAP := ">=4.8.1",
-  NeededOtherPackages := [
-    ["GAPDoc", ">= 1.2"],
-    ["IO", ">= 4.1"],
-  ],
-  SuggestedOtherPackages := [["orb", ">= 4.2"]],
+  GAP := ">=4.10",
+  NeededOtherPackages := [["Polycyclic", ">=1.0"], ["LAGUNA", ">=3.8.0"]],
+  SuggestedOtherPackages := [],
   ExternalConditions := []
 ),
 
+BannerString := Concatenation( "Loading ModIsom ", ~.Version, "... \n"),
 AvailabilityTest := ReturnTrue,
-
-Keywords := ["GitHub Pages", "GAP"]
+TestFile := "tst/testall.g",
+Keywords := ["modular isomorphism problem",
+             "automorphism group",
+             "isomorphism testing",
+             "nilpotent algebras",
+             "nilpotent quotient",
+             "Kurosh algebras"]
 
 ));
-
-
