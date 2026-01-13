@@ -123,7 +123,7 @@ PackageDoc := rec(
 
 
 Dependencies := rec(
-  GAP := ">=4.10",
+  GAP := ">=4.11",
   NeededOtherPackages := [["Polycyclic", ">=1.0"], ["LAGUNA", ">=3.8.0"]],
   SuggestedOtherPackages := [],
   ExternalConditions := []
