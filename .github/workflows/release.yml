@@ -18,7 +18,7 @@ permissions: write-all
 
 jobs:
   release:
-    name: "Release of ModIsom Version 3.0.2"
+    name: "Release the GAP package"
     runs-on: ubuntu-latest
 
     steps:
