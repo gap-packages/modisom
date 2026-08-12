@@ -1,55 +1,55 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Chapter{Automorphism groups and Canonical Forms}
-
-We refer to \cite{Eic07} for background on the algorithms used in this 
-Chapter. Throughout the chapter, we assume that $F$ is a finite field.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Automorphism groups}
-
-Let $T$ be a nilpotent table over $F$. The following function can be used 
-to determine the automorphism group of the algebra described by $T$. The
-automorphism group is determined as subgroup of $GL(T\.dim, T\.fld)$ given 
+<Chapter Label="Automorphism groups and Canonical Forms">
+<Heading>Automorphism groups and Canonical Forms</Heading>
+We refer to <Cite Key="Eic07"/> for background on the algorithms used in this 
+Chapter. Throughout the chapter, we assume that <M>F</M> is a finite field.
+<Section Label="Automorphism groups">
+<Heading>Automorphism groups</Heading>
+Let <M>T</M> be a nilpotent table over <M>F</M>. The following function can be used 
+to determine the automorphism group of the algebra described by <M>T</M>. The
+automorphism group is determined as subgroup of <M>GL(T.\dim, T.fld)</M> given 
 by generators and its order. There is a variation available to determine
-the automorphism group of a modular group algebra $FG$, where $F$ is a finite
-field and $G$ is a $p$-group.
-
-\> AutGroupOfTable( T ) F 
-\> AutGroupOfRad( FG ) F 
-
+the automorphism group of a modular group algebra <M>FG</M>, where <M>F</M> is a finite
+field and <M>G</M> is a <M>p</M>-group.
+<ManSection>
+<Func Name="AutGroupOfTable" Arg="T"/>
+<Func Name="AutGroupOfRad" Arg="FG"/>
+<Description>
 In both cases, the automorphism group is described by a record. The
-matrices in the lists $glAutos$ and $agAutos$ generate together the 
-automorphism group. The matrices in $agAutos$ generate a $p$-group.
-The entry $size$ contains the order of the automorphism group.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Canonical forms}
-
-Let $T$ be a nilpotent table. The following function can be used to determine
-the automorphism group of $T$ if the underlying field of $T$ is finite. The
+matrices in the lists <M>glAutos</M> and <M>agAutos</M> generate together the 
+automorphism group. The matrices in <M>agAutos</M> generate a <M>p</M>-group.
+The entry <M>size</M> contains the order of the automorphism group.
+</Description>
+</ManSection>
+</Section>
+<Section Label="Canonical forms">
+<Heading>Canonical forms</Heading>
+Let <M>T</M> be a nilpotent table. The following function can be used to determine
+the automorphism group of <M>T</M> if the underlying field of <M>T</M> is finite. The
 canonical form is a nilpotent table which is unique for the isomorphism type
-of the algebra defined by $T$. Again there a variation available for modular
-group algebras. 
-
-\> CanonicalFormOfTable( T ) F 
-\> CanonicalFormOfRad( FG ) F 
-
-The automorphism group of $T$ is determined as a side-product of computing
+of the algebra defined by <M>T</M>. Again there a variation available for modular
+group algebras.
+<ManSection>
+<Func Name="CanonicalFormOfTable" Arg="T"/>
+<Func Name="CanonicalFormOfRad" Arg="FG"/>
+<Description>
+The automorphism group of <M>T</M> is determined as a side-product of computing
 the canonical form. The following functions can be used to return both.
-
-\> CanoFormWithAutGroupOfTable( T ) F
-\> CanoFormWithAutGroupOfRad( FG ) F
-
-In both cases, these functions return a record with entries $cano$ and
-$auto$.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\Section{Example of canonical form computation}
-
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CanoFormWithAutGroupOfTable" Arg="T"/>
+<Func Name="CanoFormWithAutGroupOfRad" Arg="FG"/>
+<Description>
+In both cases, these functions return a record with entries <M>cano</M> and
+<M>auto</M>.
+</Description>
+</ManSection>
+</Section>
+<Section Label="Example of canonical form computation">
+<Heading>Example of canonical form computation</Heading>
 We compute the automorphism group and a canonical form for the 
 modular group algebra of the dihedral group of order 8.
-
-\beginexample
+<Example><![CDATA[
 gap> A := GroupRing(GF(2), SmallGroup(8,3));;
 gap> T := TableByWeightedBasisOfRad(A);;
 gap> C := CanoFormWithAutGroupOfTable(T);;
@@ -88,4 +88,6 @@ gap> C.cano.tab;
       [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ] ], 
   [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
       [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ] ]
-\endexample
+]]></Example>
+</Section>
+</Chapter>
