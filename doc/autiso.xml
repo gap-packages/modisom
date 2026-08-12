@@ -1,12 +1,12 @@
 <Chapter Label="Automorphism groups and Canonical Forms">
 <Heading>Automorphism groups and Canonical Forms</Heading>
 We refer to <Cite Key="Eic07"/> for background on the algorithms used in this 
-Chapter. Throughout the chapter, we assume that <M>F</M> is a finite field.
+chapter. Throughout the chapter, we assume that <M>F</M> is a finite field.
 <Section Label="Automorphism groups">
 <Heading>Automorphism groups</Heading>
 Let <M>T</M> be a nilpotent table over <M>F</M>. The following function can be used 
 to determine the automorphism group of the algebra described by <M>T</M>. The
-automorphism group is determined as subgroup of <M>GL(T.\dim, T.fld)</M> given 
+automorphism group is determined as a subgroup of <M>GL(T.\dim, T.fld)</M> given 
 by generators and its order. There is a variation available to determine
 the automorphism group of a modular group algebra <M>FG</M>, where <M>F</M> is a finite
 field and <M>G</M> is a <M>p</M>-group.
@@ -24,9 +24,9 @@ The entry <M>size</M> contains the order of the automorphism group.
 <Section Label="Canonical forms">
 <Heading>Canonical forms</Heading>
 Let <M>T</M> be a nilpotent table. The following function can be used to determine
-the automorphism group of <M>T</M> if the underlying field of <M>T</M> is finite. The
+the canonical form of <M>T</M> if the underlying field of <M>T</M> is finite. The
 canonical form is a nilpotent table which is unique for the isomorphism type
-of the algebra defined by <M>T</M>. Again there a variation available for modular
+of the algebra defined by <M>T</M>. Again there is a variation available for modular
 group algebras.
 <ManSection>
 <Func Name="CanonicalFormOfTable" Arg="T"/>

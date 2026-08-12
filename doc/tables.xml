@@ -1,15 +1,15 @@
 <Chapter Label="Tables">
 <Heading>Tables</Heading>
-Finite dimensional algebras can be described by structure contants tables.
-For nilpotent algebras it is not neccessary to store a full structure 
-contants table. To use this feature, we introduce <E>nilpotent structure
+Finite dimensional algebras can be described by structure constants tables.
+For nilpotent algebras it is not necessary to store a full structure 
+constants table. To use this feature, we introduce <E>nilpotent structure
 constants tables</E> or just <E>nilpotent tables</E> for short. These are used 
 heavily throughout the package.
 <Section Label="Nilpotent tables">
 <Heading>Nilpotent tables</Heading>
 Let <M>A</M> be a finite-dimensional nilpotent associative algebra over a 
 field <M>F</M>. Let <M>(b_1, \ldots, b_d)</M> be a <E>weighted basis</E> of <M>A</M>; that
-is, a basis with weights <M>(w_1, \ldots, w_d)</M> satifying that <M>A^j = 
+is, a basis with weights <M>(w_1, \ldots, w_d)</M> satisfying that <M>A^j = 
 \langle b_i \mid w_i \geq j \rangle</M>. Let
 <Display> b_i b_j = \sum_k a_{i,j,k} b_k.</Display>
 The nilpotent table <M>T</M> for <M>A</M> (with respect to the basis <M>(b_1,
@@ -24,16 +24,16 @@ The nilpotent table <M>T</M> for <M>A</M> (with respect to the basis <M>(b_1,
 <Mark><A>rnk</A></Mark>
 <Item>the rank <M>e</M> of <M>A</M> (i.e. the dimension of <M>A/A^2</M>).</Item>
 <Mark><A>wds</A></Mark>
-<Item>a list of length <M>d</M> with holes; If the <M>i</M>th entry is bounded, then 
+<Item>a list of length <M>d</M> with holes; if the <M>i</M>th entry is bounded, then 
    it is of the form <M>[k,l]</M>. In this case, <M>w_i &gt; 1</M> and <M>b_i = b_k b_l</M> 
    and <M>w_k = 1</M> and <M>w_l = w_i-1</M> holds.</Item>
 <Mark><A>tab</A></Mark>
-<Item>a partial structure contants table for <M>A</M>; If <M>tab[i][j][k]</M> is bounded,
+<Item>a partial structure constants table for <M>A</M>; if <M>tab[i][j][k]</M> is bounded,
    then it is <M>a_{i,j,k}</M>. Note that either a full vector <M>tab[i][j]</M> is
    given or <M>tab[i][j]</M> is unbounded. The entry <M>tab[i][j][k]</M> is available
    for <M>1 \leq i,j \leq e</M> and if <M>wds[i]</M> is unbounded.</Item>
 <Mark><A>com</A></Mark>
-<Item>optional; If this is bounded, then it is a boolean. If this boolean
+<Item>optional; if this is bounded, then it is a boolean. If this boolean
    is true, then the algebra is assumed to be commutative.</Item>
 </List>
 In a nilpotent table not all structure constants are readily available.
@@ -51,8 +51,8 @@ provided below.
 <ManSection>
 <Func Name="MultByTable" Arg="T, v, w"/>
 <Description>
-We consider two nilpotent tables as equal, if they would be equal if
-the full set of structure constants tables would be bound. The following
+We consider two nilpotent tables as equal if they would be equal once
+the full set of structure constants is bound. The following
 function provides an effective check for this.
 </Description>
 </ManSection>
@@ -61,7 +61,7 @@ function provides an effective check for this.
 <Description>
 A nilpotent table contains redundant information and hence can be 
 inconsistent. The next functions can be used to check this to some
-extend.
+extent.
 </Description>
 </ManSection>
 <ManSection>
@@ -84,7 +84,7 @@ accordingly.
 Checks that <M>wds</M> and <M>tab</M> are compatible. This assumes that 
 CheckAssociativity returns true.
 <P/>
-All later described algorithms of this package assume that the tables 
+All algorithms described later in this package assume that the tables 
 considered are fully consistent.
 <Example><![CDATA[
 gap> T := rec( dim := 3, 
@@ -103,7 +103,7 @@ gap> GetEntryTable( T, 3, 1 );
 </Section>
 <Section Label="Algebras in the GAP sense">
 <Heading>Algebras in the GAP sense</Heading>
-We provide functions to convert back and forth between algebras in the GAP
+We provide functions to convert back and forth between algebras in the &GAP;
 sense and nilpotent tables.
 <ManSection>
 <Oper Name="AlgebraByTable" Arg="T"/>
@@ -112,7 +112,7 @@ sense and nilpotent tables.
 Note that the second function fails if <M>A</M> is not nilpotent.
 <P/>
 For modular group algebras of <M>p</M>-groups, the group algebra itself is
-not nilpotent (as it contains a unit), but its Jacobson radial is. The
+not nilpotent (as it contains a unit), but its Jacobson radical is. The
 following function determines a nilpotent table for the Jacobson radical.
 </Description>
 </ManSection>
@@ -158,12 +158,12 @@ rec( dim := 7, fld := GF(2), rnk := 2,
 A special kind of nilpotent table is available in the context of the
 Modular Isomorphism Problem. Let <M>G</M> be a finite group, <M>F</M> a field of 
 characteristic <M>p</M> and <M>I(FG)</M> the augmentation ideal of <M>FG</M> which equals
-its radical and is a nilpotent ideal. Two functions allow to compute 
+its radical and is a nilpotent ideal. Two functions can be used to compute the 
 class-<M>n</M> quotient of <M>I(FG)</M>, i.e. <M>I(FG)/I(FG)^{n+1}</M>. The output is a nilpotent 
 table for this quotient, but in addition to the standard entries of 
 a nilpotent table it contains further entries, which allow more efficient 
 computations and can also facilitate manual calculations.
-This allows to determine the class-<M>n</M> quotient of the augmentation ideal
+This makes it possible to determine the class-<M>n</M> quotient of the augmentation ideal
 without computing the full augmentation ideal using <M>NilpotentTableOfRad</M>. 
 The corresponding table can be computed by
 <ManSection>
@@ -177,7 +177,6 @@ or
 <Description>
 Here <M>ModIsomTable(G, n)</M> will produce the quotient with respect to the algebra
 <M>&PP;_pG</M>, while <M>ModIsomTable( G, n, f )</M> will do the same for the algebra <M>&PP;_{p^f}G</M>.
-If <M>ModIsomTable</M> is executed as <M>ModIsomTable(G, n)</M> it provides the table with respect to the algebra <M>&PP;_pG</M>.
 <P/>
 The components <M>\dim</M>, <M>fld</M>, <M>rnk</M>, <M>tab</M>, <M>wgs</M>, <M>wds</M>
  remain unchanged from a usual nilpotent table. The additional components are
@@ -185,7 +184,7 @@ The components <M>\dim</M>, <M>fld</M>, <M>rnk</M>, <M>tab</M>, <M>wgs</M>, <M>w
 contain additional information on precisely which basis of <M>I(FG)/I(FG)^{n+1}</M> is used
 and what the result of multiplying basis elements is. We explain how users
 can understand how the basis looks and how they can multiply two elements in the algebra. 
-The components <M>T.commords</M> and <M>T.powwords</M> contain information on how the elements of
+The components <M>T.commwords</M> and <M>T.powwords</M> contain information on how the elements of
 the basis behave with respect to commutators and <M>p</M>-th powers. The component <M>T.pre</M>
 contains information on the construction of the basis and we describe it in more detail.
 <P/>
@@ -197,7 +196,7 @@ are recorded in <M>T.pre.jen.pcgs</M>. Let us call these elements <M>g_1,\ldots,
 Note that <M>|G| = p^m</M>.  The weights of the elements <M>g_1-1,\ldots ,g_m-1</M> are recorded
 in <M>T.pre.jen.weights</M>. If now <M>r</M> is an integer smaller than <M>T.\dim+1</M>, then the
 <M>r</M>-th element of the basis of  <M>I(FG)/I(FG)^{n+1}</M> is 
-<M>(g_1-1)^{e_1} \cdot \ldots (g_m-1)^{e_m}</M> where <M>[e\_1,\ldots,e\_m] = T.pre.exps[r]</M>.
+<M>(g_1-1)^{e_1} \cdot \ldots (g_m-1)^{e_m}</M> where <M>[e_1,\ldots,e_m] = T.pre.exps[r]</M>.
 The weight of this element is recorded in <M>T.wgs[r]</M> and also <M>T.pre.weights[r]</M>.
 Moreover, the positions of <M>g_1-1,\ldots ,g_m-1</M> in the chosen basis of <M>T</M> are recorded
 in <M>T.pre.poswone</M>. We elaborate using an example.
@@ -227,7 +226,7 @@ gap> T := ModIsomTable(G, 39);;
 gap> T.dim;
 2186
 ]]></Example>
-We next consider an example how the basis used can be recognized.
+We next consider an example of how the basis used can be recognized.
 <Example><![CDATA[
 gap> G := DihedralGroup(8);;
 gap> T := ModIsomTable(G, 4);;
@@ -243,12 +242,12 @@ gap> T.pre.exps{[1..7]};
 [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], 
   [ 0, 1, 1 ], [ 1, 1, 1 ] ]
 ]]></Example>
-We conclude that <M>I(kG)/I(kG)^5</M> is <M>7</M>-dimensional and if we denote by
+We conclude that <M>I(FG)/I(FG)^5</M> is <M>7</M>-dimensional and if we denote by
   <M>a</M> a reflection and by <M>b</M> a non-central rotation in <M>G</M>, then the
   basis used by <M>T</M> is, in this order: <M>(a-1)</M>, <M>(b-1)</M>, <M>(a-1)(b-1)</M>, <M>(b^2-1)</M>,
    <M>(a-1)(b^2-1)</M>, <M>(b-1)(b^2-1)</M>, <M>(a-1)(b-1)(b^2-1)</M>.
 <P/>
-Say continuing the previous example we want to multiply <M>(b-1)+(a-1)(b-1)+(a-1)(b^2-1)</M> and <M>(a-1)+(b-1)+(b^2-1)</M>.
+Continuing the previous example, say we want to multiply <M>(b-1)+(a-1)(b-1)+(a-1)(b^2-1)</M> and <M>(a-1)+(b-1)+(b^2-1)</M>.
 <Example><![CDATA[
 gap> v := Z(2)^0*[0,1,1,0,1,0,0];
 [ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]

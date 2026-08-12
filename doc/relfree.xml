@@ -1,6 +1,6 @@
 <Chapter Label="Relatively free Algebras">
 <Heading>Relatively free Algebras</Heading>
-As described in <Cite Key="Eic11"/>, the nilpotent quotient algorithm also allows
+As described in <Cite Key="Eic11"/>, the nilpotent quotient algorithm can also be used
 to determine certain relatively free algebras; that is, algebras that are
 free within a variety.
 <Section Label="Computing Kurosh Algebras">
@@ -30,7 +30,7 @@ as follows.
 <ManSection>
 <Func Name="KuroshAlgebraByLib" Arg="d, n, F"/>
 <Description>
-At current, the library contains the Kurosh algebras for 
+At present, the library contains the Kurosh algebras for 
 <M>n=2</M>, 
 <M>(d,n) = (2,3)</M>, 
 <M>(d,n) = (3,3)</M> and <M>F = &QQ;</M> or <M>|F| \in \{2,3,4\}</M>,

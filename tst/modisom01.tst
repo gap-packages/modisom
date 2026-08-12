@@ -53,29 +53,29 @@ rec( dim := 7, fld := GF(2), rnk := 2,
   wds := [ ,, [ 1, 2 ],, [ 1, 4 ], [ 2, 4 ], [ 1, 6 ] ], 
   wgs := [ 1, 1, 2, 2, 3, 3, 4 ] )
 
-# doc/tables.xml:208-213
+# doc/tables.xml:207-212
 gap> G := SmallGroup(3^7, 19);;
 gap> T := ModIsomTable(G, 8);;
 gap> T.dim;
 135
 
-# doc/tables.xml:214-219
+# doc/tables.xml:213-218
 gap> FG := GroupRing(GF(3), G);;
 gap> TT := TableOfRadQuotient(FG, 8);;
 gap> TT.dim;
 135
 
-# doc/tables.xml:220-224
+# doc/tables.xml:219-223
 gap> T := ModIsomTable(G, 38);;
 gap> T.dim;
 2186
 
-# doc/tables.xml:225-229
+# doc/tables.xml:224-228
 gap> T := ModIsomTable(G, 39);;
 gap> T.dim;
 2186
 
-# doc/tables.xml:231-245
+# doc/tables.xml:230-244
 gap> G := DihedralGroup(8);;
 gap> T := ModIsomTable(G, 4);;
 gap> T.dim;
@@ -90,7 +90,7 @@ gap> T.pre.exps{[1..7]};
 [ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], 
   [ 0, 1, 1 ], [ 1, 1, 1 ] ]
 
-# doc/tables.xml:252-259
+# doc/tables.xml:251-258
 gap> v := Z(2)^0*[0,1,1,0,1,0,0];
 [ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
 gap> w := Z(2)^0*[1,1,0,1,0,0,0];
@@ -98,7 +98,7 @@ gap> w := Z(2)^0*[1,1,0,1,0,0,0];
 gap> MultByTable(T,v,w);
 [ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
 
-# doc/tables.xml:283-309
+# doc/tables.xml:282-308
 gap> G := SmallGroup(3^7, 19);
 <pc group of size 2187 with 7 generators>
 gap> T := ModIsomTable(G, 4);;
@@ -125,7 +125,7 @@ gap> MIPElementTableToAlgebra(el, T, FG);
 Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
 0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
 
-# doc/tables.xml:311-322
+# doc/tables.xml:310-321
 gap> d := (T.pre.jen.pcgs[4])^iota;
 (Z(3)^0)*f4
 gap> el := MIPElementAlgebraToTable(d-z, FG, T);

@@ -2,10 +2,10 @@
 <Heading>Nilpotent Quotients</Heading>
 This chapter contains a description of the nilpotent quotient algorithm
 for associative finitely presented algebras. We refer to <Cite Key="Eic11"/> for 
-background on the algorithms used in this Chapter.
+background on the algorithms used in this chapter.
 <Section Label="Computing nilpotent quotients">
 <Heading>Computing nilpotent quotients</Heading>
-Let <M>A</M> be a finitely presented algebra in the GAP sense. The following
+Let <M>A</M> be a finitely presented algebra in the &GAP; sense. The following
 function can be used to determine the class-<M>c</M> nilpotent quotient of <M>A</M>.
 The quotient is described by a nilpotent table.
 <ManSection>

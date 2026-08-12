@@ -1,7 +1,7 @@
 <Chapter Label="The modular isomorphism problem">
 <Heading>The modular isomorphism problem</Heading>
 Applications of the methods in this package include the study
-of the modular isomorphism problems for the groups of small order
+of the modular isomorphism problem for the groups of small order
 from the SmallGroupLibrary - first for groups of order dividing
 <M>2^8</M>, <M>3^6</M> and <M>2^9</M> <Cite Key="Eic07"/> <Cite Key="EKo11"/> and later also <M>3^7</M> and <M>5^6</M>
 <Cite Key="MM22"/>.
@@ -22,23 +22,23 @@ a partition of the list <M>[1.. NumberSmallGroups(p</M>^<M>n)]</M> into
 sublists so that the groups in the corresponding lists share
 all the group-theoretical invariants, i.e. the modular group algebras of two groups 
 <M>SmallGroup(p</M>^<M>n, i)</M> and <M>SmallGroup(p</M>^<M>n, j)</M> over the field
-<M>&PP;_p</M> can not be isomorphic if <M>i</M> and <M>j</M> are in different lists.
+<M>&PP;_p</M> cannot be isomorphic if <M>i</M> and <M>j</M> are in different lists.
 <P/>
 If the function is called as <M>BinsByGT(p, n, L)</M>, then <M>L</M> must be a 
 list of groups of order <M>p^n</M> and the function will return a partition
 of the groups of <M>L</M> which share all the group-theoretical invariants.
-Alternatively, <M>L</M> can be a list of group Id's of groups of order <M>p^n</M>.
+Alternatively, <M>L</M> can be a list of group IDs of groups of order <M>p^n</M>.
 <P/>
 If the function is called as <M>BinsByGT(p, n, L, false)</M> then <M>L</M> must be
-a list of groups of order <M>p^n</M> and <M>false</M> disactivates the calculation
+a list of groups of order <M>p^n</M> and <M>false</M> deactivates the calculation
 of the dimensions of the second cohomology groups. This can be 
-switched off as for some type of groups <M>GAP</M> can not apply the needed functions
-and since computing the second cohomology groups is arguably the hardest 
-of the invariants to test manually.
+switched off because for some types of groups &GAP; cannot apply the needed
+functions, and because computing the second cohomology groups is arguably the
+hardest of the invariants to test manually.
 <P/>
 Several variations of <M>BinsByGT</M> are available. The first two
 apply to the case when a list of groups is being studied instead of 
-group Id's.
+group IDs.
 </Description>
 </ManSection>
 <ManSection>
@@ -68,7 +68,7 @@ as for the three previous functions.
 <Description>
 The group-theoretical invariants used by the function
 <M>BinsByGT</M> and its variations are described below. 
-Moreover, <M>GAP</M> prints more or less information on the progress 
+Moreover, &GAP; prints more or less information on the progress 
 inside these functions, if <M>InfoModIsom</M> is set to <M>1</M> or <M>0</M>,
 respectively. Examples of the use of the functions are included
 below.
@@ -82,7 +82,7 @@ Isomorphism Problem is:
 <Func Name="MIPSplitGroupsByAlgebras" Arg="[p, n], bin, [f]"/>
 <Description>
 If <M>MIPSplitGroupsByAlgebras(p, n, bin, [f])</M> is called then the algebras
-of groups of order <M>p^n</M> with group Id's contained in <M>bin</M> are studied.
+of groups of order <M>p^n</M> with group IDs contained in <M>bin</M> are studied.
 The underlying field is of order <M>p^f</M> or, if <M>f</M> is not given, of 
 order <M>p</M>.
 <P/>
@@ -106,13 +106,13 @@ then discarded.
 The function returns if no further bins are available and provides
 information at which level the splitting of the bins took place.
 <P/>
-For more evolved calculations one can use the function
+For more involved calculations one can use the function
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="MIPBinSplit" Arg="p, n, max, start, step, L, [f]"/>
 <Description>
-Given a list <M>L</M> of small group library Id's or a list of groups of order <M>p^n</M> this functions checks
+Given a list <M>L</M> of small group library IDs or a list of groups of order <M>p^n</M> this function checks
 isomorphism of the associated modular group algebras using canonical forms for the quotients of the
 augmentation ideals <M>A</M> of <M>&PP; G</M>. Here <M>&PP;</M> is either <M>&PP;_p</M> or <M>&PP;_{p^f}</M>, if <M>f</M> is given.
 The parameter <M>\max</M> is an integer or <M>false</M> that determines the maximal
@@ -125,7 +125,7 @@ isomorphism of the associated modular group algebras could not be determined; <M
 the groups, for which the associated group algebras were determined to be non-isomorphic (and the
 first non-isomorphic quotient); <M>time</M> contains the time used for the computation (in milliseconds).
 <P/>
-For big algebras all of these function can use a lot of time and memory. To have a
+For big algebras all of these functions can use a lot of time and memory. To have a
 better idea on the progress of the calculations one should set <M>InfoModIsom</M> to 1.
 <P/>
 We first show how to study a fixed order:
@@ -142,7 +142,7 @@ gap> List(bins, bin -> MIPSplitGroupsByAlgebras(2, 6, bin));
 This shows that the Modular Isomorphism Problem has a positive answer for groups
 of order <M>64</M> for the field <M>&PP;_2</M>. The result means e.g. that the smallest quotients
 (of Loewy layers)
-such that the augmentation ideals <M>A_1</M> and <M>A_2</M> of the groups algebras over <M>&PP;_2</M> of the
+such that the augmentation ideals <M>A_1</M> and <M>A_2</M> of the group algebras over <M>&PP;_2</M> of the
 groups <M>SmallGroup(64, 156)</M> and <M>SmallGroup(64, 158)</M> are not isomorphic are <M>A_1/A_1^8</M>
 and <M>A_2/A_2^8</M>. These are <M>A_1/A_1^5</M> and <M>A_2/A_2^5</M> for the groups
 <M>SmallGroup(64, 20)</M> and <M>SmallGroup(64, 22)</M>.
@@ -165,7 +165,7 @@ gap> List(bins, bin -> MIPSplitGroupsByAlgebras(2, 6, bin, 2));
   rec( bins := [  ], splits := [ [ 6, [ 20, 22 ] ] ], time := 3917 ), 
   rec( bins := [  ], splits := [ [ 6, [ 18, 19 ] ] ], time := 2891 ) ]
 ]]></Log>
-The other functions allow to study the problem for groups not coming from the
+The other functions can be used to study the problem for groups not coming from the
 library. The following groups are studied in <Cite Key="GLM24"/>.
 <Listing><![CDATA[
 R := SmallGroup(64, 19);
@@ -390,7 +390,7 @@ gap> KernelSizePowerMap(TH, 1, 1, 2);
 1
 ]]></Example>
 This shows that the group algebras over <M>&PP;_2</M> are not isomorphic. This 
-argument does however not work over <M>&PP;_4</M>:
+argument does not, however, work over <M>&PP;_4</M>:
 <Example><![CDATA[
 gap> TG := ModIsomTable(G, 5, 2);;
 gap> TH := ModIsomTable(H, 5, 2);;
@@ -410,7 +410,7 @@ similar functions.
 <Func Name="GroupInfo" Arg="G"/>
 <Description>
 This is an auxiliary function used in other group-theoretical invariants. 
-If <M>IdGroup</M> is available in <M>GAP</M> for the order of <M>G</M> it returns <M>IdGroup(G)</M>.
+If <M>IdGroup</M> is available in &GAP; for the order of <M>G</M> it returns <M>IdGroup(G)</M>.
 Otherwise it returns <M>[Size(G), AbelianInvariants(G)]</M>.
 <P/>
 We now describe the invariants in the order they appear in <M>BinsByGT</M>. 
@@ -524,13 +524,13 @@ If applying one of the three operations does not change the subgroup <M>N</M>, n
 <ManSection>
 <Func Name="CanonicalNormalSubgroups" Arg="G"/>
 <Description>
-Computes a list of the subgroups of <M>G</M> obtained applying iteratively the function <M>SuccessorsN</M>, where always <M>L=G</M> and starting from <M>N=G'</M>, the derived subgroup of <M>G</M>. An entry of the output is a list with two entries, the first a list of strings and the second a subgroup of <M>G</M>. The strings describe in which order the operations in <M>SuccessorsN</M> have been applied to <M>G'</M> to obtain the subgroup contained in the second entry. The first entry being the empty list means the derived subgroup of <M>G</M>. The maximum length of a list of strings is <M>3 \log_p \exp(G/G')</M>.
+Computes a list of the subgroups of <M>G</M> obtained by iteratively applying the function <M>SuccessorsN</M>, where always <M>L=G</M> and starting from <M>N=G'</M>, the derived subgroup of <M>G</M>. An entry of the output is a list with two entries, the first a list of strings and the second a subgroup of <M>G</M>. The strings describe in which order the operations in <M>SuccessorsN</M> have been applied to <M>G'</M> to obtain the subgroup contained in the second entry. The first entry being the empty list means the derived subgroup of <M>G</M>. The maximum length of a list of strings is <M>3 \log_p \exp(G/G')</M>.
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="NormalSubgroupsInfo" Arg="G"/>
 <Description>
-Returns a list with one entry for each of the subgroups obtained with <M>CanonicalNormalSubgroups(G)</M>, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to <Cite Key="GL24"/>(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of <M>CanonicalNormalSubgroups</M> (the most left string is the first applied operation). Denoting by <M>S</M> the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of <M>S</M>, the third gives the abelian invariants of <M>Z(G) \cap S</M> and <M>Z(G)S/S</M>, and the fourth entry contains the abelian invariants of <M>G/SG'</M> and <M>SG'/G'</M>.
+Returns a list with one entry for each of the subgroups obtained with <M>CanonicalNormalSubgroups(G)</M>, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to <Cite Key="GL24"/>(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of <M>CanonicalNormalSubgroups</M> (the leftmost string is the first applied operation). Denoting by <M>S</M> the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of <M>S</M>, the third gives the abelian invariants of <M>Z(G) \cap S</M> and <M>Z(G)S/S</M>, and the fourth entry contains the abelian invariants of <M>G/SG'</M> and <M>SG'/G'</M>.
 </Description>
 </ManSection>
 <ManSection>
@@ -539,14 +539,14 @@ Returns a list with one entry for each of the subgroups obtained with <M>Canonic
 determines, whether <M>G</M> belongs to certain classes for which the Modular Isomorphism
 Problem has been solved positively. Namely, if 
 <M>G</M> is a <M>2</M>-group of maximal class <Cite Key="Bag92"/>,
-<M>p</M> is odd, <M>G \leq p^{p+1}</M>, <M>G</M> has a maximal abelian subgroup and <M>G</M> is of maximal class <Cite Key="BC88"/>,
+<M>p</M> is odd, <M>|G| \leq p^{p+1}</M>, <M>G</M> has a maximal abelian subgroup and <M>G</M> is of maximal class <Cite Key="BC88"/>,
 <M>[G:Z(G)] = p^2</M> <Cite Key="Dre89"/>,
 <M>p</M> is odd and <M>[G:Z(G)]=p^3</M> <Cite Key="BGL24"/>,
-<M>p</M> is odd, <M>G'</M> is elementary abelian, the nilpotency class of <M>G</M> is <M>3</M> and either <M>C_G(G')</M> is a maximal subgroup of <M>G</M> and abelian <Cite Key="MS22"/>(Theorem 3.3) or a <M>G</M> is <M>3</M>-generated and a certain condition holds on the commutator map modulo the second center of <M>G</M> <Cite Key="MS22"/>(Theorem 3.5), 
+<M>p</M> is odd, <M>G'</M> is elementary abelian, the nilpotency class of <M>G</M> is <M>3</M> and either <M>C_G(G')</M> is a maximal subgroup of <M>G</M> and abelian <Cite Key="MS22"/>(Theorem 3.3) or <M>G</M> is <M>3</M>-generated and a certain condition holds on the commutator map modulo the second center of <M>G</M> <Cite Key="MS22"/>(Theorem 3.5), 
 <M>G</M> is a <M>2</M>-group with cyclic center and dihedral central quotient <Cite Key="MSS23"/>, 
 <M>G</M> is a <M>2</M>-group of nilpotency class <M>2</M> with cyclic center <Cite Key="GLM24"/>,
 <M>p</M> is odd, <M>G'</M> is cyclic and <M>R_2(G/G')</M> is cyclic <Cite Key="GLdR23"/>(Proposition 3.7),
-<M>G</M> is <M>2</M>-generated and <M>C_G(G/\Phi(G'))</M> is abelian and has index <M>p</M> in <M>G</M> <Cite Key="BaginskiZabielski25"/>(Proposition 8),
+<M>G</M> is <M>2</M>-generated and <M>C_G(G'/\Phi(G'))</M> is abelian and has index <M>p</M> in <M>G</M> <Cite Key="BaginskiZabielski25"/>(Proposition 8),
 <M>G</M> is <M>d</M>-generated, the Jennings series of <M>G</M> has length <M>n+1</M> and the defining relations of <M>G</M> are contained in <M>D_n(F)</M> for <M>F</M> a free pro-<M>p</M> group in <M>d</M> generators <Cite Key="Roehl90"/>(Theorem 3.1.2) (using dimensions of subsequent quotients of the Jennings series of free pro-<M>p</M> groups computed in <Cite Key="MRT16"/>(Proposition 3.4)).
 <P/>
 For <M>BinsByGTAllFields</M> and its variations the function used is <M>IsCoveredByTheoryAllFields</M> and it only checks, if
@@ -570,7 +570,7 @@ Hochschild cohomology group <M>HH^2(FG) = H^2(FG, FG)</M>.
 Computes the number of conjugacy classes which are <M>p^i</M>-th powers, for all <M>i</M> (Kuelshammer) and
 the number of conjugacy classes of <M>p^i</M>-th powers which come from conjugacy classes of the same order
  (Parmenter-Polcino Milies) <Cite Key="HS06"/>(Section 2.2) and the dimension of the first Hochschild 
- cohomology group which equals the number <M>\sum_{g^G} \log_p(C_G(g)/\Phi(C_G(g))</M> where the sum runs over
+ cohomology group which equals the number <M>\sum_{g^G} \log_p(C_G(g)/\Phi(C_G(g)))</M> where the sum runs over
  all the conjugacy classes of <M>G</M>, aka the Roggenkamp parameter <Cite Key="HS06"/>(Section 2.6).
 <P/>
 The return contains first the Roggenkamp parameter, then the Kuelshammer invariants (starting from <M>i = 0</M>) and then the invariant of Parmenter-Polcino Milies.

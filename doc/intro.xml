@@ -39,7 +39,7 @@ structure constants table</E>. This contains the structure constants
 <M>a_{i,j,k}</M> for all <M>i</M> with <M>w_i = 1</M> and <M>1 \leq j,k \leq d</M>. For <M>i</M> 
 with <M>w_i &gt; 1</M> it either contains a description as <M>b_i = b_k b_l</M> or the 
 structure constants <M>a_{i,j,k}</M> for <M>1 \leq j,k \leq d</M>. It may also 
-contain both or some partial overlap of these informations.
+contain both or some partial overlap of this information.
 </Section>
 <Section Label="Isomorphisms and Automorphisms">
 <Heading>Isomorphisms and Automorphisms</Heading>
@@ -73,7 +73,7 @@ group algebras <M>&PP;_p G</M> and <M>&PP;_p H</M> are isomorphic, where <M>G</M
 <M>p</M>-groups. This algorithm has been
 implemented in C by Wursthorn and has been applied to the groups of
 order dividing <M>2^7</M> without finding a counterexample, see <Cite Key="BKRW99"/>.
-The implementation of Wursthorn appears lost, but is in any case not publicly
+The implementation of Wursthorn appears to be lost, but is in any case not publicly
 available.
 <P/>
 This package contains an implementation of the new algorithm described in
@@ -89,18 +89,18 @@ problem for the groups of order dividing <M>3^6</M> and <M>2^8</M> (<Cite Key="E
 for the groups of order <M>2^9</M> (<Cite Key="EKo11"/>). It was later used to study also 
 groups of order <M>3^7</M> and <M>5^6</M> (<Cite Key="MM22"/>).
 <P/>
-A property of a group <M>G</M> is called <E><M>F</M>-invariant</E>, if an isomorphism of
+A property of a group <M>G</M> is called <E><M>F</M>-invariant</E> if an isomorphism of
 <M>F</M>-algebras <M>FG \cong FH</M> implies the same property for <M>H</M>. In the context
 of the Modular Isomorphism Problem, if <M>G</M> is a finite <M>p</M>-group, then an 
 <M>&PP;_p</M>-invariant is simply called 
 <E>invariant</E>. Many invariants of <M>G</M> are known and the package provides
-functions for them, as well as programs which easily allow to compare all
+functions for them, as well as programs which make it easy to compare all
 the implemented invariants quickly for a given list of groups.
 <P/>
-It also remains open, if replacing the field <M>&PP;_p</M> in the Modular Isomorphism
+It also remains open whether replacing the field <M>&PP;_p</M> in the Modular Isomorphism
 Problem with a bigger field of characteristic <M>p</M> will change the outcome
 of the problem for a given pair of groups. The package includes several 
-functions which allow to investigate this question by applying the algorithm
+functions which make it possible to investigate this question by applying the algorithm
 for the same groups varying the field.
 </Section>
 <Section Label="A nilpotent quotient algorithm">
@@ -120,7 +120,7 @@ is the <E>Kurosh Algebra</E> on <M>d</M> generators of exponent <M>n</M> over th
 <M>F</M>. Kurosh Algebras can be considered as an algebra-theoretic analogue to 
 Burnside groups.
 <P/>
-This package contains a method that allows to determine <M>A(d,n,F)</M> for
+This package contains a method to determine <M>A(d,n,F)</M> for
 given <M>d</M>, <M>n</M>, <M>F</M>. This can also be used to determine <M>A(d,n,F)</M> for all
 fields of a given characteristic. We refer to <Cite Key="Eic11"/> for details on
 the algorithms.
