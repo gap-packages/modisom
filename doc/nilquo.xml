@@ -12,7 +12,7 @@ The quotient is described by a nilpotent table.
 <Func Name="NilpotentQuotientOfFpAlgebra" Arg="A, c"/>
 <Description>
 The output of this function is a nilpotent table with some additional
-entries. In particular, there is the additional entry <M>img</M> which 
+entries. In particular, there is the additional entry <C>img</C> which 
 describes the images of the generators of <M>A</M> in the nilpotent table.
 </Description>
 </ManSection>

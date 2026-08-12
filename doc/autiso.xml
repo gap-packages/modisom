@@ -15,9 +15,9 @@ field and <M>G</M> is a <M>p</M>-group.
 <Func Name="AutGroupOfRad" Arg="FG"/>
 <Description>
 In both cases, the automorphism group is described by a record. The
-matrices in the lists <M>glAutos</M> and <M>agAutos</M> generate together the 
-automorphism group. The matrices in <M>agAutos</M> generate a <M>p</M>-group.
-The entry <M>size</M> contains the order of the automorphism group.
+matrices in the lists <C>glAutos</C> and <C>agAutos</C> generate together the 
+automorphism group. The matrices in <C>agAutos</C> generate a <M>p</M>-group.
+The entry <C>size</C> contains the order of the automorphism group.
 </Description>
 </ManSection>
 </Section>
@@ -40,8 +40,8 @@ the canonical form. The following functions can be used to return both.
 <Func Name="CanoFormWithAutGroupOfTable" Arg="T"/>
 <Func Name="CanoFormWithAutGroupOfRad" Arg="FG"/>
 <Description>
-In both cases, these functions return a record with entries <M>cano</M> and
-<M>auto</M>.
+In both cases, these functions return a record with entries <C>cano</C> and
+<C>auto</C>.
 </Description>
 </ManSection>
 </Section>

@@ -17,26 +17,26 @@ available is:
 <ManSection>
 <Func Name="BinsByGT" Arg="p, n, [L], [false]"/>
 <Description>
-If the function is called as <M>BinsByGT(p, n)</M>, then it returns
-a partition of the list <M>[1.. NumberSmallGroups(p</M>^<M>n)]</M> into 
+If the function is called as <C>BinsByGT(p, n)</C>, then it returns
+a partition of the list <C>[1..NumberSmallGroups(p^n)]</C> into 
 sublists so that the groups in the corresponding lists share
 all the group-theoretical invariants, i.e. the modular group algebras of two groups 
-<M>SmallGroup(p</M>^<M>n, i)</M> and <M>SmallGroup(p</M>^<M>n, j)</M> over the field
+<C>SmallGroup(p^n, i)</C> and <C>SmallGroup(p^n, j)</C> over the field
 <M>&PP;_p</M> cannot be isomorphic if <M>i</M> and <M>j</M> are in different lists.
 <P/>
-If the function is called as <M>BinsByGT(p, n, L)</M>, then <M>L</M> must be a 
+If the function is called as <C>BinsByGT(p, n, L)</C>, then <M>L</M> must be a 
 list of groups of order <M>p^n</M> and the function will return a partition
 of the groups of <M>L</M> which share all the group-theoretical invariants.
 Alternatively, <M>L</M> can be a list of group IDs of groups of order <M>p^n</M>.
 <P/>
-If the function is called as <M>BinsByGT(p, n, L, false)</M> then <M>L</M> must be
-a list of groups of order <M>p^n</M> and <M>false</M> deactivates the calculation
+If the function is called as <C>BinsByGT(p, n, L, false)</C> then <M>L</M> must be
+a list of groups of order <M>p^n</M> and <K>false</K> deactivates the calculation
 of the dimensions of the second cohomology groups. This can be 
 switched off because for some types of groups &GAP; cannot apply the needed
 functions, and because computing the second cohomology groups is arguably the
 hardest of the invariants to test manually.
 <P/>
-Several variations of <M>BinsByGT</M> are available. The first two
+Several variations of <Ref Func="BinsByGT"/> are available. The first two
 apply to the case when a list of groups is being studied instead of 
 group IDs.
 </Description>
@@ -44,7 +44,7 @@ group IDs.
 <ManSection>
 <Func Name="MIPSplitGroupsByGroupTheoreticalInvariants" Arg="L"/>
 <Description>
-does the same as <M>BinsByGT(p,n,L)</M> but computes the numbers <M>p</M> and
+does the same as <C>BinsByGT(p,n,L)</C> but computes the numbers <M>p</M> and
 <M>n</M> itself. The input variable must be a list of groups of the same
 order. Similarly
 </Description>
@@ -52,7 +52,7 @@ order. Similarly
 <ManSection>
 <Func Name="MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology" Arg="L"/>
 <Description>
-computes <M>BinsByGT(p, n, L, false)</M>.
+computes <C>BinsByGT(p, n, L, false)</C>.
 <P/>
 Moreover, all the three functions described before have variations
 where only those group-theoretical invariants are computed that 
@@ -67,9 +67,9 @@ as for the three previous functions.
 <Func Name="MIPSplitGroupsByGroupTheoreticalInvariantsAllFieldsNoCohomology" Arg="L"/>
 <Description>
 The group-theoretical invariants used by the function
-<M>BinsByGT</M> and its variations are described below. 
+<Ref Func="BinsByGT"/> and its variations are described below. 
 Moreover, &GAP; prints more or less information on the progress 
-inside these functions, if <M>InfoModIsom</M> is set to <M>1</M> or <M>0</M>,
+inside these functions, if <C>InfoModIsom</C> is set to <M>1</M> or <M>0</M>,
 respectively. Examples of the use of the functions are included
 below.
 <P/>
@@ -81,19 +81,19 @@ Isomorphism Problem is:
 <ManSection>
 <Func Name="MIPSplitGroupsByAlgebras" Arg="[p, n], bin, [f]"/>
 <Description>
-If <M>MIPSplitGroupsByAlgebras(p, n, bin, [f])</M> is called then the algebras
-of groups of order <M>p^n</M> with group IDs contained in <M>bin</M> are studied.
+If <C>MIPSplitGroupsByAlgebras(p, n, bin, [f])</C> is called then the algebras
+of groups of order <M>p^n</M> with group IDs contained in <A>bin</A> are studied.
 The underlying field is of order <M>p^f</M> or, if <M>f</M> is not given, of 
 order <M>p</M>.
 <P/>
-If the function is called as <M>MIPSplitGroupsByAlgebras(bin, [f])</M> then
-<M>bin</M> must be a list of groups of the same prime power order and the function
-studies the group algebras of the groups in <M>bin</M> over the field with <M>p^f</M>
+If the function is called as <C>MIPSplitGroupsByAlgebras(bin, [f])</C> then
+<A>bin</A> must be a list of groups of the same prime power order and the function
+studies the group algebras of the groups in <A>bin</A> over the field with <M>p^f</M>
 elements or, if no <M>f</M> is given, of order <M>p</M>.
 <P/>
-More precisely, in the first case when <M>bin</M> is a list of integers,
-for <M>i \in bin</M> let <M>G_i</M> denote <M>SmallGroup(p</M>^<M>n, i)</M>.
-In the second case <M>G_i</M> just runs through the groups contained in <M>bin</M>.
+More precisely, in the first case when <A>bin</A> is a list of integers,
+for <M>i \in bin</M> let <M>G_i</M> denote <C>SmallGroup(p^n, i)</C>.
+In the second case <M>G_i</M> just runs through the groups contained in <A>bin</A>.
 Denote by <M>A_i</M> the augmentation ideal of <M>&PP; G_i</M> where <M>&PP;</M> is the field
 of order <M>p^f</M> or simply <M>p</M>, if <M>f</M> is not given.
  The function computes and compares the canonical forms of the algebras 
@@ -115,18 +115,18 @@ For more involved calculations one can use the function
 Given a list <M>L</M> of small group library IDs or a list of groups of order <M>p^n</M> this function checks
 isomorphism of the associated modular group algebras using canonical forms for the quotients of the
 augmentation ideals <M>A</M> of <M>&PP; G</M>. Here <M>&PP;</M> is either <M>&PP;_p</M> or <M>&PP;_{p^f}</M>, if <M>f</M> is given.
-The parameter <M>\max</M> is an integer or <M>false</M> that determines the maximal
-quotients <M>A/A^{\max}</M> to be checked (if <M>false</M> is given as input, then the quotients are enlarged
+The parameter <A>max</A> is an integer or <K>false</K> that determines the maximal
+quotients <M>A/A^{\max}</M> to be checked (if <K>false</K> is given as input, then the quotients are enlarged
 until non-isomorphic quotients are found or eventually the full augmentation ideal will be checked).
-The parameter <M>start</M> specifies which quotients <M>A/A^{start}</M> are precomputed. The parameter
-<M>step</M> determines in which steps the quotients are enlarged if necessary during the isomorphism check.
-The output is a record containing three entries: <M>bins</M> contains all the groups, for which the non-
-isomorphism of the associated modular group algebras could not be determined; <M>splits</M> contains all
+The parameter <A>start</A> specifies which quotients <M>A/A^{start}</M> are precomputed. The parameter
+<A>step</A> determines in which steps the quotients are enlarged if necessary during the isomorphism check.
+The output is a record containing three entries: <C>bins</C> contains all the groups, for which the non-
+isomorphism of the associated modular group algebras could not be determined; <C>splits</C> contains all
 the groups, for which the associated group algebras were determined to be non-isomorphic (and the
-first non-isomorphic quotient); <M>time</M> contains the time used for the computation (in milliseconds).
+first non-isomorphic quotient); <C>time</C> contains the time used for the computation (in milliseconds).
 <P/>
 For big algebras all of these functions can use a lot of time and memory. To have a
-better idea on the progress of the calculations one should set <M>InfoModIsom</M> to 1.
+better idea on the progress of the calculations one should set <C>InfoModIsom</C> to 1.
 <P/>
 We first show how to study a fixed order:
 <Log><![CDATA[
@@ -143,13 +143,13 @@ This shows that the Modular Isomorphism Problem has a positive answer for groups
 of order <M>64</M> for the field <M>&PP;_2</M>. The result means e.g. that the smallest quotients
 (of Loewy layers)
 such that the augmentation ideals <M>A_1</M> and <M>A_2</M> of the group algebras over <M>&PP;_2</M> of the
-groups <M>SmallGroup(64, 156)</M> and <M>SmallGroup(64, 158)</M> are not isomorphic are <M>A_1/A_1^8</M>
+groups <C>SmallGroup(64, 156)</C> and <C>SmallGroup(64, 158)</C> are not isomorphic are <M>A_1/A_1^8</M>
 and <M>A_2/A_2^8</M>. These are <M>A_1/A_1^5</M> and <M>A_2/A_2^5</M> for the groups
-<M>SmallGroup(64, 20)</M> and <M>SmallGroup(64, 22)</M>.
+<C>SmallGroup(64, 20)</C> and <C>SmallGroup(64, 22)</C>.
 <P/>
 The following shows that the problem also has a positive answer for the group
 algebras of groups of order <M>64</M> over the field <M>&PP;_4</M>. Note that for the groups
-<M>SmallGroup(64, 20)</M> and <M>SmallGroup(64, 22)</M> one has to consider deeper quotients
+<C>SmallGroup(64, 20)</C> and <C>SmallGroup(64, 22)</C> one has to consider deeper quotients
 in this case.
 <Log><![CDATA[
 gap> bins := BinsByGTAllFields(2,6);
@@ -207,7 +207,7 @@ rec( bins := [  ],
 ]]></Log>
 The program does not finish in a very reasonable time, if we run it over the field <M>&PP;_4</M>, but we
 can still check that it is not enough to factor out only the 5th power of the augmentation ideal
-in this case. One option is to use info level to do this and the other to use <M>MIPBinsSplit</M>:
+in this case. One option is to use info level to do this and the other to use <Ref Func="MIPBinSplit"/>:
 <Log><![CDATA[
 gap> SetInfoLevel(InfoModIsom, 1);
 gap> MIPSplitGroupsByAlgebras([G,H], 2);
@@ -373,7 +373,7 @@ be done in the package using the function
 <ManSection>
 <Func Name="KernelSizePowerMap" Arg="T, n, m, l, [f]"/>
 <Description>
-where <M>T</M> is a table as returned by <M>ModIsomTable</M> and <M>n, m, l</M> are as 
+where <M>T</M> is a table as returned by <Ref Func="ModIsomTable"/> and <M>n, m, l</M> are as 
 just described and the calculation is performed over the field <M>&PP;_{p^f}</M>.
 If <M>f</M> is not given, then it is set to <M>1</M>.
 We can check for instance the first calculation in <Cite Key="HS06"/>(Section 4.1).
@@ -404,16 +404,16 @@ gap> KernelSizePowerMap(TH, 1, 1, 2);
 </Section>
 <Section Label="The group theoretical invariants">
 <Heading>The group theoretical invariants</Heading>
-We document here which group-theoretical invariants are used in <M>BinsByGT</M> and 
+We document here which group-theoretical invariants are used in <Ref Func="BinsByGT"/> and 
 similar functions.
 <ManSection>
 <Func Name="GroupInfo" Arg="G"/>
 <Description>
 This is an auxiliary function used in other group-theoretical invariants. 
-If <M>IdGroup</M> is available in &GAP; for the order of <M>G</M> it returns <M>IdGroup(G)</M>.
-Otherwise it returns <M>[Size(G), AbelianInvariants(G)]</M>.
+If <C>IdGroup</C> is available in &GAP; for the order of <M>G</M> it returns <C>IdGroup(G)</C>.
+Otherwise it returns <C>[Size(G), AbelianInvariants(G)]</C>.
 <P/>
-We now describe the invariants in the order they appear in <M>BinsByGT</M>. 
+We now describe the invariants in the order they appear in <Ref Func="BinsByGT"/>. 
 First the isomorphism types of <M>G/G'</M> and <M>Z(G)</M>, the abelianization and the center
 of <M>G</M> are used. These are very classical invariants <Cite Key="San85"/>(Theorems 6.12, 6.7).
 We next list the other functions which are applied, which are all small functions written 
@@ -433,25 +433,25 @@ calculates the isomorphism types of <M>Z(G) \cap G'</M> and <M>Z(G)/ Z(G) \cap G
 calculates several invariants coming from the small groups algebra which was first
 used to study the Modular Isomorphism Problem in <Cite Key="San89"/>. 
 Namely, for <M>\gamma_i(G)</M> the <M>i</M>-th term of the lower central series of <M>G</M> it returns 
-the <M>GroupInfo</M> for <M>G/\gamma_2(G)^p\gamma_3(G)</M> <Cite Key="San89"/>, 
-the <M>GroupInfo</M> of <M>G/\gamma_2(G)^p\gamma_4(G)</M>, if <M>G</M> is <M>2</M>-generated 
+the <Ref Func="GroupInfo"/> for <M>G/\gamma_2(G)^p\gamma_3(G)</M> <Cite Key="San89"/>, 
+the <Ref Func="GroupInfo"/> of <M>G/\gamma_2(G)^p\gamma_4(G)</M>, if <M>G</M> is <M>2</M>-generated 
 (mentioned in <Cite Key="Bag99"/>, proved in <Cite Key="MM22"/>),
 if the derived subgroup of <M>G</M> is elementary abelian and the Jennings series of <M>G</M> has length
-at most <M>2p</M>, it returns <M>GroupInfo</M> for the Frattini subgroup of <M>G</M> <Cite Key="HS06"/>(p.16)
+at most <M>2p</M>, it returns <Ref Func="GroupInfo"/> for the Frattini subgroup of <M>G</M> <Cite Key="HS06"/>(p.16)
 and if <M>p</M> is odd and the group satisfies the criteria of <Cite Key="BGL24"/>(Theorem B) it returns
-the <M>GroupInfo</M> of <M>G/\gamma_2(G)^p\gamma_4(G)</M>.
-The output is the <M>GroupInfo</M> of <M>G</M>, if <M>G</M> is abelian.
-This function is not applied in <M>BinsByGTAllFields</M> and its variations.
+the <Ref Func="GroupInfo"/> of <M>G/\gamma_2(G)^p\gamma_4(G)</M>.
+The output is the <Ref Func="GroupInfo"/> of <M>G</M>, if <M>G</M> is abelian.
+This function is not applied in <Ref Func="BinsByGTAllFields"/> and its variations.
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="JenningsInfo" Arg="G"/>
 <Description>
 Denoting by <M>D_i(G)</M> the <M>i</M>-th member of the Jennings series, this function returns   
-<M>GroupInfo</M> for the different quotients <M>D_i(G)/D_{i+1}(G)</M>, <M>D_i(G)/D_{i+2}(G)</M>, <M>D_i(G)D_{2i+1}(G)</M>
+<Ref Func="GroupInfo"/> for the different quotients <M>D_i(G)/D_{i+1}(G)</M>, <M>D_i(G)/D_{i+2}(G)</M>, <M>D_i(G)D_{2i+1}(G)</M>
 for meaningful values of <M>i</M> (results <Cite Key="Jen41"/> <Cite Key="PS72"/> <Cite Key="RS83"/>) and if <M>p</M> is odd also for
-<M>G/D_4(G)</M> <Cite Key="Her07"/>. For <M>BinsByGTAllFields</M> and its variations only the quotients
-<M>D_i(G)/D_{i+1}(G)</M> are computed (by the function <M>JenningsInfoAllFields</M>).
+<M>G/D_4(G)</M> <Cite Key="Her07"/>. For <Ref Func="BinsByGTAllFields"/> and its variations only the quotients
+<M>D_i(G)/D_{i+1}(G)</M> are computed (by the function <C>JenningsInfoAllFields</C>).
 </Description>
 </ManSection>
 <ManSection>
@@ -464,15 +464,15 @@ computes <M>D_i(G')/D_{i+1}(G')</M> for all <M>i</M> <Cite Key="San85"/>(Lemma 6
 <Func Name="BaginskiInfo" Arg="G"/>
 <Description>
 For <M>N = C_G(G'/\Phi(G'))</M>, where <M>\Phi(G)</M> denotes the Frattini subgroup, if <M>G/N</M> is
-cyclic, it returns the <M>GroupInfo</M> for <M>N/\Phi(G')</M> and <M>G/\Phi(N)</M> <Cite Key="Bag99"/>.
-This function is not applied in <M>BinsByGTAllFields</M> and its variations.
+cyclic, it returns the <Ref Func="GroupInfo"/> for <M>N/\Phi(G')</M> and <M>G/\Phi(N)</M> <Cite Key="Bag99"/>.
+This function is not applied in <Ref Func="BinsByGTAllFields"/> and its variations.
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="BaginskiCarantiInfo" Arg="G"/>
 <Description>
 returns the nilpotency class of <M>G/\Phi(G')</M> <Cite Key="BC88"/>(Proposition 2.1). 
-This function is not applied in <M>BinsByGTAllFields</M> and its variations.
+This function is not applied in <Ref Func="BinsByGTAllFields"/> and its variations.
 </Description>
 </ManSection>
 <ManSection>
@@ -487,7 +487,7 @@ or the derived subgroup is cyclic <Cite Key="BK07"/>.
 <Description>
 If <M>p</M> is odd, <M>G</M> is <M>2</M>-generated, the nilpotency class of <M>G</M> is <M>3</M> and <M>\gamma_3(G)</M> 
 has exponent <M>p</M>, it returns the isomorphism types of <M>\gamma_2(G)</M> and <M>\gamma_3(G)</M>
-<Cite Key="MS22"/>(Theorem 4.1). This function is not applied in <M>BinsByGTAllFields</M> and its variations.
+<Cite Key="MS22"/>(Theorem 4.1). This function is not applied in <Ref Func="BinsByGTAllFields"/> and its variations.
 </Description>
 </ManSection>
 <ManSection>
@@ -495,20 +495,20 @@ has exponent <M>p</M>, it returns the isomorphism types of <M>\gamma_2(G)</M> an
 <Description>
 If <M>G'</M> is cyclic this returns several invariants contained in <Cite Key="GLdRS22"/> <Cite Key="GLdR23"/> and <Cite Key="MS25SaoPaulo"/>(Proposition 2.5).
 Namely, if <M>p</M> is odd, the quotients <M>D_i(C_G(G'))/D_{i+1}(C_G(G'))</M> for all <M>i</M>, the exponent of <M>C_G(G')</M>, the isomorphism
-type of <M>C_G(G')/G'</M> and the <M>GroupInfo</M> for <M>G/R_1(\gamma_3(G))</M> and <M>G/R_3(C_G(G'))</M>.
+type of <M>C_G(G')/G'</M> and the <Ref Func="GroupInfo"/> for <M>G/R_1(\gamma_3(G))</M> and <M>G/R_3(C_G(G'))</M>.
 Here <M>R_i(G)</M> denotes the subgroup of <M>G</M> generated by the <M>p^i</M>-th powers in <M>G</M>.
-If <M>G</M> is additionally <M>2</M>-generated, it also computes the <M>GroupInfo</M> for <M>C_G(G')</M> and the
+If <M>G</M> is additionally <M>2</M>-generated, it also computes the <Ref Func="GroupInfo"/> for <M>C_G(G')</M> and the
 type invariants of <M>G</M> (cf. <Cite Key="GLdRS22"/> for the definition). 
-For any <M>p</M>, if <M>G</M> is <M>2</M>-generated, it returns the <M>GroupInfo</M> of <M>G/(G')^p</M>.
-If <M>G</M> is abelian, the return is the <M>GroupInfo</M> of <M>G</M>.
-For <M>BinsByGTAllFields</M> and its variations, the function <M>CyclicDerivedInfoAllFields</M> is used which does not compute the <M>GroupInfo</M> for  <M>G/R_1(\gamma_3(G))</M> and <M>G/R_3(C_G(G'))</M>.
+For any <M>p</M>, if <M>G</M> is <M>2</M>-generated, it returns the <Ref Func="GroupInfo"/> of <M>G/(G')^p</M>.
+If <M>G</M> is abelian, the return is the <Ref Func="GroupInfo"/> of <M>G</M>.
+For <Ref Func="BinsByGTAllFields"/> and its variations, the function <C>CyclicDerivedInfoAllFields</C> is used which does not compute the <Ref Func="GroupInfo"/> for  <M>G/R_1(\gamma_3(G))</M> and <M>G/R_3(C_G(G'))</M>.
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="MaximalAbelianDirectFactor" Arg="G"/>
 <Description>
-computes the maximal abelian direct factor of <M>G</M> <Cite Key="GL24"/>. In <M>BinsByGTAllFields</M> and
-its variations the function <M>MaximalElementaryAbelianDirectFactor</M> is used instead, which computes the maximal elementary abelian direct factor <Cite Key="MSS23"/>.
+computes the maximal abelian direct factor of <M>G</M> <Cite Key="GL24"/>. In <Ref Func="BinsByGTAllFields"/> and
+its variations the function <C>MaximalElementaryAbelianDirectFactor</C> is used instead, which computes the maximal elementary abelian direct factor <Cite Key="MSS23"/>.
 <P/>
 The following three functions serve to compute some of the sections of <M>G</M> which are canonical following Lemma 3.6 in <Cite Key="GL24"/>. The starting canonical group is the derived subgroup.
 </Description>
@@ -524,13 +524,13 @@ If applying one of the three operations does not change the subgroup <M>N</M>, n
 <ManSection>
 <Func Name="CanonicalNormalSubgroups" Arg="G"/>
 <Description>
-Computes a list of the subgroups of <M>G</M> obtained by iteratively applying the function <M>SuccessorsN</M>, where always <M>L=G</M> and starting from <M>N=G'</M>, the derived subgroup of <M>G</M>. An entry of the output is a list with two entries, the first a list of strings and the second a subgroup of <M>G</M>. The strings describe in which order the operations in <M>SuccessorsN</M> have been applied to <M>G'</M> to obtain the subgroup contained in the second entry. The first entry being the empty list means the derived subgroup of <M>G</M>. The maximum length of a list of strings is <M>3 \log_p \exp(G/G')</M>.
+Computes a list of the subgroups of <M>G</M> obtained by iteratively applying the function <Ref Func="SuccessorsN"/>, where always <M>L=G</M> and starting from <M>N=G'</M>, the derived subgroup of <M>G</M>. An entry of the output is a list with two entries, the first a list of strings and the second a subgroup of <M>G</M>. The strings describe in which order the operations in <Ref Func="SuccessorsN"/> have been applied to <M>G'</M> to obtain the subgroup contained in the second entry. The first entry being the empty list means the derived subgroup of <M>G</M>. The maximum length of a list of strings is <M>3 \log_p \exp(G/G')</M>.
 </Description>
 </ManSection>
 <ManSection>
 <Func Name="NormalSubgroupsInfo" Arg="G"/>
 <Description>
-Returns a list with one entry for each of the subgroups obtained with <M>CanonicalNormalSubgroups(G)</M>, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to <Cite Key="GL24"/>(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of <M>CanonicalNormalSubgroups</M> (the leftmost string is the first applied operation). Denoting by <M>S</M> the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of <M>S</M>, the third gives the abelian invariants of <M>Z(G) \cap S</M> and <M>Z(G)S/S</M>, and the fourth entry contains the abelian invariants of <M>G/SG'</M> and <M>SG'/G'</M>.
+Returns a list with one entry for each of the subgroups obtained with <C>CanonicalNormalSubgroups(G)</C>, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according  to <Cite Key="GL24"/>(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of <Ref Func="CanonicalNormalSubgroups"/> (the leftmost string is the first applied operation). Denoting by <M>S</M> the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of <M>S</M>, the third gives the abelian invariants of <M>Z(G) \cap S</M> and <M>Z(G)S/S</M>, and the fourth entry contains the abelian invariants of <M>G/SG'</M> and <M>SG'/G'</M>.
 </Description>
 </ManSection>
 <ManSection>
@@ -549,7 +549,7 @@ Problem has been solved positively. Namely, if
 <M>G</M> is <M>2</M>-generated and <M>C_G(G'/\Phi(G'))</M> is abelian and has index <M>p</M> in <M>G</M> <Cite Key="BaginskiZabielski25"/>(Proposition 8),
 <M>G</M> is <M>d</M>-generated, the Jennings series of <M>G</M> has length <M>n+1</M> and the defining relations of <M>G</M> are contained in <M>D_n(F)</M> for <M>F</M> a free pro-<M>p</M> group in <M>d</M> generators <Cite Key="Roehl90"/>(Theorem 3.1.2) (using dimensions of subsequent quotients of the Jennings series of free pro-<M>p</M> groups computed in <Cite Key="MRT16"/>(Proposition 3.4)).
 <P/>
-For <M>BinsByGTAllFields</M> and its variations the function used is <M>IsCoveredByTheoryAllFields</M> and it only checks, if
+For <Ref Func="BinsByGTAllFields"/> and its variations the function used is <C>IsCoveredByTheoryAllFields</C> and it only checks, if
 <M>G</M> is a <M>2</M>-group of maximal class, 
 <M>[G:Z(G)] = p^2</M>,
 <M>G</M> is a <M>2</M>-group with cyclic center and dihedral central quotient,
