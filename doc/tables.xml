@@ -1,0 +1,325 @@
+<Chapter Label="Tables">
+<Heading>Tables</Heading>
+Finite dimensional algebras can be described by structure constants tables.
+For nilpotent algebras it is not necessary to store a full structure 
+constants table. To use this feature, we introduce <E>nilpotent structure
+constants tables</E> or just <E>nilpotent tables</E> for short. These are used 
+heavily throughout the package.
+<Section Label="Nilpotent tables">
+<Heading>Nilpotent tables</Heading>
+Let <M>A</M> be a finite-dimensional nilpotent associative algebra over a 
+field <M>F</M>. Let <M>(b_1, \ldots, b_d)</M> be a <E>weighted basis</E> of <M>A</M>; that
+is, a basis with weights <M>(w_1, \ldots, w_d)</M> satisfying that <M>A^j = 
+\langle b_i \mid w_i \geq j \rangle</M>. Let
+<Display> b_i b_j = \sum_k a_{i,j,k} b_k.</Display>
+The nilpotent table <M>T</M> for <M>A</M> (with respect to the basis <M>(b_1,
+\ldots, b_d)</M>) is a record with the following entries.
+<List>
+<Mark><C>dim</C></Mark>
+<Item>the dimension <M>d</M> of <M>A</M>;</Item>
+<Mark><C>fld</C></Mark>
+<Item>the field <M>F</M> of <M>A</M>;</Item>
+<Mark><C>wgs</C></Mark>
+<Item>the weights <M>(w_1, \ldots, w_d)</M>;</Item>
+<Mark><C>rnk</C></Mark>
+<Item>the rank <M>e</M> of <M>A</M> (i.e. the dimension of <M>A/A^2</M>).</Item>
+<Mark><C>wds</C></Mark>
+<Item>a list of length <M>d</M> with holes; if the <M>i</M>th entry is bounded, then 
+   it is of the form <M>[k,l]</M>. In this case, <M>w_i &gt; 1</M> and <M>b_i = b_k b_l</M> 
+   and <M>w_k = 1</M> and <M>w_l = w_i-1</M> holds.</Item>
+<Mark><C>tab</C></Mark>
+<Item>a partial structure constants table for <M>A</M>; if <C>tab[i][j][k]</C> is bounded,
+   then it is <M>a_{i,j,k}</M>. Note that either a full vector <C>tab[i][j]</C> is
+   given or <C>tab[i][j]</C> is unbounded. The entry <C>tab[i][j][k]</C> is available
+   for <M>1 \leq i,j \leq e</M> and if <C>wds[i]</C> is unbounded.</Item>
+<Mark><C>com</C></Mark>
+<Item>optional; if this is bounded, then it is a boolean. If this boolean
+   is true, then the algebra is assumed to be commutative.</Item>
+</List>
+In a nilpotent table not all structure constants are readily available.
+The following function determines the structure constants for the
+product <M>b_i b_j</M>. If the global variable <C>STORE</C> is true, then the
+function stores the computed entry in the table.
+<ManSection>
+<Func Name="GetEntryTable" Arg="T, i, j"/>
+<Description>
+The result of the multiplication of the elements <M>v</M> and <M>w</M> in <M>T</M>
+can be obtained using the following function. An example of its use is
+provided below.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="MultByTable" Arg="T, v, w"/>
+<Description>
+We consider two nilpotent tables as equal if they would be equal once
+the full set of structure constants is bound. The following
+function provides an effective check for this.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CompareTables" Arg="T1, T2"/>
+<Description>
+A nilpotent table contains redundant information and hence can be 
+inconsistent. The next functions can be used to check this to some
+extent.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CheckAssociativity" Arg="T"/>
+<Description>
+Checks that <M>(b_i b_j) b_k = b_i (b_j b_k)</M> for all <M>i,j,k</M>. Note that this
+may be time-consuming.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CheckCommutativity" Arg="T"/>
+<Description>
+Checks whether <M>T</M> defines a commutative algebra and sets the entry <C>com</C>
+accordingly.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="CheckConsistency" Arg="T"/>
+<Description>
+Checks that <C>wds</C> and <C>tab</C> are compatible. This assumes that 
+CheckAssociativity returns true.
+<P/>
+All algorithms described later in this package assume that the tables 
+considered are fully consistent.
+<Example><![CDATA[
+gap> T := rec( dim := 3, 
+> fld := GF(2), 
+> rnk := 2, 
+> wgs := [ 1, 1, 2 ],
+> wds := [ ,, [ 2, 1 ] ],
+> tab := [] );;
+gap> T.tab[1] := [[0,0,0],[0,0,1]] * One(T.fld);;
+gap> T.tab[2] := [[0,0,1],[0,0,0]] * One(T.fld);;
+gap> GetEntryTable( T, 3, 1 );
+[ 0*Z(2), 0*Z(2), 0*Z(2) ]
+]]></Example>
+</Description>
+</ManSection>
+</Section>
+<Section Label="Algebras in the GAP sense">
+<Heading>Algebras in the GAP sense</Heading>
+We provide functions to convert back and forth between algebras in the &GAP;
+sense and nilpotent tables.
+<ManSection>
+<Oper Name="AlgebraByTable" Arg="T"/>
+<Func Name="NilpotentTable" Arg="A"/>
+<Description>
+Note that the second function fails if <M>A</M> is not nilpotent.
+<P/>
+For modular group algebras of <M>p</M>-groups, the group algebra itself is
+not nilpotent (as it contains a unit), but its Jacobson radical is. The
+following function determines a nilpotent table for the Jacobson radical.
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="NilpotentTableOfRad" Arg="FG"/>
+<Description>
+<Example><![CDATA[
+gap> A := GroupRing(GF(2), SmallGroup(8,3));
+<algebra-with-one over GF(2), with 3 generators>
+gap> NilpotentTableOfRad(A);
+rec( dim := 7, fld := GF(2), rnk := 2, 
+  tab := 
+    [ 
+      [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ], 
+      [ [ 0*Z(2), 0*Z(2), Z(2)^0, Z(2)^0, Z(2)^0, Z(2)^0, Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ],, 
+      [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ] ], 
+  wds := [ ,, [ 1, 2 ],, [ 1, 4 ], [ 2, 4 ], [ 1, 6 ] ], 
+  wgs := [ 1, 1, 2, 2, 3, 3, 4 ] )
+]]></Example>
+</Description>
+</ManSection>
+</Section>
+<Section Label="Tables for the Modular Isomorphism Problem">
+<Heading>Tables for the Modular Isomorphism Problem</Heading>
+A special kind of nilpotent table is available in the context of the
+Modular Isomorphism Problem. Let <M>G</M> be a finite group, <M>F</M> a field of 
+characteristic <M>p</M> and <M>I(FG)</M> the augmentation ideal of <M>FG</M> which equals
+its radical and is a nilpotent ideal. Two functions can be used to compute the 
+class-<M>n</M> quotient of <M>I(FG)</M>, i.e. <M>I(FG)/I(FG)^{n+1}</M>. The output is a nilpotent 
+table for this quotient, but in addition to the standard entries of 
+a nilpotent table it contains further entries, which allow more efficient 
+computations and can also facilitate manual calculations.
+This makes it possible to determine the class-<M>n</M> quotient of the augmentation ideal
+without computing the full augmentation ideal using <Ref Func="NilpotentTableOfRad"/>. 
+The corresponding table can be computed by
+<ManSection>
+<Func Name="TableOfRadQuotient" Arg="FG, n"/>
+<Description>
+or
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="ModIsomTable" Arg="G, n, [f]"/>
+<Description>
+Here <C>ModIsomTable(G, n)</C> will produce the quotient with respect to the algebra
+<M>&PP;_pG</M>, while <C>ModIsomTable( G, n, f )</C> will do the same for the algebra <M>&PP;_{p^f}G</M>.
+<P/>
+The components <M>\dim</M>, <C>fld</C>, <C>rnk</C>, <C>tab</C>, <C>wgs</C>, <C>wds</C>
+ remain unchanged from a usual nilpotent table. The additional components are
+<C>commwords</C>, <C>powwords</C> and <C>pre</C>. These new components
+contain additional information on precisely which basis of <M>I(FG)/I(FG)^{n+1}</M> is used
+and what the result of multiplying basis elements is. We explain how users
+can understand how the basis looks and how they can multiply two elements in the algebra. 
+The components <C>T.commwords</C> and <C>T.powwords</C> contain information on how the elements of
+the basis behave with respect to commutators and <M>p</M>-th powers. The component <C>T.pre</C>
+contains information on the construction of the basis and we describe it in more detail.
+<P/>
+The dimension of <M>I(FG)/I(FG)^{n+1}</M> is recorded in <C>T.dim</C>.
+The basis of <M>I(FG)/I(FG)^{n+1}</M> is found as in the theory of Jennings going back
+to <Cite Key="Jen41"/>, cf. <Cite Key="MM22"/> for the information needed here. The elements 
+of <M>G</M> chosen to provide the basis of subsequent quotients of dimension subgroups
+are recorded in <C>T.pre.jen.pcgs</C>. Let us call these elements <M>g_1,\ldots,g_m</M>.
+Note that <M>|G| = p^m</M>.  The weights of the elements <M>g_1-1,\ldots ,g_m-1</M> are recorded
+in <C>T.pre.jen.weights</C>. If now <M>r</M> is an integer smaller than <C>T.dim</C>+1, then the
+<M>r</M>-th element of the basis of  <M>I(FG)/I(FG)^{n+1}</M> is 
+<M>(g_1-1)^{e_1} \cdot \ldots (g_m-1)^{e_m}</M> where <M>[e_1,\ldots,e_m]</M> = <C>T.pre.exps[r]</C>.
+The weight of this element is recorded in <C>T.wgs[r]</C> and also <C>T.pre.weights[r]</C>.
+Moreover, the positions of <M>g_1-1,\ldots ,g_m-1</M> in the chosen basis of <M>T</M> are recorded
+in <C>T.pre.poswone</C>. We elaborate using an example.
+<P/>
+We consider the group <M>G</M> = <C>SmallGroup(3^7, 19)</C>. The following calculation shows
+that <M>I(FG)/I(FG)^9</M> has dimension <M>135</M> and that the full augmentation
+ideal <M>I(FG)</M> has dimension <M>2186</M>.
+<Example><![CDATA[
+gap> G := SmallGroup(3^7, 19);;
+gap> T := ModIsomTable(G, 8);;
+gap> T.dim;
+135
+]]></Example>
+<Example><![CDATA[
+gap> FG := GroupRing(GF(3), G);;
+gap> TT := TableOfRadQuotient(FG, 8);;
+gap> TT.dim;
+135
+]]></Example>
+<Example><![CDATA[
+gap> T := ModIsomTable(G, 38);;
+gap> T.dim;
+2186
+]]></Example>
+<Example><![CDATA[
+gap> T := ModIsomTable(G, 39);;
+gap> T.dim;
+2186
+]]></Example>
+We next consider an example of how the basis used can be recognized.
+<Example><![CDATA[
+gap> G := DihedralGroup(8);;
+gap> T := ModIsomTable(G, 4);;
+gap> T.dim;
+7
+gap> pcgs := T.pre.jen.pcgs;
+Pcgs([ f1, f2, f3 ])
+gap> List(pcgs, Order);
+[ 2, 4, 2 ]
+gap> pcgs[3] in Center(G);
+true
+gap> T.pre.exps{[1..7]};
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], 
+  [ 0, 1, 1 ], [ 1, 1, 1 ] ]
+]]></Example>
+We conclude that <M>I(FG)/I(FG)^5</M> is <M>7</M>-dimensional and if we denote by
+  <M>a</M> a reflection and by <M>b</M> a non-central rotation in <M>G</M>, then the
+  basis used by <M>T</M> is, in this order: <M>(a-1)</M>, <M>(b-1)</M>, <M>(a-1)(b-1)</M>, <M>(b^2-1)</M>,
+   <M>(a-1)(b^2-1)</M>, <M>(b-1)(b^2-1)</M>, <M>(a-1)(b-1)(b^2-1)</M>.
+<P/>
+Continuing the previous example, say we want to multiply <M>(b-1)+(a-1)(b-1)+(a-1)(b^2-1)</M> and <M>(a-1)+(b-1)+(b^2-1)</M>.
+<Example><![CDATA[
+gap> v := Z(2)^0*[0,1,1,0,1,0,0];
+[ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+gap> w := Z(2)^0*[1,1,0,1,0,0,0];
+[ Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2) ]
+gap> MultByTable(T,v,w);
+[ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+]]></Example>
+So the result is <M>(a-1)(b-1) + (a-1)(b^2-1)</M>.
+<P/>
+To facilitate the translation of elements of the group algebra
+and a corresponding table of a quotient of the augmentation ideal 
+the functions
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="MIPElementTableToAlgebra" Arg="v, T, FG"/>
+<Description>
+and
+</Description>
+</ManSection>
+<ManSection>
+<Func Name="MIPElementAlgebraToTable" Arg="el, FG, T"/>
+<Description>
+can be used. In the second function of course only a possible
+representative of <M>v</M> in <M>FG</M> is provided. Also, only elements 
+from the augmentation ideal of <M>FG</M> can be represented using
+<Ref Func="MIPElementAlgebraToTable"/>. These functions can be used for 
+instance to obtain representatives in the same class modulo
+a power of the augmentation ideal which are more practical to
+work with, as the following example shows.
+<Example><![CDATA[
+gap> G := SmallGroup(3^7, 19);
+<pc group of size 2187 with 7 generators>
+gap> T := ModIsomTable(G, 4);;
+gap> FG := GroupRing(GF(3), G);
+<algebra-with-one over GF(3), with 7 generators>
+gap> iota := Embedding(G, FG);
+<mapping: Group( [ f1, f2, f3, f4, f5, f6, f7 
+ ] ) -> AlgebraWithOne( GF(3), ... ) >
+gap> a := (T.pre.jen.pcgs[1])^iota;
+(Z(3)^0)*f1
+gap> b := (T.pre.jen.pcgs[2])^iota;
+(Z(3)^0)*f2
+gap> z := One(FG);
+(Z(3)^0)*<identity> of ...
+gap> r := (z + (a-z)*(b-z) )^-1;;  
+gap> Size(Support(r-z));
+1376
+gap> el := MIPElementAlgebraToTable(r-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), Z(3)^0, 0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap> MIPElementTableToAlgebra(el, T, FG);
+(Z(3))*<identity> of ...+(Z(3)^0)*f3+(Z(3)^0)*f1^2+(Z(3))*f1*f2+(Z(3))*f1*f3+(
+Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
+0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
+]]></Example>
+We illustrate the information in <C>T.pre.poswone</C>:
+<Example><![CDATA[
+gap> d := (T.pre.jen.pcgs[4])^iota;
+(Z(3)^0)*f4
+gap> el := MIPElementAlgebraToTable(d-z, FG, T);
+[ 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+gap> Position(last, Z(3)^0);
+11
+gap> T.pre.poswone[4];
+11
+]]></Example>
+</Description>
+</ManSection>
+</Section>
+</Chapter>
