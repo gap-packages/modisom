@@ -50,6 +50,13 @@ BindGlobal( "MyTriangulizedBaseMat", function(mat)
     return new{[1..j-1]};
 end );
 
+# A key for the orbit dictionary: compressed, so that equal matrices have
+# equal hash keys, and immutable, as hashing requires.
+BindGlobal( "MyImmutableMat", function( mat, F )
+    if Length(mat) = 0 then return Immutable(mat); fi;
+    return ImmutableMatrix( F, mat );
+end );
+
 BindGlobal( "IsInvariantAssert", function( base, mats )
     local mat, b;
     for mat in mats do

@@ -3,8 +3,8 @@
 #F BlockCanonicalForm( G, U )
 ##
 BindGlobal( "BlockCanonicalForm", function( G, U )
-    local F, C, P, Q, V, W, orbit, trans, ptran, trivl, nonst, stabl, pstab,
-          i, j, k, g, o, s, t, p, a;
+    local F, C, P, Q, V, W, orbit, trans, ptran, dict, trivl, nonst, stabl,
+          pstab, i, j, k, g, o, s, t, p, a, w;
 
     # set up
     F := G.field;
@@ -14,10 +14,13 @@ BindGlobal( "BlockCanonicalForm", function( G, U )
     # precompute canonical form 
     C := SubspaceCanonicalForm( G.agAutos, G.one, U, F );
 
-    # set up orbit and transversal 
-    orbit := [ C.cano ];
+    # set up orbit and transversal; the orbit is also stored in a
+    # dictionary, so that membership does not scan the whole list
+    orbit := [ MyImmutableMat( C.cano, F ) ];
     trans := [ G.one ];
     ptran := [ () ]; 
+    dict := NewDictionary( orbit[1], true );
+    AddDictionary( dict, orbit[1], 1 );
 
     # catch a trivial case
     if G.glOrder = 1 then 
@@ -44,11 +47,13 @@ BindGlobal( "BlockCanonicalForm", function( G, U )
             # compute image 
             V := MyTriangulizedBaseMat( orbit[k] * G.glAutos[i][2] );
             W := SubspaceCanonicalForm( G.agAutos, G.one, V, F );
-            j := Position( orbit, W.cano );
+            w := MyImmutableMat( W.cano, F );
+            j := LookupDictionary( dict, w );
 
             # add to orbit or stabilizer
             if IsBool( j ) then
-                Add( orbit, W.cano );
+                Add( orbit, w );
+                AddDictionary( dict, w, Length( orbit ) );
                 Add( trans, trans[k] * G.glAutos[i] * W.tran );
                 Add( ptran, ptran[k] * G.glPerms[i] );
             else
