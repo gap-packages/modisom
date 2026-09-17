@@ -80,6 +80,14 @@ BindGlobal( "IndVector", function( g, d, base )
     return SolutionMat(base, g){[1..d]};
 end );
 
+# The projection g -> IndVector(g, d, base) for a fixed base, as a matrix.
+# base is a basis of the full space, so solving g = x * base is a
+# multiplication by its inverse; only the first d columns are needed.
+BindGlobal( "IndVectorMatrix", function( d, base, F )
+    if IsBool(base) or Length(base) <> Length(base[1]) then return fail; fi;
+    return ImmutableMatrix( F, List( base^-1, r -> r{[1..d]} ) );
+end );
+
 BindGlobal( "IndMatrix", function( hom, mat )
     local ind, baseI, baseS, b, e, f, g;
     ind := [];

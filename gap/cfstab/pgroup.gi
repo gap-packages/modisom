@@ -6,7 +6,7 @@
 ## Computes modulo base{[l+1..n]} or mod [] if base=fail
 ##
 BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
-    local p, f, d, o, stab, tran, cano, indu, tail, B,
+    local p, f, d, o, stab, tran, cano, indu, tail, B, project, projMat,
           i, j, k, e, ec, w, wc, b, s, t; 
 
     # the trivial case is not supported
@@ -21,14 +21,23 @@ BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
     # get a basis of F over its prime field
     B := Basis(F);
 
+    # the projection onto the first l coordinates modulo base, as a
+    # matrix: it is applied to every tail in every round below
+    projMat := IndVectorMatrix( l, base, F );
+    if projMat = fail then
+        project := g -> IndVector( g, l, base );
+    else
+        project := g -> g * projMat;
+    fi;
+
     # init
     stab := ShallowCopy(pcgs);
     tran := pcgs[1]^0;
     cano := ShallowCopy(v);
-    indu := IndVector( cano, l, base );
+    indu := project( cano );
 
     # get tails
-    tail := List( stab, x -> IndVector(cano*(x[2] - o), l, base));
+    tail := List( stab, x -> project(cano*(x[2] - o)));
 
     # use induction on natural flag
     for i in [2..l] do
@@ -67,11 +76,11 @@ BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
         # set up for next round
         if t <> 0*t then
             cano := v * tran[2];
-            indu := IndVector( cano, l, base );
+            indu := project( cano );
         fi;
         if Length(b)>0 then 
             stab := stab{Difference([1..Length(e)], b)};
-            tail := List( stab, x -> IndVector(cano*(x[2] - o), l, base));
+            tail := List( stab, x -> project(cano*(x[2] - o)));
         fi;
     od;
 
