@@ -6,8 +6,9 @@
 ## Computes modulo base{[l+1..n]} or mod [] if base=fail
 ##
 BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
-    local p, f, d, o, stab, tran, cano, indu, tail, B, project, projMat,
-          i, j, k, e, ec, w, wc, b, s, t; 
+    local p, f, d, o, stab, tran, cano, indu, tail, B, project, projMat, zero,
+          echelon, echelonCoeffs, pivots, residue, residueCoeffs, pivot,
+          coeff, lead, i, j, k, e, ec, w, wc, b, s, t; 
 
     # the trivial case is not supported
     if Length(pcgs) = 0 then return fail; fi;
@@ -20,6 +21,7 @@ BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
 
     # get a basis of F over its prime field
     B := Basis(F);
+    zero := Zero( GF(p) );
 
     # the projection onto the first l coordinates modulo base, as a
     # matrix: it is applied to every tail in every round below
@@ -48,18 +50,53 @@ BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
         w := indu[i];
         wc := Coefficients(B,w);
 
-        # compute stabilizer
-        b := []; 
+        # compute stabilizer: sift the entries into an echelon basis,
+        # keeping each basis vector as a combination of the entries
+        # chosen so far.  SolutionMat would echelonise the chosen ones
+        # again for every entry.
+        #   b              the chosen elements, as indices into stab and ec
+        #   echelon        the echelon basis, with leading entries 1
+        #   pivots         the column of each leading entry
+        #   echelonCoeffs  each basis vector in terms of the chosen entries
+        b := [];
+        echelon := [];
+        pivots := [];
+        echelonCoeffs := [];
         for j in Reversed([1..Length(e)]) do
-            s := MySolutionMat(ec{b}, ec[j]);
-            if IsBool(s) then 
-                Add(b, j);
-            else
+
+            # residue = ec[j] - residueCoeffs * (the chosen entries)
+            residue := ec[j];
+            residueCoeffs := ListWithIdenticalEntries( Length(b), zero );
+            for k in [1..Length(echelon)] do
+                coeff := residue[pivots[k]];
+                if coeff <> zero then
+                    residue := residue - coeff * echelon[k];
+                    residueCoeffs := residueCoeffs
+                                     + coeff * echelonCoeffs[k];
+                fi;
+            od;
+            pivot := PositionNonZero( residue );
+
+            if pivot > Length( residue ) then
+
+                # the entry lies in the span of the chosen ones
+                s := List( residueCoeffs, IntFFE );
                 for k in Reversed([1..Length(s)]) do
                     if s[k]<>0 then 
                         stab[j] := stab[j]*stab[b[k]]^(-s[k] mod p);
                     fi;
                 od;
+            else
+
+                # the entry enlarges the span
+                lead := residue[pivot];
+                Add( b, j );
+                Add( echelon, residue / lead );
+                Add( pivots, pivot );
+                echelonCoeffs := List( echelonCoeffs,
+                                       x -> Concatenation( x, [zero] ) );
+                Add( echelonCoeffs, Concatenation(
+                         List( residueCoeffs, x -> -x/lead ), [lead^-1] ) );
             fi;
         od;
 
