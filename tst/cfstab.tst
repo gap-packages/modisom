@@ -96,5 +96,16 @@ gap> G.size * Length( Orbit( Group( List( pcgs, x -> x[2] ) ), U,
 >                            OnSubspacesByCanonicalBasis ) ) = 3^6;
 true
 
+# a large field: the first orbit point has its entries in GF(2), the
+# others do not
+gap> F := GF(2^9);; z := PrimitiveRoot( F );;
+gap> g := DirectProductElement( [ 1, [ [ z^0, 0*z ], [ 0*z, z ] ] ] );;
+gap> G := rec( field := F, one := g^0, glAutos := [ g ], glOrder := 511,
+>              glPerms := [ PermList( Concatenation( [2..511], [1] ) ) ],
+>              agAutos := [], size := 511 );;
+gap> cf := BlockCanonicalForm( G, [ [ z^0, z^0 ] ] );;
+gap> cf.cano = [ [ z^0, z^0 ] ] and G.size = 1;
+true
+
 #
 gap> STOP_TEST("cfstab.tst", 1);

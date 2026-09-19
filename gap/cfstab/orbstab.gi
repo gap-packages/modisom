@@ -4,7 +4,7 @@
 ##
 BindGlobal( "BlockCanonicalForm", function( G, U )
     local F, C, P, Q, V, W, orbit, trans, ptran, dict, trivl, nonst, stabl,
-          pstab, i, j, k, g, o, s, t, p, a, w;
+          pstab, i, j, k, g, o, s, t, p, a, w, key;
 
     # set up
     F := G.field;
@@ -19,8 +19,9 @@ BindGlobal( "BlockCanonicalForm", function( G, U )
     orbit := [ MyImmutableMat( C.cano, F ) ];
     trans := [ G.one ];
     ptran := [ () ]; 
-    dict := NewDictionary( orbit[1], true );
-    AddDictionary( dict, orbit[1], 1 );
+    key := MatrixKey( orbit[1], F );
+    dict := MatrixKeyDictionary( key, F );
+    AddDictionary( dict, key, 1 );
 
     # catch a trivial case
     if G.glOrder = 1 then 
@@ -48,12 +49,13 @@ BindGlobal( "BlockCanonicalForm", function( G, U )
             V := MyTriangulizedBaseMat( orbit[k] * G.glAutos[i][2] );
             W := SubspaceCanonicalForm( G.agAutos, G.one, V, F );
             w := MyImmutableMat( W.cano, F );
-            j := LookupDictionary( dict, w );
+            key := MatrixKey( w, F );
+            j := LookupDictionary( dict, key );
 
             # add to orbit or stabilizer
             if IsBool( j ) then
                 Add( orbit, w );
-                AddDictionary( dict, w, Length( orbit ) );
+                AddDictionary( dict, key, Length( orbit ) );
                 Add( trans, trans[k] * G.glAutos[i] * W.tran );
                 Add( ptran, ptran[k] * G.glPerms[i] );
             else
