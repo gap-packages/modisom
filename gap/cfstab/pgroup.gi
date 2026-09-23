@@ -75,7 +75,7 @@ BindGlobal( "VectorCanonicalForm", function( pcgs, v, F, l, base )
         fi;
     od;
 
-    if CHECK_CNF then 
+    if MIP_CHECK_CNF then 
         if ForAny( stab, x -> 
             IndVector(cano*x[2],l,base) <> IndVector(cano,l,base) ) then 
             Error("stabilizer does not stabilize in vector cano form");
@@ -139,7 +139,7 @@ BindGlobal( "SubspaceCanonicalForm", function( pcgs, id, base, F )
 
     od;
 
-    if CHECK_CNF then 
+    if MIP_CHECK_CNF then 
         if not ForAll( stab, x -> cano = MyTriangulizedBaseMat(cano*x[2]) ) then 
             Error("stabilizer does not stabilize in subspace cano form");
         fi;

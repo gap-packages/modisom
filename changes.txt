@@ -1,3 +1,6 @@
+Changes in 3.2.0:
+- global variables defined in read.g have been redefined with prefix MIP_
+- the function IsCoveredByTheory and the AllFields variation now rather do what their name suggests
 
 Changes in 3.1.0: 
 - corrected a mistake in the function JenningsInfoAllFields. This lead to theoretical mistakes in versions 3.0.0 and 3.0.1, as it was using an invariant only valid over Fp, namely the quotient by the second dimension subgroup (Passi-Sehgal 72)

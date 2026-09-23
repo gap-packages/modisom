@@ -247,7 +247,7 @@ BindGlobal( "QuotientTableAssoc", function( R, S, U )
         od;
     od;
 
-    if COVER then 
+    if MIP_COVER then 
         for i in [d+1..r] do
             if IsBound(R.tab[i]) then 
                 C.tab[i] := []; 

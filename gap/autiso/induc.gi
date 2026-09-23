@@ -23,13 +23,13 @@ BindGlobal( "InduceAutoToMult", function( C, mat )
         if Length(C.wds[r+i]) = 3 then 
             img[i] := img[i] - C.wds[r+i][3] * new; 
         fi;
-        if CHECK_AUT and not img[i]{[1..r]} = 0 * img[i]{[1..r]} then
+        if MIP_CHECK_AUT and not img[i]{[1..r]} = 0 * img[i]{[1..r]} then
             Error("aut does not induce");
         fi;
         img[i] := img[i]{[r+1..r+m]};
     od;
 
-    if CHECK_AUT and RankMat(img) < C.mul then 
+    if MIP_CHECK_AUT and RankMat(img) < C.mul then 
         Error("induced auto is not invertible"); 
     fi;
 
@@ -61,13 +61,13 @@ BindGlobal( "InduceCAutoToMult", function( C, mat )
         if Length(C.wds[r+i]) = 3 then 
             img[i] := img[i] - C.wds[r+i][3] * new; 
         fi;
-        if CHECK_AUT and not img[i]{[1..r]} = 0 * img[i]{[1..r]} then
+        if MIP_CHECK_AUT and not img[i]{[1..r]} = 0 * img[i]{[1..r]} then
             Error("aut does not induce");
         fi;
         img[i] := img[i]{[r+1..r+m]};
     od;
 
-    if CHECK_AUT and RankMat(img) < C.mul then 
+    if MIP_CHECK_AUT and RankMat(img) < C.mul then 
         Error("induced auto is not invertible"); 
     fi;
 

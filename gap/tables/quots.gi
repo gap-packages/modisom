@@ -46,7 +46,7 @@ BindGlobal( "QuotientTableAllowableSpace", function( C, U )
         od;
     od;
  
-    if ALLOW then 
+    if MIP_ALLOW then 
         for i in [d+1..r] do
             if IsBound(C.tab[i]) then 
                 Q.tab[i] := []; 

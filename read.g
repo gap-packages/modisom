@@ -9,24 +9,24 @@
 ##
 SMTX.RAND_ELM_LIMIT := 5000;
 MIP_GLLIMIT := infinity;
-COVER_LIMIT := 100;
-POWER_LIMIT := 1000;
+MIP_COVER_LIMIT := 100;
+MIP_POWER_LIMIT := 1000;
 
 # some flags for the algorithm
-if not IsBound(USE_PARTI) then USE_PARTI := false; fi;
-if not IsBound(USE_CHARS) then USE_CHARS := false; fi;
-if not IsBound(USE_MSERS) then USE_MSERS := false; fi;
+if not IsBound(MIP_USE_PARTI) then MIP_USE_PARTI := false; fi;
+if not IsBound(MIP_USE_CHARS) then MIP_USE_CHARS := false; fi;
+if not IsBound(MIP_USE_MSERS) then MIP_USE_MSERS := false; fi;
 
 # checking modes for the package
-if not IsBound(CHECK_AUT) then CHECK_AUT := false; fi;
-if not IsBound(CHECK_STB) then CHECK_STB := false; fi;
-if not IsBound(CHECK_CNF) then CHECK_CNF := false; fi;
-if not IsBound(CHECK_NQA) then CHECK_NQA := false; fi;
+if not IsBound(MIP_CHECK_AUT) then MIP_CHECK_AUT := false; fi;
+if not IsBound(MIP_CHECK_STB) then MIP_CHECK_STB := false; fi;
+if not IsBound(MIP_CHECK_CNF) then MIP_CHECK_CNF := false; fi;
+if not IsBound(MIP_CHECK_NQA) then MIP_CHECK_NQA := false; fi;
 
 # store info
-if not IsBound(STORE) then STORE := true; fi;
-if not IsBound(COVER) then COVER := true; fi;
-if not IsBound(ALLOW) then ALLOW := true; fi;
+if not IsBound(MIP_STORE) then MIP_STORE := true; fi;
+if not IsBound(MIP_COVER) then MIP_COVER := true; fi;
+if not IsBound(MIP_ALLOW) then MIP_ALLOW := true; fi;
 
 #############################################################################
 ##

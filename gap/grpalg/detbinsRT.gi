@@ -287,7 +287,7 @@ BindGlobal( "PowerMapSmall", function(A)
         for j in [i+1..l] do
             dim := Length(bas[i]) - Length(bas[j]);
             #Print("   consider ",i," with ",j," of dim ",dim,"\n");
-            if p^dim <= POWER_LIMIT then 
+            if p^dim <= MIP_POWER_LIMIT then 
                 res[i][j-i] := PowerMapKernels( A, bas, i, j-i );
             fi;
         od;
@@ -318,7 +318,7 @@ BindGlobal( "PowerMapFLSmall", function(A)
     res := [];
     for j in [2..l] do
         dim := Length(bas[1]) - Length(bas[j]);
-        if p^dim <= POWER_LIMIT then 
+        if p^dim <= MIP_POWER_LIMIT then 
             res[j-1] := PowerMapKernels( A, bas, 1, j-1 );
         fi;
     od;
@@ -366,7 +366,7 @@ BindGlobal( "RefineBinByRT", function( bin, alg )
 
     # next step: refine by p-powers on small factors
     Print("  refine by p-power map on first layer small factors \n");
-    POWER_LIMIT := 500;
+    MIP_POWER_LIMIT := 500;
     for i in [1..Length(new)] do
 	new[i] := RefineBinByFunc( new[i], alg{new[i]}, PowerMapFLSmall );
     od;
@@ -375,7 +375,7 @@ BindGlobal( "RefineBinByRT", function( bin, alg )
     if Length(new)=0 then return []; fi;
 
 #    # refine by p-powers on center
-#    POWER_LIMIT := 2000;
+#    MIP_POWER_LIMIT := 2000;
 #    Print("  refine by p-power map on all layers medium factors \n");
 #    for i in [1..Length(new)] do
 #	new[i] := RefineBinByFunc( new[i], alg{new[i]}, PowerMapSmall );

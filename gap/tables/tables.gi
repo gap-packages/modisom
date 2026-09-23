@@ -62,7 +62,7 @@ InstallGlobalFunction( "GetEntryTable", function( T, i, j )
     od;
 
     # add to table if desired and possible
-    if STORE then 
+    if MIP_STORE then 
         if not IsMutable(T.tab) then Error("not mutable ..."); fi;
         if not IsBound(T.tab[i]) then T.tab[i] := []; fi;
         if not IsMutable(T.tab[i]) then Error("not mutable ..."); fi;

@@ -191,7 +191,7 @@ BindGlobal( "HybridMatrixCanoForm", function( G, U )
     W := MyTriangulizedBaseMat( U*c );
 
     # compute stabilizer
-    if (Length(G.agAutos) = 0 and G.glOrder > MIP_GLLIMIT) or USE_MSERS then 
+    if (Length(G.agAutos) = 0 and G.glOrder > MIP_GLLIMIT) or MIP_USE_MSERS then 
         s := SeriesByWeights( B.weights, G.field );
         V := BlockCanonicalFormBySeries( G, W, s );
     else
@@ -206,7 +206,7 @@ BindGlobal( "HybridMatrixCanoForm", function( G, U )
     C.ti := C.tv^-1;
 
     # check if required
-    if CHECK_STB then 
+    if MIP_CHECK_STB then 
         for g in G.glAutos do
             if not IsInvariantAssert(C.cf, [c*g[2]*b]) then Error("no gl-stab"); fi;
         od;

@@ -151,7 +151,7 @@ BindGlobal( "ExtendNQ", function( A, B )
 
         # evaluate 
         v := EvalRelator( C, img, r[i] );
-        if CHECK_NQA and v{[1..B.dim]} <> 0 * v{[1..B.dim]} then 
+        if MIP_CHECK_NQA and v{[1..B.dim]} <> 0 * v{[1..B.dim]} then 
             Error("rel does not evaluate to zero");
         fi;
         v := v{[B.dim+1..C.dim]};

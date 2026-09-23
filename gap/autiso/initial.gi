@@ -18,9 +18,9 @@ BindGlobal( "InitAutomGroup", function( Tab )
 
 
     # use subgroup of H if desired
-    if IsInt(USE_PARTI) then 
+    if IsInt(MIP_USE_PARTI) then 
         v := List(NormedRowVectors(V), Reversed);
-        m := FPMinOverIdeals( Tab, v, USE_PARTI );
+        m := FPMinOverIdeals( Tab, v, MIP_USE_PARTI );
         s := Set(m);
         Info( InfoModIsom, 1, "   found partition ",Collected(m));
 
@@ -41,7 +41,7 @@ BindGlobal( "InitAutomGroup", function( Tab )
         G.basis   := bas.basis;
         G.partition := Collected(m);
 
-    elif USE_CHARS then 
+    elif MIP_USE_CHARS then 
         
         # get char subs
         inv := TwoStepCents( Tab );

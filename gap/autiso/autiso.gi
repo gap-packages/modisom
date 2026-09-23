@@ -93,13 +93,13 @@ BindGlobal( "CanoFormWithAutGroupOfTable", function(T)
     # remaining steps
     for i in [2..l] do
         ExtendCanoForm( T, i );
-        if CHECK_AUT and not CheckGroupByTable( T.auto, T.cano ) then 
+        if MIP_CHECK_AUT and not CheckGroupByTable( T.auto, T.cano ) then 
             Error("autos wrong");
         fi;
     od;
 
     # final check
-    if CHECK_AUT and not CheckIsomByTables( T.cano, T, T.cano.iso ) then 
+    if MIP_CHECK_AUT and not CheckIsomByTables( T.cano, T, T.cano.iso ) then 
         Error("isom wrong");
     fi;
 
@@ -131,7 +131,7 @@ BindGlobal( "CoverInfo", function(T)
     r := [];
     for i in [2..l] do
         d := Length( Filtered( T.wgs, x -> x <= i ) );
-        if d <= COVER_LIMIT then
+        if d <= MIP_COVER_LIMIT then
             C := CoveringTable( R );
             U := AllowableSubspace( C, R, T, d );
             U := rec( cf := U, ti := [IdentityMat(d, F)] );

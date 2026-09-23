@@ -480,14 +480,35 @@ BindGlobal("SatisfiesRoehl90", function(G)
     return true;
 end);
 
+BindGlobal("IsElementaryAbelianByCyclic", function(G)
+    local D, N;
+    D := DerivedSubgroup(G);
+    if IsElementaryAbelian(D) then
+        if IsCyclic(G/D) then 
+            return true;
+        fi;
+        for N in NormalSubgroups(G) do
+            if IsSubgroup(N, D) and IsElementaryAbelian(N) and IsCyclic(G/N) then
+                return true;
+            fi;
+        od;
+    fi;
+    return false;
+end); 
+
 
 #### Some theoretical results follow from the other criteria. In particular metacyclic groups (Sandling 96, for prime field) and (elem-ab.)-by-cyclic groups (Baginski 99) are covered.
 
 BindGlobal("IsCoveredByTheory", function(G)
-local p, n, D, F, N, act;
+local p, n, D, F, N, act, JS, LCS, U, V, W, d;
 
     p := PrimePGroup(G);
     n := Log(Size(G),p);
+
+   # Deskins56
+   if IsAbelian(G) then 
+       return true;
+   fi;
 
     # 2-groups of maximal class known. Baginski
     if p = 2 and NilpotencyClassOfGroup(G) = n-1 then 
@@ -503,24 +524,51 @@ local p, n, D, F, N, act;
     if Size(G)/Size(Center(G)) = p^2 then 
         return true;
     fi;
+    
+    # Passi-Sehgal and Hertweck
+    JS := JenningsSeries(G);
+    if Length(JS) <= 3 then
+        return true;
+    fi;
+    if p <> 2 and Length(JS) <= 4 then
+        return true;
+    fi;
+    
+    # Sandling 89
+    LCS := LowerCentralSeries(G);
+    U := Subgroup(G, Concatenation(Pcgs(LCS[3]), List(Pcgs(LCS[2]), x -> x^p)));
+    if Size(U) = 1 then
+        return true;
+    fi;
 
     # Brenner+Garcia-Lucas 24
     if p > 2 and Size(G)/Size(Center(G)) = p^3 then 
         return true;
     fi;
-   
+    # their theorem B. It covers Margolis-Moede
+    W := Subgroup(G, Concatenation(Pcgs(FrattiniSubgroup(G)), Pcgs(Center(G))) ); #Phi(G)Z(G)
+    d := Log(Size(G)/Size(W), p);
+    if IsSubgroup(U, Intersection(LCS[2], Agemo(G, p))) and Size(LCS[2]/U) = p^Binomial(d, 2) then
+       V := Subgroup(G, Concatenation(Pcgs(LCS[4]), List(Pcgs(LCS[2]), x -> x^p)));
+        if Size(V) = 1 and "IdGroup" in KnownAttributesOfObject(G) then
+           return true;
+        fi;
+    fi;
  
     # Baginski+Konovalov 05. Rather slow, but can be helpful. Case p<>2 covered by other criteria by Lemma 1 (ArXiv-version) of BK05
     #if p = 2 and HasCyclicSubgroupIOfIndexP2(G) then 
         #return true;
     #fi;
 
-    # as Margolis+Sakurai25, proof of Theorem 3.9, shows the following is covered by other invariants (in particular NormalSubgroupsInfo)
     # Broche+del Rio 20, Theorem 1. The case of odd primes is covered by other invariants
- #   if NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = p^2 then 
- #       return true;
- #   fi;
-
+   if NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = p^2 then 
+       return true;
+   fi;
+   
+   # Baginski 99: elementary abelian-by-cyclic
+   if IsElementaryAbelianByCyclic(G) then
+       return true;
+   fi;
 
     # Margolis+Stanojkovski 22: Theorem 3.3, Theorem 3.5 
     if p <> 2 and NilpotencyClassOfGroup(G) <= 3 and Exponent(DerivedSubgroup(G)) = p then # note: these conditions imply the class is exactly 3
@@ -536,8 +584,8 @@ local p, n, D, F, N, act;
         return true;
     fi;
 
-    # Garcia-Lucas+Margolis24. Odd p covered by other invariants
-    if p = 2 and IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
+    # Garcia-Lucas+Margolis24. 
+    if IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
         return true;
     fi;
 
@@ -566,6 +614,11 @@ local p, n, D, F, N, act;
     if SatisfiesRoehl90(G) then
         return true;
     fi;
+    
+    # Sandling 96
+    if IsMetacyclicGroup(G) then
+        return true;
+    fi;
 
     return false;
 end);
@@ -577,6 +630,11 @@ local p, n, q;
 
     p := PrimePGroup(G);
     n := Log(Size(G),p);
+    
+   # Deskins56
+   if IsAbelian(G) then 
+       return true;
+   fi;
 
     # 2-groups of maximal class known. Baginski
     if p = 2 and NilpotencyClassOfGroup(G) = n-1 then 
@@ -593,7 +651,10 @@ local p, n, q;
         return true;
     fi;
 
-    # Garcia-Lucas+Margolis 24, case of all fields for p=2
+    # Garcia-Lucas+Margolis 24
+    if IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
+        return true;
+    fi;
     if p = 2 and IsCyclic(Center(G)) and NilpotencyClassOfGroup(G) = 2 then
         q := AbelianInvariants(G/Center(G));
         if Size(q) <= 2 or q[Size(q)] > q[Size(q)-2] then
@@ -601,17 +662,16 @@ local p, n, q;
         fi;
     fi;
 
-    # as Margolis-Sakurai25 shows the following is covered by other invariants
-    # Margolis-Sakurai25, Theorem 3.9. The case of odd primes is covered by other invariants
-#    if p = 2 and NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = 4 then 
-#        return true;
-#    fi;
+    # as Margolis-Sakurai25 shows the following is also covered by other invariants
+    # Margolis-Sakurai25, Theorem 3.9
+    if NilpotencyClassOfGroup(G) = 2 and Size(G/FrattiniSubgroup(G)) = p^2 then 
+        return true;
+    fi;
 
-   # Margolis+Sakurai 25, Theorem 3.6. For prime field this is covered by other invariants, for all fields those used might not be enough if GroupInfo is not strong enough
+   # Margolis+Sakurai 25, Theorem 3.6
    if IsMetacyclicGroup(G) then
        return true; 
    fi;  
-
 
     return false;
 end);
