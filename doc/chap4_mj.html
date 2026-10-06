@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (ModIsom) - Chapter 4: The modular isomorphism problem</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap4"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap4.html">[MathJax off]</a></p>
+<p><a id="X84DE9285877BEDEE" name="X84DE9285877BEDEE"></a></p>
+<div class="ChapSects"><a href="chap4_mj.html#X84DE9285877BEDEE">4 <span class="Heading">The modular isomorphism problem</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X804C0801792AC27B">4.1 <span class="Heading">Computing bins and checking bins</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80DCCA9283FEF7B1">4.1-1 BinsByGT</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8396777283AFBCAA">4.1-2 MIPSplitGroupsByGroupTheoreticalInvariants</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X857B6CDD8491207C">4.1-3 MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7BCA7A5081C1085F">4.1-4 BinsByGTAllFields</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87E9C20F82EB105E">4.1-5 MIPSplitGroupsByAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8327078B7F11824A">4.1-6 MIPBinSplit</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8535A1DB80060792">4.2 <span class="Heading">Kernel size</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B86F46A812D51BF">4.2-1 KernelSizePowerMap</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X80A1C1AE7AE15522">4.3 <span class="Heading">The group theoretical invariants</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X829796D27834BE4C">4.3-1 GroupInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7ABE369978B7EAAE">4.3-2 CenterDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83707C1B7BD53A23">4.3-3 SandlingInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7BC69BFA86A65EA5">4.3-4 JenningsInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83A787EE7CE89C10">4.3-5 JenningsDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C3964797B5672E9">4.3-6 BaginskiInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X805FC5EE793BA642">4.3-7 BaginskiCarantiInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7FB201D47AD7078E">4.3-8 NilpotencyClassInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C8EC10278A2541E">4.3-9 Theorem41MS22</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X84E04CCF7FD0627A">4.3-10 CyclicDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87450CF0813C80D8">4.3-11 MaximalAbelianDirectFactor</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X781E039178C48F59">4.3-12 SuccessorsN</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X823762B779F06EBE">4.3-13 CanonicalNormalSubgroups</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8456C430804AEE13">4.3-14 NormalSubgroupsInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8261F88286DD6F96">4.3-15 IsCoveredByTheory</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80F037D9794386D6">4.3-16 DimensionTwoCohomology</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X805BC5F987B8E9DC">4.3-17 ConjugacyClassInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83E5E30479E9D8FA">4.3-18 SubgroupsInfo</a></span>
+</div></div>
+</div>
+
+<h3>4 <span class="Heading">The modular isomorphism problem</span></h3>
+
+<p>Applications of the methods in this package include the study of the modular isomorphism problem for the groups of small order from the SmallGroupLibrary - first for groups of order dividing <span class="SimpleMath">\(2^8\)</span>, <span class="SimpleMath">\(3^6\)</span> and <span class="SimpleMath">\(2^9\)</span> <a href="chapBib_mj.html#biBEic07">[Eic08]</a> <a href="chapBib_mj.html#biBEKo11">[EK11]</a> and later also <span class="SimpleMath">\(3^7\)</span> and <span class="SimpleMath">\(5^6\)</span> <a href="chapBib_mj.html#biBMM22">[MM22]</a>. This section contains the functions used for this purpose as well as an overview of how the Modular Isomorphism Problem can be studied for any set of groups using on one hand group-theoretical invariants and on the other hand the canonical form of nilpotent algebras.</p>
+
+<p><a id="X804C0801792AC27B" name="X804C0801792AC27B"></a></p>
+
+<h4>4.1 <span class="Heading">Computing bins and checking bins</span></h4>
+
+<p>A set of groups which share all the group-theoretical invariants implemented in the package is called <em>bin</em>. To determine such bins the main function available is:</p>
+
+<p><a id="X80DCCA9283FEF7B1" name="X80DCCA9283FEF7B1"></a></p>
+
+<h5>4.1-1 BinsByGT</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BinsByGT</code>( <var class="Arg">p</var>, <var class="Arg">n</var>[, <var class="Arg">L</var>][, <var class="Arg">false</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>If the function is called as <code class="code">BinsByGT(p, n)</code>, then it returns a partition of the list <code class="code">[1..NumberSmallGroups(p^n)]</code> into sublists so that the groups in the corresponding lists share all the group-theoretical invariants, i.e. the modular group algebras of two groups <code class="code">SmallGroup(p^n, i)</code> and <code class="code">SmallGroup(p^n, j)</code> over the field <span class="SimpleMath">\(ℙ_p\)</span> cannot be isomorphic if <span class="SimpleMath">\(i\)</span> and <span class="SimpleMath">\(j\)</span> are in different lists.</p>
+
+<p>If the function is called as <code class="code">BinsByGT(p, n, L)</code>, then <span class="SimpleMath">\(L\)</span> must be a list of groups of order <span class="SimpleMath">\(p^n\)</span> and the function will return a partition of the groups of <span class="SimpleMath">\(L\)</span> which share all the group-theoretical invariants. Alternatively, <span class="SimpleMath">\(L\)</span> can be a list of group IDs of groups of order <span class="SimpleMath">\(p^n\)</span>.</p>
+
+<p>If the function is called as <code class="code">BinsByGT(p, n, L, false)</code> then <span class="SimpleMath">\(L\)</span> must be a list of groups of order <span class="SimpleMath">\(p^n\)</span> and <code class="keyw">false</code> deactivates the calculation of the dimensions of the second cohomology groups. This can be switched off because for some types of groups <strong class="pkg">GAP</strong> cannot apply the needed functions, and because computing the second cohomology groups is arguably the hardest of the invariants to test manually.</p>
+
+<p>Several variations of <code class="func">BinsByGT</code> are available. The first two apply to the case when a list of groups is being studied instead of group IDs.</p>
+
+<p><a id="X8396777283AFBCAA" name="X8396777283AFBCAA"></a></p>
+
+<h5>4.1-2 MIPSplitGroupsByGroupTheoreticalInvariants</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPSplitGroupsByGroupTheoreticalInvariants</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>does the same as <code class="code">BinsByGT(p,n,L)</code> but computes the numbers <span class="SimpleMath">\(p\)</span> and <span class="SimpleMath">\(n\)</span> itself. The input variable must be a list of groups of the same order. Similarly</p>
+
+<p><a id="X857B6CDD8491207C" name="X857B6CDD8491207C"></a></p>
+
+<h5>4.1-3 MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>computes <code class="code">BinsByGT(p, n, L, false)</code>.</p>
+
+<p>Moreover, all the three functions described before have variations where only those group-theoretical invariants are computed that are known to be <span class="SimpleMath">\(ℙ\)</span>-invariants over any field <span class="SimpleMath">\(ℙ\)</span> of characteristic <span class="SimpleMath">\(p\)</span>. The input and output of these functions is exactly as for the three previous functions.</p>
+
+<p><a id="X7BCA7A5081C1085F" name="X7BCA7A5081C1085F"></a></p>
+
+<h5>4.1-4 BinsByGTAllFields</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BinsByGTAllFields</code>( <var class="Arg">p</var>, <var class="Arg">n</var>[, <var class="Arg">L</var>][, <var class="Arg">false</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPSplitGroupsByGroupTheoreticalInvariantsAllFields</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPSplitGroupsByGroupTheoreticalInvariantsAllFieldsNoCohomology</code>( <var class="Arg">L</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The group-theoretical invariants used by the function <code class="func">BinsByGT</code> (<a href="chap4_mj.html#X80DCCA9283FEF7B1"><span class="RefLink">4.1-1</span></a>) and its variations are described below. Moreover, <strong class="pkg">GAP</strong> prints more or less information on the progress inside these functions, if <code class="code">InfoModIsom</code> is set to <span class="SimpleMath">\(1\)</span> or <span class="SimpleMath">\(0\)</span>, respectively. Examples of the use of the functions are included below.</p>
+
+<p>The main function to apply the algorithm computing the canonical form of nilpotent algebras in the context of the Modular Isomorphism Problem is:</p>
+
+<p><a id="X87E9C20F82EB105E" name="X87E9C20F82EB105E"></a></p>
+
+<h5>4.1-5 MIPSplitGroupsByAlgebras</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPSplitGroupsByAlgebras</code>( [<var class="Arg">p</var>, <var class="Arg">n</var>, ]<var class="Arg">bin</var>[, <var class="Arg">f</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>If <code class="code">MIPSplitGroupsByAlgebras(p, n, bin, [f])</code> is called then the algebras of groups of order <span class="SimpleMath">\(p^n\)</span> with group IDs contained in <var class="Arg">bin</var> are studied. The underlying field is of order <span class="SimpleMath">\(p^f\)</span> or, if <span class="SimpleMath">\(f\)</span> is not given, of order <span class="SimpleMath">\(p\)</span>.</p>
+
+<p>If the function is called as <code class="code">MIPSplitGroupsByAlgebras(bin, [f])</code> then <var class="Arg">bin</var> must be a list of groups of the same prime power order and the function studies the group algebras of the groups in <var class="Arg">bin</var> over the field with <span class="SimpleMath">\(p^f\)</span> elements or, if no <span class="SimpleMath">\(f\)</span> is given, of order <span class="SimpleMath">\(p\)</span>.</p>
+
+<p>More precisely, in the first case when <var class="Arg">bin</var> is a list of integers, for <span class="SimpleMath">\(i \in bin\)</span> let <span class="SimpleMath">\(G_i\)</span> denote <code class="code">SmallGroup(p^n, i)</code>. In the second case <span class="SimpleMath">\(G_i\)</span> just runs through the groups contained in <var class="Arg">bin</var>. Denote by <span class="SimpleMath">\(A_i\)</span> the augmentation ideal of <span class="SimpleMath">\(ℙ G_i\)</span> where <span class="SimpleMath">\(ℙ\)</span> is the field of order <span class="SimpleMath">\(p^f\)</span> or simply <span class="SimpleMath">\(p\)</span>, if <span class="SimpleMath">\(f\)</span> is not given. The function computes and compares the canonical forms of the algebras <span class="SimpleMath">\(A_i / A_i^j\)</span> for every <span class="SimpleMath">\(i \in bin\)</span> and increasing natural number <span class="SimpleMath">\(j\)</span>.</p>
+
+<p>At each level <span class="SimpleMath">\(j\)</span> it splits the current bins into sub-bins according to the different canonical forms of <span class="SimpleMath">\(A_i/A_i^j\)</span>. Bins of length 1 are then discarded.</p>
+
+<p>The function returns if no further bins are available and provides information at which level the splitting of the bins took place.</p>
+
+<p>For more involved calculations one can use the function</p>
+
+<p><a id="X8327078B7F11824A" name="X8327078B7F11824A"></a></p>
+
+<h5>4.1-6 MIPBinSplit</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPBinSplit</code>( <var class="Arg">p</var>, <var class="Arg">n</var>, <var class="Arg">max</var>, <var class="Arg">start</var>, <var class="Arg">step</var>, <var class="Arg">L</var>[, <var class="Arg">f</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Given a list <span class="SimpleMath">\(L\)</span> of small group library IDs or a list of groups of order <span class="SimpleMath">\(p^n\)</span> this function checks isomorphism of the associated modular group algebras using canonical forms for the quotients of the augmentation ideals <span class="SimpleMath">\(A\)</span> of <span class="SimpleMath">\(ℙ G\)</span>. Here <span class="SimpleMath">\(ℙ\)</span> is either <span class="SimpleMath">\(ℙ_p\)</span> or <span class="SimpleMath">\(ℙ_{p^f}\)</span>, if <span class="SimpleMath">\(f\)</span> is given. The parameter <var class="Arg">max</var> is an integer or <code class="keyw">false</code> that determines the maximal quotients <span class="SimpleMath">\(A/A^{\max}\)</span> to be checked (if <code class="keyw">false</code> is given as input, then the quotients are enlarged until non-isomorphic quotients are found or eventually the full augmentation ideal will be checked). The parameter <var class="Arg">start</var> specifies which quotients <span class="SimpleMath">\(A/A^{start}\)</span> are precomputed. The parameter <var class="Arg">step</var> determines in which steps the quotients are enlarged if necessary during the isomorphism check. The output is a record containing three entries: <code class="code">bins</code> contains all the groups, for which the non- isomorphism of the associated modular group algebras could not be determined; <code class="code">splits</code> contains all the groups, for which the associated group algebras were determined to be non-isomorphic (and the first non-isomorphic quotient); <code class="code">time</code> contains the time used for the computation (in milliseconds).</p>
+
+<p>For big algebras all of these functions can use a lot of time and memory. To have a better idea on the progress of the calculations one should set <code class="code">InfoModIsom</code> to 1.</p>
+
+<p>We first show how to study a fixed order:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bins := BinsByGT(2,6);</span>
+[ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ], [ 20, 22 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(bins, bin -&gt; MIPSplitGroupsByAlgebras(2, 6, bin));</span>
+[ rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 2195 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 155, 157 ] ] ], time := 1505 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 173, 176 ] ] ], time := 3294 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 179, 180 ] ] ], time := 3233 ), 
+  rec( bins := [  ], splits := [ [ 4, [ 20, 22 ] ] ], time := 160 ) ]
+</pre></div>
+
+<p>This shows that the Modular Isomorphism Problem has a positive answer for groups of order <span class="SimpleMath">\(64\)</span> for the field <span class="SimpleMath">\(ℙ_2\)</span>. The result means e.g. that the smallest quotients (of Loewy layers) such that the augmentation ideals <span class="SimpleMath">\(A_1\)</span> and <span class="SimpleMath">\(A_2\)</span> of the group algebras over <span class="SimpleMath">\(ℙ_2\)</span> of the groups <code class="code">SmallGroup(64, 156)</code> and <code class="code">SmallGroup(64, 158)</code> are not isomorphic are <span class="SimpleMath">\(A_1/A_1^8\)</span> and <span class="SimpleMath">\(A_2/A_2^8\)</span>. These are <span class="SimpleMath">\(A_1/A_1^5\)</span> and <span class="SimpleMath">\(A_2/A_2^5\)</span> for the groups <code class="code">SmallGroup(64, 20)</code> and <code class="code">SmallGroup(64, 22)</code>.</p>
+
+<p>The following shows that the problem also has a positive answer for the group algebras of groups of order <span class="SimpleMath">\(64\)</span> over the field <span class="SimpleMath">\(ℙ_4\)</span>. Note that for the groups <code class="code">SmallGroup(64, 20)</code> and <code class="code">SmallGroup(64, 22)</code> one has to consider deeper quotients in this case.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">bins := BinsByGTAllFields(2,6);</span>
+[ [ 156, 158, 160 ], [ 155, 157 ], [ 173, 176 ], [ 179, 180 ], [ 104, 105 ], 
+  [ 13, 14 ], [ 20, 22 ], [ 18, 19 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(bins, bin -&gt; MIPSplitGroupsByAlgebras(2, 6, bin, 2));</span>
+[ rec( bins := [  ], splits := [ [ 7, [ 156, 158, 160 ] ] ], time := 34833 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 155, 157 ] ] ], time := 22479 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 173, 176 ] ] ], time := 9806 ), 
+  rec( bins := [  ], splits := [ [ 7, [ 179, 180 ] ] ], time := 7819 ), 
+  rec( bins := [  ], splits := [ [ 4, [ 104, 105 ] ] ], time := 2226 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 13, 14 ] ] ], time := 707 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 20, 22 ] ] ], time := 3917 ), 
+  rec( bins := [  ], splits := [ [ 6, [ 18, 19 ] ] ], time := 2891 ) ]
+</pre></div>
+
+<p>The other functions can be used to study the problem for groups not coming from the library. The following groups are studied in <a href="chapBib_mj.html#biBGLM24">[GM24]</a>.</p>
+
+
+<div class="example"><pre>
+R := SmallGroup(64, 19);
+Q := SmallGroup(64, 18);
+
+DR := DirectProduct(R,Q);
+GDR := GeneratorsOfGroup(DR);
+z1 := GDR[3];
+z2 := GDR[9];
+N := Group(z1*z2^(-1));
+G := DR/N;
+
+DR := DirectProduct(Q,Q);
+GDR := GeneratorsOfGroup(DR);
+z1 := GDR[3];
+z2 := GDR[9];
+N := Group(z1*z2^(-1));
+H := DR/N;
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MIPSplitGroupsByGroupTheoreticalInvariantsAllFields([G,H]);</span>
+[ [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+      Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ]
+
+# the groups can not be split over all fields by group-theoretical invariants
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MIPSplitGroupsByAlgebras([G,H]);</span>
+rec( bins := [  ], 
+  splits := 
+    [ 
+      [ 4, 
+          [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+              Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ] 
+     ], time := 44473 )
+     
+# over the field of 2 elements it is enough to consider
+# the 5-th power of the augmentation ideal
+</pre></div>
+
+<p>The program does not finish in a very reasonable time, if we run it over the field <span class="SimpleMath">\(ℙ_4\)</span>, but we can still check that it is not enough to factor out only the 5th power of the augmentation ideal in this case. One option is to use info level to do this and the other to use <code class="func">MIPBinSplit</code>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SetInfoLevel(InfoModIsom, 1);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MIPSplitGroupsByAlgebras([G,H], 2);</span>
+#I  Refine bin
+#I    Weights yields bins [ [ 1, 2 ] ]
+#I    Layer 1 yields bins [ [ 1, 2 ] ]
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 2 yields bins [ [ 1, 2 ] ]
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 3 yields bins [ [ 1, 2 ] ]
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 4 yields bins [ [ 1, 2 ] ]
+#I  layer 5 of dim 145 aut group has order 7200 * 2^496
+#I     cover is determined 
+#I     dim(M) = 73 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 5 of dim 145 aut group has order 7200 * 2^496
+#I     cover is determined 
+#I     dim(M) = 73 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 5 yields bins [ [ 1, 2 ] ]
+#I  layer 6 of dim 231 aut group has order 7200 * 2^800
+#I     cover is determined 
+#I     dim(M) = 95 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+^CError, user interrupt in
+  AddRowVector( u, GetEntryTable( T, i, j ), v[i] * w[j] 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/tables/tables.gi:87 called from 
+MultByTable( Q, new[Q.wds[i][1]], new[Q.wds[i][2]] 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/induc.gi:135 called from
+InduceAutoToQuot( Q, G.agAutos[i] 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/induc.gi:151 called from
+InduceAutosToQuot( G, Q 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/autiso/autiso.gi:57 called from
+ExtendCanoForm( tabs[i], j 
+ ); at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/grpalg/chkbins.gi:117 called from
+MIPBinSplit( p, n, false, start, step, list, f 
+ ) at /home/leo/gap-4.10.1/pkg/modisom-2.5.3/gap/grpalg/chkbins.gi:177 called from
+...  at *stdin*:39
+you can 'return;'
+<span class="GAPbrkprompt">brk&gt;</span> <span class="GAPinput">quit;   # this was not progressing for several hours</span>
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size(G) = Size(H);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size(G) = 2^10;</span>
+true
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MIPBinSplit(2, 10, 4, 4, 1, [G,H], 2);</span>
+#I  Refine bin
+#I    Weights yields bins [ [ 1, 2 ] ]
+#I    Layer 1 yields bins [ [ 1, 2 ] ]
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 2 of dim 15 aut group has order 2961100800 * 2^0
+#I     cover is determined 
+#I     dim(M) = 16 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 2 yields bins [ [ 1, 2 ] ]
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 3 of dim 39 aut group has order 2937600 * 2^88
+#I     cover is determined 
+#I     dim(M) = 29 and dim(U) = 5
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 3 yields bins [ [ 1, 2 ] ]
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I  layer 4 of dim 81 aut group has order 2937600 * 2^240
+#I     cover is determined 
+#I     dim(M) = 51 and dim(U) = 9
+#I     extended autos 
+#I     computed stabilizer
+#I     got quotient 
+#I     induced autos 
+#I    Layer 4 yields bins [ [ 1, 2 ] ]
+rec( 
+  bins := 
+    [ 
+      [ Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]), 
+          Group([ f1, f2, f7, f3, f4, f10, f5, f6, f7, f8, f9, f10 ]) ] ], 
+  splits := [  ], time := 9469981 )
+</pre></div>
+
+<p><a id="X8535A1DB80060792" name="X8535A1DB80060792"></a></p>
+
+<h4>4.2 <span class="Heading">Kernel size</span></h4>
+
+<p>An idea to study the Modular Isomorphism Problem is to define maps on certain quotients of the augmentation ideal <span class="SimpleMath">\(A\)</span> and count the number of elements which map to <span class="SimpleMath">\(0\)</span> under this map. The map most typically used for this is a <span class="SimpleMath">\(p\)</span>-power map <span class="SimpleMath">\(A^n/A^{n+m} \rightarrow A^{n \cdot p^\ell}/A^{n \cdot p^\ell + m}\)</span>. This can be done in the package using the function</p>
+
+<p><a id="X7B86F46A812D51BF" name="X7B86F46A812D51BF"></a></p>
+
+<h5>4.2-1 KernelSizePowerMap</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KernelSizePowerMap</code>( <var class="Arg">T</var>, <var class="Arg">n</var>, <var class="Arg">m</var>, <var class="Arg">l</var>[, <var class="Arg">f</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>where <span class="SimpleMath">\(T\)</span> is a table as returned by <code class="func">ModIsomTable</code> (<a href="chap2_mj.html#X7D73EFA98786BD2B"><span class="RefLink">2.3-2</span></a>) and <span class="SimpleMath">\(n, m, l\)</span> are as just described and the calculation is performed over the field <span class="SimpleMath">\(ℙ_{p^f}\)</span>. If <span class="SimpleMath">\(f\)</span> is not given, then it is set to <span class="SimpleMath">\(1\)</span>. We can check for instance the first calculation in <a href="chapBib_mj.html#biBHS06">[HS06]</a>(Section 4.1).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(64, 20);</span>
+&lt;pc group of size 64 with 6 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := SmallGroup(64, 22);</span>
+&lt;pc group of size 64 with 6 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TG := ModIsomTable(G, 5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TH := ModIsomTable(H, 5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KernelSizePowerMap(TG, 1, 1, 2);</span>
+3
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KernelSizePowerMap(TH, 1, 1, 2);</span>
+1
+</pre></div>
+
+<p>This shows that the group algebras over <span class="SimpleMath">\(ℙ_2\)</span> are not isomorphic. This argument does not, however, work over <span class="SimpleMath">\(ℙ_4\)</span>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TG := ModIsomTable(G, 5, 2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TH := ModIsomTable(H, 5, 2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KernelSizePowerMap(TG, 1, 1, 2);</span>
+7
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">KernelSizePowerMap(TH, 1, 1, 2);</span>
+7
+</pre></div>
+
+<p><a id="X80A1C1AE7AE15522" name="X80A1C1AE7AE15522"></a></p>
+
+<h4>4.3 <span class="Heading">The group theoretical invariants</span></h4>
+
+<p>We document here which group-theoretical invariants are used in <code class="func">BinsByGT</code> (<a href="chap4_mj.html#X80DCCA9283FEF7B1"><span class="RefLink">4.1-1</span></a>) and similar functions.</p>
+
+<p><a id="X829796D27834BE4C" name="X829796D27834BE4C"></a></p>
+
+<h5>4.3-1 GroupInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GroupInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>This is an auxiliary function used in other group-theoretical invariants. If <code class="code">IdGroup</code> is available in <strong class="pkg">GAP</strong> for the order of <span class="SimpleMath">\(G\)</span> it returns <code class="code">IdGroup(G)</code>. Otherwise it returns <code class="code">[Size(G), AbelianInvariants(G)]</code>.</p>
+
+<p>We now describe the invariants in the order they appear in <code class="func">BinsByGT</code> (<a href="chap4_mj.html#X80DCCA9283FEF7B1"><span class="RefLink">4.1-1</span></a>). First the isomorphism types of <span class="SimpleMath">\(G/G'\)</span> and <span class="SimpleMath">\(Z(G)\)</span>, the abelianization and the center of <span class="SimpleMath">\(G\)</span> are used. These are very classical invariants <a href="chapBib_mj.html#biBSan85">[San85]</a>(Theorems 6.12, 6.7). We next list the other functions which are applied, which are all small functions written for the package:</p>
+
+<p><a id="X7ABE369978B7EAAE" name="X7ABE369978B7EAAE"></a></p>
+
+<h5>4.3-2 CenterDerivedInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CenterDerivedInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>calculates the isomorphism types of <span class="SimpleMath">\(Z(G) \cap G'\)</span> and <span class="SimpleMath">\(Z(G)/ Z(G) \cap G'\)</span> <a href="chapBib_mj.html#biBSan85">[San85]</a>(Theorem 6.11).</p>
+
+<p><a id="X83707C1B7BD53A23" name="X83707C1B7BD53A23"></a></p>
+
+<h5>4.3-3 SandlingInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SandlingInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>calculates several invariants coming from the small groups algebra which was first used to study the Modular Isomorphism Problem in <a href="chapBib_mj.html#biBSan89">[San89]</a>. Namely, for <span class="SimpleMath">\(\gamma_i(G)\)</span> the <span class="SimpleMath">\(i\)</span>-th term of the lower central series of <span class="SimpleMath">\(G\)</span> it returns the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for <span class="SimpleMath">\(G/\gamma_2(G)^p\gamma_3(G)\)</span> <a href="chapBib_mj.html#biBSan89">[San89]</a>, the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) of <span class="SimpleMath">\(G/\gamma_2(G)^p\gamma_4(G)\)</span>, if <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(2\)</span>-generated (mentioned in <a href="chapBib_mj.html#biBBag99">[Bag99]</a>, proved in <a href="chapBib_mj.html#biBMM22">[MM22]</a>), if the derived subgroup of <span class="SimpleMath">\(G\)</span> is elementary abelian and the Jennings series of <span class="SimpleMath">\(G\)</span> has length at most <span class="SimpleMath">\(2p\)</span>, it returns <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for the Frattini subgroup of <span class="SimpleMath">\(G\)</span> <a href="chapBib_mj.html#biBHS06">[HS06]</a>(p.16) and if <span class="SimpleMath">\(p\)</span> is odd and the group satisfies the criteria of <a href="chapBib_mj.html#biBBGL24">[BG24]</a>(Theorem B) it returns the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) of <span class="SimpleMath">\(G/\gamma_2(G)^p\gamma_4(G)\)</span>. The output is the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) of <span class="SimpleMath">\(G\)</span>, if <span class="SimpleMath">\(G\)</span> is abelian. This function is not applied in <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations.</p>
+
+<p><a id="X7BC69BFA86A65EA5" name="X7BC69BFA86A65EA5"></a></p>
+
+<h5>4.3-4 JenningsInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JenningsInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Denoting by <span class="SimpleMath">\(D_i(G)\)</span> the <span class="SimpleMath">\(i\)</span>-th member of the Jennings series, this function returns <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for the different quotients <span class="SimpleMath">\(D_i(G)/D_{i+1}(G)\)</span>, <span class="SimpleMath">\(D_i(G)/D_{i+2}(G)\)</span>, <span class="SimpleMath">\(D_i(G)D_{2i+1}(G)\)</span> for meaningful values of <span class="SimpleMath">\(i\)</span> (results <a href="chapBib_mj.html#biBJen41">[Jen41]</a> <a href="chapBib_mj.html#biBPS72">[PS72]</a> <a href="chapBib_mj.html#biBRS83">[RS83]</a>) and if <span class="SimpleMath">\(p\)</span> is odd also for <span class="SimpleMath">\(G/D_4(G)\)</span> <a href="chapBib_mj.html#biBHer07">[Her07]</a>. For <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations only the quotients <span class="SimpleMath">\(D_i(G)/D_{i+1}(G)\)</span> are computed (by the function <code class="code">JenningsInfoAllFields</code>).</p>
+
+<p><a id="X83A787EE7CE89C10" name="X83A787EE7CE89C10"></a></p>
+
+<h5>4.3-5 JenningsDerivedInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JenningsDerivedInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>computes <span class="SimpleMath">\(D_i(G')/D_{i+1}(G')\)</span> for all <span class="SimpleMath">\(i\)</span> <a href="chapBib_mj.html#biBSan85">[San85]</a>(Lemma 6.26).</p>
+
+<p><a id="X7C3964797B5672E9" name="X7C3964797B5672E9"></a></p>
+
+<h5>4.3-6 BaginskiInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaginskiInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>For <span class="SimpleMath">\(N = C_G(G'/\Phi(G'))\)</span>, where <span class="SimpleMath">\(\Phi(G)\)</span> denotes the Frattini subgroup, if <span class="SimpleMath">\(G/N\)</span> is cyclic, it returns the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for <span class="SimpleMath">\(N/\Phi(G')\)</span> and <span class="SimpleMath">\(G/\Phi(N)\)</span> <a href="chapBib_mj.html#biBBag99">[Bag99]</a>. This function is not applied in <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations.</p>
+
+<p><a id="X805FC5EE793BA642" name="X805FC5EE793BA642"></a></p>
+
+<h5>4.3-7 BaginskiCarantiInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaginskiCarantiInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>returns the nilpotency class of <span class="SimpleMath">\(G/\Phi(G')\)</span> <a href="chapBib_mj.html#biBBC88">[BC88]</a>(Proposition 2.1). This function is not applied in <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations.</p>
+
+<p><a id="X7FB201D47AD7078E" name="X7FB201D47AD7078E"></a></p>
+
+<h5>4.3-8 NilpotencyClassInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NilpotencyClassInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>returns the nilpotency class of <span class="SimpleMath">\(G\)</span>, when the exponent of <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(p\)</span> or the class equals 2 or the derived subgroup is cyclic <a href="chapBib_mj.html#biBBK07">[BK07]</a>.</p>
+
+<p><a id="X7C8EC10278A2541E" name="X7C8EC10278A2541E"></a></p>
+
+<h5>4.3-9 Theorem41MS22</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Theorem41MS22</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>If <span class="SimpleMath">\(p\)</span> is odd, <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(2\)</span>-generated, the nilpotency class of <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(3\)</span> and <span class="SimpleMath">\(\gamma_3(G)\)</span> has exponent <span class="SimpleMath">\(p\)</span>, it returns the isomorphism types of <span class="SimpleMath">\(\gamma_2(G)\)</span> and <span class="SimpleMath">\(\gamma_3(G)\)</span> <a href="chapBib_mj.html#biBMS22">[MS22]</a>(Theorem 4.1). This function is not applied in <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations.</p>
+
+<p><a id="X84E04CCF7FD0627A" name="X84E04CCF7FD0627A"></a></p>
+
+<h5>4.3-10 CyclicDerivedInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CyclicDerivedInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>If <span class="SimpleMath">\(G'\)</span> is cyclic this returns several invariants contained in <a href="chapBib_mj.html#biBGLdRS22">[GdS23]</a> <a href="chapBib_mj.html#biBGLdR23">[Gd24]</a> and <a href="chapBib_mj.html#biBMS25SaoPaulo">[MS25b]</a>(Proposition 2.5). Namely, if <span class="SimpleMath">\(p\)</span> is odd, the quotients <span class="SimpleMath">\(D_i(C_G(G'))/D_{i+1}(C_G(G'))\)</span> for all <span class="SimpleMath">\(i\)</span>, the exponent of <span class="SimpleMath">\(C_G(G')\)</span>, the isomorphism type of <span class="SimpleMath">\(C_G(G')/G'\)</span> and the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for <span class="SimpleMath">\(G/R_1(\gamma_3(G))\)</span> and <span class="SimpleMath">\(G/R_3(C_G(G'))\)</span>. Here <span class="SimpleMath">\(R_i(G)\)</span> denotes the subgroup of <span class="SimpleMath">\(G\)</span> generated by the <span class="SimpleMath">\(p^i\)</span>-th powers in <span class="SimpleMath">\(G\)</span>. If <span class="SimpleMath">\(G\)</span> is additionally <span class="SimpleMath">\(2\)</span>-generated, it also computes the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for <span class="SimpleMath">\(C_G(G')\)</span> and the type invariants of <span class="SimpleMath">\(G\)</span> (cf. <a href="chapBib_mj.html#biBGLdRS22">[GdS23]</a> for the definition). For any <span class="SimpleMath">\(p\)</span>, if <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(2\)</span>-generated, it returns the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) of <span class="SimpleMath">\(G/(G')^p\)</span>. If <span class="SimpleMath">\(G\)</span> is abelian, the return is the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) of <span class="SimpleMath">\(G\)</span>. For <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations, the function <code class="code">CyclicDerivedInfoAllFields</code> is used which does not compute the <code class="func">GroupInfo</code> (<a href="chap4_mj.html#X829796D27834BE4C"><span class="RefLink">4.3-1</span></a>) for <span class="SimpleMath">\(G/R_1(\gamma_3(G))\)</span> and <span class="SimpleMath">\(G/R_3(C_G(G'))\)</span>.</p>
+
+<p><a id="X87450CF0813C80D8" name="X87450CF0813C80D8"></a></p>
+
+<h5>4.3-11 MaximalAbelianDirectFactor</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MaximalAbelianDirectFactor</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>computes the maximal abelian direct factor of <span class="SimpleMath">\(G\)</span> <a href="chapBib_mj.html#biBGL24">[Gar24]</a>. In <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations the function <code class="code">MaximalElementaryAbelianDirectFactor</code> is used instead, which computes the maximal elementary abelian direct factor <a href="chapBib_mj.html#biBMSS23">[MSS23]</a>.</p>
+
+<p>The following three functions serve to compute some of the sections of <span class="SimpleMath">\(G\)</span> which are canonical following Lemma 3.6 in <a href="chapBib_mj.html#biBGL24">[Gar24]</a>. The starting canonical group is the derived subgroup.</p>
+
+<p><a id="X781E039178C48F59" name="X781E039178C48F59"></a></p>
+
+<h5>4.3-12 SuccessorsN</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SuccessorsN</code>( <var class="Arg">G</var>, <var class="Arg">L</var>, <var class="Arg">N</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Given a finite <span class="SimpleMath">\(p\)</span>-group <span class="SimpleMath">\(G\)</span>, two subgroups <span class="SimpleMath">\(N\)</span> and <span class="SimpleMath">\(L\)</span> of <span class="SimpleMath">\(G\)</span>, with <span class="SimpleMath">\(N\)</span> normal, it returns a list with three entries corresponding to the subgroups obtained by applying the operations preserving the property of being canonical, as described in <a href="chapBib_mj.html#biBGL24">[Gar24]</a>(Lemma 3.6), where <span class="SimpleMath">\(t=1\)</span> in the notation of the lemma. Namely, <span class="SimpleMath">\(\Omega(G:N)\)</span>, <span class="SimpleMath">\(\mho(L)N\)</span> and <span class="SimpleMath">\(\Omega(Z(G))N\)</span>. Each entry of the output is a list with two elements, the first being a string <q>Omega</q>, <q>Agemo</q> or <q>OmegaCenter</q> and the second the corresponding subgroup of <span class="SimpleMath">\(G\)</span>.</p>
+
+<p>If applying one of the three operations does not change the subgroup <span class="SimpleMath">\(N\)</span>, no entry is added to the list, as there is no successor to <span class="SimpleMath">\(N\)</span> in this way.</p>
+
+<p><a id="X823762B779F06EBE" name="X823762B779F06EBE"></a></p>
+
+<h5>4.3-13 CanonicalNormalSubgroups</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalNormalSubgroups</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Computes a list of the subgroups of <span class="SimpleMath">\(G\)</span> obtained by iteratively applying the function <code class="func">SuccessorsN</code> (<a href="chap4_mj.html#X781E039178C48F59"><span class="RefLink">4.3-12</span></a>), where always <span class="SimpleMath">\(L=G\)</span> and starting from <span class="SimpleMath">\(N=G'\)</span>, the derived subgroup of <span class="SimpleMath">\(G\)</span>. An entry of the output is a list with two entries, the first a list of strings and the second a subgroup of <span class="SimpleMath">\(G\)</span>. The strings describe in which order the operations in <code class="func">SuccessorsN</code> (<a href="chap4_mj.html#X781E039178C48F59"><span class="RefLink">4.3-12</span></a>) have been applied to <span class="SimpleMath">\(G'\)</span> to obtain the subgroup contained in the second entry. The first entry being the empty list means the derived subgroup of <span class="SimpleMath">\(G\)</span>. The maximum length of a list of strings is <span class="SimpleMath">\(3 \log_p \exp(G/G')\)</span>.</p>
+
+<p><a id="X8456C430804AEE13" name="X8456C430804AEE13"></a></p>
+
+<h5>4.3-14 NormalSubgroupsInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NormalSubgroupsInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns a list with one entry for each of the subgroups obtained with <code class="code">CanonicalNormalSubgroups(G)</code>, and in each entry stores the information, relative to the corresponding subgroup, that is determined by the group ring according to <a href="chapBib_mj.html#biBGL24">[Gar24]</a>(Lemma 3.2). Namely, each entry of the output is a list with four elements, the first being a list of strings which describes the subgroup to which the other entries correspond. The strings are to be read the same way as in the output of <code class="func">CanonicalNormalSubgroups</code> (<a href="chap4_mj.html#X823762B779F06EBE"><span class="RefLink">4.3-13</span></a>) (the leftmost string is the first applied operation). Denoting by <span class="SimpleMath">\(S\)</span> the corresponding subgroup, the second entry describes the sizes of the subgroups in the Jennings series of <span class="SimpleMath">\(S\)</span>, the third gives the abelian invariants of <span class="SimpleMath">\(Z(G) \cap S\)</span> and <span class="SimpleMath">\(Z(G)S/S\)</span>, and the fourth entry contains the abelian invariants of <span class="SimpleMath">\(G/SG'\)</span> and <span class="SimpleMath">\(SG'/G'\)</span>.</p>
+
+<p><a id="X8261F88286DD6F96" name="X8261F88286DD6F96"></a></p>
+
+<h5>4.3-15 IsCoveredByTheory</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsCoveredByTheory</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>determines, whether <span class="SimpleMath">\(G\)</span> belongs to certain classes for which the Modular Isomorphism Problem has been solved positively. It does not check if a group contains a cyclic subgroup of index <span class="SimpleMath">\(p^2\)</span>, cf. <a href="chapBib_mj.html#biBBK07">[BK07]</a>, as this takes some time, but this can be done by the function <code class="code">HasCyclicSubgroupIOfIndexP2</code>. It does also not check if a group belongs to a certain family of 3-subgroups of maximal class (cf. <a href="chapBib_mj.html#biBBK19">[BK19]</a> and <a href="chapBib_mj.html#biBMS25SaoPaulo">[MS25b]</a>) or certain 2-groups which are 2-generated and are dihedral modulo center <a href="chapBib_mj.html#biBMS25Ibero">[MS25a]</a>. What it does check is, if <span class="SimpleMath">\(G\)</span> is abelian <a href="chapBib_mj.html#biBDes56">[Des56]</a>, <span class="SimpleMath">\(G\)</span> is a <span class="SimpleMath">\(2\)</span>-group of maximal class <a href="chapBib_mj.html#biBBag92">[Bag92]</a>, <span class="SimpleMath">\(p\)</span> is odd, <span class="SimpleMath">\(|G| \leq p^{p+1}\)</span>, <span class="SimpleMath">\(G\)</span> has a maximal abelian subgroup and <span class="SimpleMath">\(G\)</span> is of maximal class <a href="chapBib_mj.html#biBBC88">[BC88]</a>, <span class="SimpleMath">\([G:Z(G)] = p^2\)</span> <a href="chapBib_mj.html#biBDre89">[Dre89]</a>, <span class="SimpleMath">\(D_3(G) = 1 \)</span> <a href="chapBib_mj.html#biBPS72">[PS72]</a> or <span class="SimpleMath">\( p \)</span> is odd and <span class="SimpleMath">\( D_4(G) = 1 \)</span> <a href="chapBib_mj.html#biBHer07">[Her07]</a>, <span class="SimpleMath">\(\gamma_2(G)^p\gamma_3(G) = 1 \)</span> <a href="chapBib_mj.html#biBSan89">[San89]</a> or the more generalisation which is Theorem B in <a href="chapBib_mj.html#biBBGL24">[BG24]</a>, <span class="SimpleMath">\(p\)</span> is odd and <span class="SimpleMath">\([G:Z(G)]=p^3\)</span> <a href="chapBib_mj.html#biBBGL24">[BG24]</a>, <span class="SimpleMath">\(G\)</span> has nilpotency class 2 and is 2-generated <a href="chapBib_mj.html#biBBdR21">[Bd21]</a>, <span class="SimpleMath">\(G\)</span> is elementary abelian-by-cyclic <a href="chapBib_mj.html#biBBag99">[Bag99]</a>, <span class="SimpleMath">\(p\)</span> is odd, <span class="SimpleMath">\(G'\)</span> is elementary abelian, the nilpotency class of <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(3\)</span> and either <span class="SimpleMath">\(C_G(G')\)</span> is a maximal subgroup of <span class="SimpleMath">\(G\)</span> and abelian <a href="chapBib_mj.html#biBMS22">[MS22]</a>(Theorem 3.3) or <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(3\)</span>-generated and a certain condition holds on the commutator map modulo the second center of <span class="SimpleMath">\(G\)</span> <a href="chapBib_mj.html#biBMS22">[MS22]</a>(Theorem 3.5), <span class="SimpleMath">\(G\)</span> is a <span class="SimpleMath">\(2\)</span>-group with cyclic center and dihedral central quotient <a href="chapBib_mj.html#biBMSS23">[MSS23]</a>, <span class="SimpleMath">\(G\)</span> is a <span class="SimpleMath">\(2\)</span>-group of nilpotency class <span class="SimpleMath">\(2\)</span> with cyclic center <a href="chapBib_mj.html#biBGLM24">[GM24]</a>, <span class="SimpleMath">\(p\)</span> is odd, <span class="SimpleMath">\(G'\)</span> is cyclic and <span class="SimpleMath">\(R_2(G/G')\)</span> is cyclic <a href="chapBib_mj.html#biBGLdR23">[Gd24]</a>(Proposition 3.7), <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(2\)</span>-generated and <span class="SimpleMath">\(C_G(G'/\Phi(G'))\)</span> is abelian and has index <span class="SimpleMath">\(p\)</span> in <span class="SimpleMath">\(G\)</span> <a href="chapBib_mj.html#biBBaginskiZabielski25">[BZ25]</a>(Proposition 8), <span class="SimpleMath">\(G\)</span> is <span class="SimpleMath">\(d\)</span>-generated, the Jennings series of <span class="SimpleMath">\(G\)</span> has length <span class="SimpleMath">\(n+1\)</span> and the defining relations of <span class="SimpleMath">\(G\)</span> are contained in <span class="SimpleMath">\(D_n(F)\)</span> for <span class="SimpleMath">\(F\)</span> a free pro-<span class="SimpleMath">\(p\)</span> group in <span class="SimpleMath">\(d\)</span> generators <a href="chapBib_mj.html#biBRoehl90">[Röh90]</a>(Theorem 3.1.2) (using dimensions of subsequent quotients of the Jennings series of free pro-<span class="SimpleMath">\(p\)</span> groups computed in <a href="chapBib_mj.html#biBMRT16">[MRT16]</a>(Proposition 3.4)), <span class="SimpleMath">\( G \)</span> is metacyclic <a href="chapBib_mj.html#biBSan96">[San96]</a>.</p>
+
+<p>For <code class="func">BinsByGTAllFields</code> (<a href="chap4_mj.html#X7BCA7A5081C1085F"><span class="RefLink">4.1-4</span></a>) and its variations the function used is <code class="code">IsCoveredByTheoryAllFields</code> and it only checks, if <span class="SimpleMath">\(G\)</span> is abelian, <span class="SimpleMath">\(G\)</span> is a <span class="SimpleMath">\(2\)</span>-group of maximal class, <span class="SimpleMath">\([G:Z(G)] = p^2\)</span>, <span class="SimpleMath">\(G\)</span> is a <span class="SimpleMath">\(2\)</span>-group with cyclic center and dihedral central quotient, <span class="SimpleMath">\(G\)</span> has nilpotency class <span class="SimpleMath">\(2\)</span> and cyclic center and satisfies the additional hypotheses of <a href="chapBib_mj.html#biBGLM24">[GM24]</a>(Theorem 1.3), <span class="SimpleMath">\(G\)</span> has nilpotency class at most 2 and is 2-generated <a href="chapBib_mj.html#biBMS25SaoPaulo">[MS25b]</a>(Theorem 3.9), <span class="SimpleMath">\(G\)</span> is metacyclic <a href="chapBib_mj.html#biBMS25SaoPaulo">[MS25b]</a>(Theorem 3.6).</p>
+
+<p><a id="X80F037D9794386D6" name="X80F037D9794386D6"></a></p>
+
+<h5>4.3-16 DimensionTwoCohomology</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DimensionTwoCohomology</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>computes the dimensions of the second cohomology group <span class="SimpleMath">\(H^2(FG, F)\)</span> and of the second Hochschild cohomology group <span class="SimpleMath">\(HH^2(FG) = H^2(FG, FG)\)</span>.</p>
+
+<p><a id="X805BC5F987B8E9DC" name="X805BC5F987B8E9DC"></a></p>
+
+<h5>4.3-17 ConjugacyClassInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ConjugacyClassInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Computes the number of conjugacy classes which are <span class="SimpleMath">\(p^i\)</span>-th powers, for all <span class="SimpleMath">\(i\)</span> (Kuelshammer) and the number of conjugacy classes of <span class="SimpleMath">\(p^i\)</span>-th powers which come from conjugacy classes of the same order (Parmenter-Polcino Milies) <a href="chapBib_mj.html#biBHS06">[HS06]</a>(Section 2.2) and the dimension of the first Hochschild cohomology group which equals the number <span class="SimpleMath">\(\sum_{g^G} \log_p(C_G(g)/\Phi(C_G(g)))\)</span> where the sum runs over all the conjugacy classes of <span class="SimpleMath">\(G\)</span>, aka the Roggenkamp parameter <a href="chapBib_mj.html#biBHS06">[HS06]</a>(Section 2.6).</p>
+
+<p>The return contains first the Roggenkamp parameter, then the Kuelshammer invariants (starting from <span class="SimpleMath">\(i = 0\)</span>) and then the invariant of Parmenter-Polcino Milies.</p>
+
+<p><a id="X83E5E30479E9D8FA" name="X83E5E30479E9D8FA"></a></p>
+
+<h5>4.3-18 SubgroupsInfo</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubgroupsInfo</code>( <var class="Arg">G</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Computes the number of conjugacy classes of maximal elementary abelian subgroups of rank 1,2,... The return is a list of integers which contains this number for all ranks until the maximal possible. This is based on results of Quillen <a href="chapBib_mj.html#biBHS06">[HS06]</a>(Section 2.5).</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap5_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

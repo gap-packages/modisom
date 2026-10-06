@@ -1,11 +1,220 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<meta charset="UTF-8" />
-	<title>Placeholder</title>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (ModIsom) - Contents</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
 </head>
-<body>
-<h1>Placeholder!</h1>
-<a href="..">Back</a>
+<body class="chap0"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap0.html">[MathJax off]</a></p>
+<p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
+<div class="pcenter">
+
+<h1>ModIsom</h1>
+
+
+<h2>Computing automorphisms and checking isomorphisms for modular group algebras of finite p-groups</h2>
+
+<p>
+    3.2.0</p>
+
+<p>
+    6 October 2026
+  </p>
+
+</div>
+<p><b>
+    Bettina Eick
+
+
+
+  </b>
+<br />Email: <span class="URL"><a href="mailto:beick@tu-bs.de">beick@tu-bs.de</a></span>
+<br />Homepage: <span class="URL"><a href="http://www.iaa.tu-bs.de/beick">http://www.iaa.tu-bs.de/beick</a></span>
+<br />Address: <br />Institut Analysis und Algebra<br /> TU Braunschweig<br /> Universitätsplatz 2<br /> D-38106 Braunschweig<br /> Germany<br />
+</p><p><b>
+    Diego Garcia-Lucas
+
+
+  </b>
+<br />Email: <span class="URL"><a href="mailto:diego.garcial@usc.es">diego.garcial@usc.es</a></span>
+<br />Address: <br />Departamento de Matematicas<br /> Facultad de Matematicas<br /> Universidad de Santiago de Compostela<br /> Rua de Lope Gomez de Marzoa, s/nES-15705 Santiago de Compostela<br /> Spain<br />
+</p><p><b>
+    Leo Margolis
+
+
+
+  </b>
+<br />Email: <span class="URL"><a href="mailto:leo.margolis@uam.es">leo.margolis@uam.es</a></span>
+<br />Homepage: <span class="URL"><a href="http://www.margollo.github.io">http://www.margollo.github.io</a></span>
+<br />Address: <br />Departamento de Matematicas<br /> Universidad Autonoma de Madrid<br /> Campus Cantoblanco<br /> 28049 Madrid<br /> Spain<br />
+</p><p><b>
+    Tobias Moede
+
+
+
+  </b>
+<br />Email: <span class="URL"><a href="mailto:t.moede@tu-braunschweig.de">t.moede@tu-braunschweig.de</a></span>
+<br />Homepage: <span class="URL"><a href="https://www.tu-braunschweig.de/iaa/personal/moede">https://www.tu-braunschweig.de/iaa/personal/moede</a></span>
+<br />Address: <br />Institute of Analysis and Algebra<br /> TU Braunschweig<br /> Universitaetsplatz 2, 38106 Braunschweig<br /> Germany<br />
+</p>
+
+<p><a id="X8537FEB07AF2BEC8" name="X8537FEB07AF2BEC8"></a></p>
+
+<div class="contents">
+<h3>Contents<a id="contents" name="contents"></a></h3>
+
+<div class="ContChap"><a href="chap1_mj.html#X7DFB63A97E67C0A1">1 <span class="Heading">Introduction</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7DF90DDB804F3313">1.1 <span class="Heading">Associative algebras and nilpotency</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X81F3496578EAA74E">1.2 <span class="Heading">Isomorphisms and Automorphisms</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X826E62BB7F13974B">1.3 <span class="Heading">The Modular Isomorphism Problem (MIP)</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7C156D9A7E2DA265">1.4 <span class="Heading">A nilpotent quotient algorithm</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X803522C37B413305">1.5 <span class="Heading">Kurosh Algebras</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap2_mj.html#X8054C0EA7FD80924">2 <span class="Heading">Tables</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X83214CDF79540A9C">2.1 <span class="Heading">Nilpotent tables</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7E9773017C70AC20">2.1-1 GetEntryTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7A4CAE3982A072C7">2.1-2 MultByTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X845C9E1C7F590C63">2.1-3 CompareTables</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X79E8ECA07A93BE7C">2.1-4 CheckAssociativity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X837D1FFC84C98C38">2.1-5 CheckCommutativity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7F058A85801AE8E8">2.1-6 CheckConsistency</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X82E2CDDD83FFCC78">2.2 <span class="Heading">Algebras in the GAP sense</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87E37610853C09BC">2.2-1 AlgebraByTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X836EB82C7BEC3906">2.2-2 NilpotentTableOfRad</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7D520789841FBFC9">2.3 <span class="Heading">Tables for the Modular Isomorphism Problem</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7857669C808DDD30">2.3-1 TableOfRadQuotient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7D73EFA98786BD2B">2.3-2 ModIsomTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7AE5F6C180BA1AC9">2.3-3 MIPElementTableToAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7A4BC2737C1FC678">2.3-4 MIPElementAlgebraToTable</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap3_mj.html#X78FFAD4680ADFB46">3 <span class="Heading">Automorphism groups and Canonical Forms</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7A007A0C80D26351">3.1 <span class="Heading">Automorphism groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X781EFB9B7DFAA608">3.1-1 AutGroupOfTable</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X7FBE54607F64B304">3.2 <span class="Heading">Canonical forms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7E08D26380079601">3.2-1 CanonicalFormOfTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3_mj.html#X7F10AECF7CADA777">3.2-2 CanoFormWithAutGroupOfTable</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3_mj.html#X8519CB4183888238">3.3 <span class="Heading">Example of canonical form computation</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap4_mj.html#X84DE9285877BEDEE">4 <span class="Heading">The modular isomorphism problem</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X804C0801792AC27B">4.1 <span class="Heading">Computing bins and checking bins</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80DCCA9283FEF7B1">4.1-1 BinsByGT</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8396777283AFBCAA">4.1-2 MIPSplitGroupsByGroupTheoreticalInvariants</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X857B6CDD8491207C">4.1-3 MIPSplitGroupsByGroupTheoreticalInvariantsNoCohomology</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7BCA7A5081C1085F">4.1-4 BinsByGTAllFields</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87E9C20F82EB105E">4.1-5 MIPSplitGroupsByAlgebras</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8327078B7F11824A">4.1-6 MIPBinSplit</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X8535A1DB80060792">4.2 <span class="Heading">Kernel size</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B86F46A812D51BF">4.2-1 KernelSizePowerMap</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X80A1C1AE7AE15522">4.3 <span class="Heading">The group theoretical invariants</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X829796D27834BE4C">4.3-1 GroupInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7ABE369978B7EAAE">4.3-2 CenterDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83707C1B7BD53A23">4.3-3 SandlingInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7BC69BFA86A65EA5">4.3-4 JenningsInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83A787EE7CE89C10">4.3-5 JenningsDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C3964797B5672E9">4.3-6 BaginskiInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X805FC5EE793BA642">4.3-7 BaginskiCarantiInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7FB201D47AD7078E">4.3-8 NilpotencyClassInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7C8EC10278A2541E">4.3-9 Theorem41MS22</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X84E04CCF7FD0627A">4.3-10 CyclicDerivedInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X87450CF0813C80D8">4.3-11 MaximalAbelianDirectFactor</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X781E039178C48F59">4.3-12 SuccessorsN</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X823762B779F06EBE">4.3-13 CanonicalNormalSubgroups</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8456C430804AEE13">4.3-14 NormalSubgroupsInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8261F88286DD6F96">4.3-15 IsCoveredByTheory</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80F037D9794386D6">4.3-16 DimensionTwoCohomology</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X805BC5F987B8E9DC">4.3-17 ConjugacyClassInfo</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83E5E30479E9D8FA">4.3-18 SubgroupsInfo</a></span>
+</div></div>
+</div>
+<div class="ContChap"><a href="chap5_mj.html#X7996776978463DBA">5 <span class="Heading">Nilpotent Quotients</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X83DACDAE7F8B6FC3">5.1 <span class="Heading">Computing nilpotent quotients</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X81F8961083C5EE36">5.1-1 NilpotentQuotientOfFpAlgebra</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X81FE5BB47890785B">5.2 <span class="Heading">Example of nilpotent quotient computation</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chap6_mj.html#X835E4EED85066D4C">6 <span class="Heading">Relatively free Algebras</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X8799A1A37A5A100D">6.1 <span class="Heading">Computing Kurosh Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X788FA2B67D871A2D">6.1-1 KuroshAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B44AEBF8776C7D9">6.1-2 ExpandExponentLaw</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X818765687A7E80DF">6.2 <span class="Heading">A Library of Kurosh Algebras</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap6_mj.html#X7B9B32CB7D94D65E">6.2-1 KuroshAlgebraByLib</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap6_mj.html#X8557531481E0B932">6.3 <span class="Heading">Example of accessing the library of Kurosh algebras</span></a>
+</span>
+</div>
+</div>
+<div class="ContChap"><a href="chapBib_mj.html"><span class="Heading">References</span></a></div>
+<div class="ContChap"><a href="chapInd_mj.html"><span class="Heading">Index</span></a></div>
+<br />
+</div>
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chap6_mj.html">6</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
 </body>
 </html>

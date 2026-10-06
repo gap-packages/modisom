@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (ModIsom) - Chapter 3: Automorphism groups and Canonical Forms</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap3"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap3_mj.html">[MathJax on]</a></p>
+<p><a id="X78FFAD4680ADFB46" name="X78FFAD4680ADFB46"></a></p>
+<div class="ChapSects"><a href="chap3.html#X78FFAD4680ADFB46">3 <span class="Heading">Automorphism groups and Canonical Forms</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7A007A0C80D26351">3.1 <span class="Heading">Automorphism groups</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X781EFB9B7DFAA608">3.1-1 AutGroupOfTable</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X7FBE54607F64B304">3.2 <span class="Heading">Canonical forms</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7E08D26380079601">3.2-1 CanonicalFormOfTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap3.html#X7F10AECF7CADA777">3.2-2 CanoFormWithAutGroupOfTable</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap3.html#X8519CB4183888238">3.3 <span class="Heading">Example of canonical form computation</span></a>
+</span>
+</div>
+</div>
+
+<h3>3 <span class="Heading">Automorphism groups and Canonical Forms</span></h3>
+
+<p>We refer to <a href="chapBib.html#biBEic07">[Eic08]</a> for background on the algorithms used in this chapter. Throughout the chapter, we assume that <span class="SimpleMath">F</span> is a finite field.</p>
+
+<p><a id="X7A007A0C80D26351" name="X7A007A0C80D26351"></a></p>
+
+<h4>3.1 <span class="Heading">Automorphism groups</span></h4>
+
+<p>Let <span class="SimpleMath">T</span> be a nilpotent table over <span class="SimpleMath">F</span>. The following function can be used to determine the automorphism group of the algebra described by <span class="SimpleMath">T</span>. The automorphism group is determined as a subgroup of <span class="SimpleMath">GL(T.dim, T.fld)</span> given by generators and its order. There is a variation available to determine the automorphism group of a modular group algebra <span class="SimpleMath">FG</span>, where <span class="SimpleMath">F</span> is a finite field and <span class="SimpleMath">G</span> is a <span class="SimpleMath">p</span>-group.</p>
+
+<p><a id="X781EFB9B7DFAA608" name="X781EFB9B7DFAA608"></a></p>
+
+<h5>3.1-1 AutGroupOfTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutGroupOfTable</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutGroupOfRad</code>( <var class="Arg">FG</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>In both cases, the automorphism group is described by a record. The matrices in the lists <code class="code">glAutos</code> and <code class="code">agAutos</code> generate together the automorphism group. The matrices in <code class="code">agAutos</code> generate a <span class="SimpleMath">p</span>-group. The entry <code class="code">size</code> contains the order of the automorphism group.</p>
+
+<p><a id="X7FBE54607F64B304" name="X7FBE54607F64B304"></a></p>
+
+<h4>3.2 <span class="Heading">Canonical forms</span></h4>
+
+<p>Let <span class="SimpleMath">T</span> be a nilpotent table. The following function can be used to determine the canonical form of <span class="SimpleMath">T</span> if the underlying field of <span class="SimpleMath">T</span> is finite. The canonical form is a nilpotent table which is unique for the isomorphism type of the algebra defined by <span class="SimpleMath">T</span>. Again there is a variation available for modular group algebras.</p>
+
+<p><a id="X7E08D26380079601" name="X7E08D26380079601"></a></p>
+
+<h5>3.2-1 CanonicalFormOfTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalFormOfTable</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalFormOfRad</code>( <var class="Arg">FG</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The automorphism group of <span class="SimpleMath">T</span> is determined as a side-product of computing the canonical form. The following functions can be used to return both.</p>
+
+<p><a id="X7F10AECF7CADA777" name="X7F10AECF7CADA777"></a></p>
+
+<h5>3.2-2 CanoFormWithAutGroupOfTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanoFormWithAutGroupOfTable</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanoFormWithAutGroupOfRad</code>( <var class="Arg">FG</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>In both cases, these functions return a record with entries <code class="code">cano</code> and <code class="code">auto</code>.</p>
+
+<p><a id="X8519CB4183888238" name="X8519CB4183888238"></a></p>
+
+<h4>3.3 <span class="Heading">Example of canonical form computation</span></h4>
+
+<p>We compute the automorphism group and a canonical form for the modular group algebra of the dihedral group of order 8.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := GroupRing(GF(2), SmallGroup(8,3));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := TableByWeightedBasisOfRad(A);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C := CanoFormWithAutGroupOfTable(T);;</span>
+
+# check that the canonical form is not equal to T
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CompareTables(C.cano, T);</span>
+false
+
+# the order of the automorphism group
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C.auto.size;</span>
+512
+
+# the entries of the canonical table as far as they are bounded
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">C.cano.tab;</span>
+[ [ &lt;a GF2 vector of length 7&gt;, &lt;a GF2 vector of length 7&gt;, 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ], 
+  [ &lt;a GF2 vector of length 7&gt;, &lt;a GF2 vector of length 7&gt;, 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ], 
+  [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ], 
+  [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ] ], 
+  [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ] ], 
+  [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+      [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ] ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap2.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap4.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

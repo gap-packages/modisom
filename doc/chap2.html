@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (ModIsom) - Chapter 2: Tables</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2_mj.html">[MathJax on]</a></p>
+<p><a id="X8054C0EA7FD80924" name="X8054C0EA7FD80924"></a></p>
+<div class="ChapSects"><a href="chap2.html#X8054C0EA7FD80924">2 <span class="Heading">Tables</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X83214CDF79540A9C">2.1 <span class="Heading">Nilpotent tables</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E9773017C70AC20">2.1-1 GetEntryTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A4CAE3982A072C7">2.1-2 MultByTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X845C9E1C7F590C63">2.1-3 CompareTables</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X79E8ECA07A93BE7C">2.1-4 CheckAssociativity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X837D1FFC84C98C38">2.1-5 CheckCommutativity</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7F058A85801AE8E8">2.1-6 CheckConsistency</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X82E2CDDD83FFCC78">2.2 <span class="Heading">Algebras in the GAP sense</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X87E37610853C09BC">2.2-1 AlgebraByTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X836EB82C7BEC3906">2.2-2 NilpotentTableOfRad</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7D520789841FBFC9">2.3 <span class="Heading">Tables for the Modular Isomorphism Problem</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7857669C808DDD30">2.3-1 TableOfRadQuotient</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7D73EFA98786BD2B">2.3-2 ModIsomTable</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7AE5F6C180BA1AC9">2.3-3 MIPElementTableToAlgebra</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A4BC2737C1FC678">2.3-4 MIPElementAlgebraToTable</a></span>
+</div></div>
+</div>
+
+<h3>2 <span class="Heading">Tables</span></h3>
+
+<p>Finite dimensional algebras can be described by structure constants tables. For nilpotent algebras it is not necessary to store a full structure constants table. To use this feature, we introduce <em>nilpotent structure constants tables</em> or just <em>nilpotent tables</em> for short. These are used heavily throughout the package.</p>
+
+<p><a id="X83214CDF79540A9C" name="X83214CDF79540A9C"></a></p>
+
+<h4>2.1 <span class="Heading">Nilpotent tables</span></h4>
+
+<p>Let <span class="SimpleMath">A</span> be a finite-dimensional nilpotent associative algebra over a field <span class="SimpleMath">F</span>. Let <span class="SimpleMath">(b_1, ..., b_d)</span> be a <em>weighted basis</em> of <span class="SimpleMath">A</span>; that is, a basis with weights <span class="SimpleMath">(w_1, ..., w_d)</span> satisfying that <span class="SimpleMath">A^j = ⟨ b_i ∣ w_i ≥ j ⟩</span>. Let</p>
+
+<p class="pcenter"> b_i b_j = \sum_k a_{i,j,k} b_k.</p>
+
+<p>The nilpotent table <span class="SimpleMath">T</span> for <span class="SimpleMath">A</span> (with respect to the basis <span class="SimpleMath">(b_1, ..., b_d)</span>) is a record with the following entries.</p>
+
+
+<dl>
+<dt><strong class="Mark"><code class="code">dim</code></strong></dt>
+<dd><p>the dimension <span class="SimpleMath">d</span> of <span class="SimpleMath">A</span>;</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">fld</code></strong></dt>
+<dd><p>the field <span class="SimpleMath">F</span> of <span class="SimpleMath">A</span>;</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">wgs</code></strong></dt>
+<dd><p>the weights <span class="SimpleMath">(w_1, ..., w_d)</span>;</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">rnk</code></strong></dt>
+<dd><p>the rank <span class="SimpleMath">e</span> of <span class="SimpleMath">A</span> (i.e. the dimension of <span class="SimpleMath">A/A^2</span>).</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">wds</code></strong></dt>
+<dd><p>a list of length <span class="SimpleMath">d</span> with holes; if the <span class="SimpleMath">i</span>th entry is bounded, then it is of the form <span class="SimpleMath">[k,l]</span>. In this case, <span class="SimpleMath">w_i &gt; 1</span> and <span class="SimpleMath">b_i = b_k b_l</span> and <span class="SimpleMath">w_k = 1</span> and <span class="SimpleMath">w_l = w_i-1</span> holds.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">tab</code></strong></dt>
+<dd><p>a partial structure constants table for <span class="SimpleMath">A</span>; if <code class="code">tab[i][j][k]</code> is bounded, then it is <span class="SimpleMath">a_i,j,k</span>. Note that either a full vector <code class="code">tab[i][j]</code> is given or <code class="code">tab[i][j]</code> is unbounded. The entry <code class="code">tab[i][j][k]</code> is available for <span class="SimpleMath">1 ≤ i,j ≤ e</span> and if <code class="code">wds[i]</code> is unbounded.</p>
+
+</dd>
+<dt><strong class="Mark"><code class="code">com</code></strong></dt>
+<dd><p>optional; if this is bounded, then it is a boolean. If this boolean is true, then the algebra is assumed to be commutative.</p>
+
+</dd>
+</dl>
+<p>In a nilpotent table not all structure constants are readily available. The following function determines the structure constants for the product <span class="SimpleMath">b_i b_j</span>. If the global variable <code class="code">STORE</code> is true, then the function stores the computed entry in the table.</p>
+
+<p><a id="X7E9773017C70AC20" name="X7E9773017C70AC20"></a></p>
+
+<h5>2.1-1 GetEntryTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GetEntryTable</code>( <var class="Arg">T</var>, <var class="Arg">i</var>, <var class="Arg">j</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>The result of the multiplication of the elements <span class="SimpleMath">v</span> and <span class="SimpleMath">w</span> in <span class="SimpleMath">T</span> can be obtained using the following function. An example of its use is provided below.</p>
+
+<p><a id="X7A4CAE3982A072C7" name="X7A4CAE3982A072C7"></a></p>
+
+<h5>2.1-2 MultByTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MultByTable</code>( <var class="Arg">T</var>, <var class="Arg">v</var>, <var class="Arg">w</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>We consider two nilpotent tables as equal if they would be equal once the full set of structure constants is bound. The following function provides an effective check for this.</p>
+
+<p><a id="X845C9E1C7F590C63" name="X845C9E1C7F590C63"></a></p>
+
+<h5>2.1-3 CompareTables</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CompareTables</code>( <var class="Arg">T1</var>, <var class="Arg">T2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>A nilpotent table contains redundant information and hence can be inconsistent. The next functions can be used to check this to some extent.</p>
+
+<p><a id="X79E8ECA07A93BE7C" name="X79E8ECA07A93BE7C"></a></p>
+
+<h5>2.1-4 CheckAssociativity</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CheckAssociativity</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Checks that <span class="SimpleMath">(b_i b_j) b_k = b_i (b_j b_k)</span> for all <span class="SimpleMath">i,j,k</span>. Note that this may be time-consuming.</p>
+
+<p><a id="X837D1FFC84C98C38" name="X837D1FFC84C98C38"></a></p>
+
+<h5>2.1-5 CheckCommutativity</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CheckCommutativity</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Checks whether <span class="SimpleMath">T</span> defines a commutative algebra and sets the entry <code class="code">com</code> accordingly.</p>
+
+<p><a id="X7F058A85801AE8E8" name="X7F058A85801AE8E8"></a></p>
+
+<h5>2.1-6 CheckConsistency</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CheckConsistency</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Checks that <code class="code">wds</code> and <code class="code">tab</code> are compatible. This assumes that CheckAssociativity returns true.</p>
+
+<p>All algorithms described later in this package assume that the tables considered are fully consistent.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := rec( dim := 3, </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">fld := GF(2), </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">rnk := 2, </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">wgs := [ 1, 1, 2 ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">wds := [ ,, [ 2, 1 ] ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">tab := [] );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.tab[1] := [[0,0,0],[0,0,1]] * One(T.fld);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.tab[2] := [[0,0,1],[0,0,0]] * One(T.fld);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GetEntryTable( T, 3, 1 );</span>
+[ 0*Z(2), 0*Z(2), 0*Z(2) ]
+</pre></div>
+
+<p><a id="X82E2CDDD83FFCC78" name="X82E2CDDD83FFCC78"></a></p>
+
+<h4>2.2 <span class="Heading">Algebras in the GAP sense</span></h4>
+
+<p>We provide functions to convert back and forth between algebras in the <strong class="pkg">GAP</strong> sense and nilpotent tables.</p>
+
+<p><a id="X87E37610853C09BC" name="X87E37610853C09BC"></a></p>
+
+<h5>2.2-1 AlgebraByTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraByTable</code>( <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NilpotentTable</code>( <var class="Arg">A</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Note that the second function fails if <span class="SimpleMath">A</span> is not nilpotent.</p>
+
+<p>For modular group algebras of <span class="SimpleMath">p</span>-groups, the group algebra itself is not nilpotent (as it contains a unit), but its Jacobson radical is. The following function determines a nilpotent table for the Jacobson radical.</p>
+
+<p><a id="X836EB82C7BEC3906" name="X836EB82C7BEC3906"></a></p>
+
+<h5>2.2-2 NilpotentTableOfRad</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NilpotentTableOfRad</code>( <var class="Arg">FG</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">A := GroupRing(GF(2), SmallGroup(8,3));</span>
+&lt;algebra-with-one over GF(2), with 3 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">NilpotentTableOfRad(A);</span>
+rec( dim := 7, fld := GF(2), rnk := 2, 
+  tab := 
+    [ 
+      [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ], 
+      [ [ 0*Z(2), 0*Z(2), Z(2)^0, Z(2)^0, Z(2)^0, Z(2)^0, Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ],, 
+      [ [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), Z(2)^0 ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ], 
+          [ 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2), 0*Z(2) ] ] ], 
+  wds := [ ,, [ 1, 2 ],, [ 1, 4 ], [ 2, 4 ], [ 1, 6 ] ], 
+  wgs := [ 1, 1, 2, 2, 3, 3, 4 ] )
+</pre></div>
+
+<p><a id="X7D520789841FBFC9" name="X7D520789841FBFC9"></a></p>
+
+<h4>2.3 <span class="Heading">Tables for the Modular Isomorphism Problem</span></h4>
+
+<p>A special kind of nilpotent table is available in the context of the Modular Isomorphism Problem. Let <span class="SimpleMath">G</span> be a finite group, <span class="SimpleMath">F</span> a field of characteristic <span class="SimpleMath">p</span> and <span class="SimpleMath">I(FG)</span> the augmentation ideal of <span class="SimpleMath">FG</span> which equals its radical and is a nilpotent ideal. Two functions can be used to compute the class-<span class="SimpleMath">n</span> quotient of <span class="SimpleMath">I(FG)</span>, i.e. <span class="SimpleMath">I(FG)/I(FG)^n+1</span>. The output is a nilpotent table for this quotient, but in addition to the standard entries of a nilpotent table it contains further entries, which allow more efficient computations and can also facilitate manual calculations. This makes it possible to determine the class-<span class="SimpleMath">n</span> quotient of the augmentation ideal without computing the full augmentation ideal using <code class="func">NilpotentTableOfRad</code> (<a href="chap2.html#X836EB82C7BEC3906"><span class="RefLink">2.2-2</span></a>). The corresponding table can be computed by</p>
+
+<p><a id="X7857669C808DDD30" name="X7857669C808DDD30"></a></p>
+
+<h5>2.3-1 TableOfRadQuotient</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TableOfRadQuotient</code>( <var class="Arg">FG</var>, <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>or</p>
+
+<p><a id="X7D73EFA98786BD2B" name="X7D73EFA98786BD2B"></a></p>
+
+<h5>2.3-2 ModIsomTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ModIsomTable</code>( <var class="Arg">G</var>, <var class="Arg">n</var>[, <var class="Arg">f</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Here <code class="code">ModIsomTable(G, n)</code> will produce the quotient with respect to the algebra <span class="SimpleMath">ℙ_pG</span>, while <code class="code">ModIsomTable( G, n, f )</code> will do the same for the algebra <span class="SimpleMath">ℙ_p^fG</span>.</p>
+
+<p>The components <span class="SimpleMath">dim</span>, <code class="code">fld</code>, <code class="code">rnk</code>, <code class="code">tab</code>, <code class="code">wgs</code>, <code class="code">wds</code> remain unchanged from a usual nilpotent table. The additional components are <code class="code">commwords</code>, <code class="code">powwords</code> and <code class="code">pre</code>. These new components contain additional information on precisely which basis of <span class="SimpleMath">I(FG)/I(FG)^n+1</span> is used and what the result of multiplying basis elements is. We explain how users can understand how the basis looks and how they can multiply two elements in the algebra. The components <code class="code">T.commwords</code> and <code class="code">T.powwords</code> contain information on how the elements of the basis behave with respect to commutators and <span class="SimpleMath">p</span>-th powers. The component <code class="code">T.pre</code> contains information on the construction of the basis and we describe it in more detail.</p>
+
+<p>The dimension of <span class="SimpleMath">I(FG)/I(FG)^n+1</span> is recorded in <code class="code">T.dim</code>. The basis of <span class="SimpleMath">I(FG)/I(FG)^n+1</span> is found as in the theory of Jennings going back to <a href="chapBib.html#biBJen41">[Jen41]</a>, cf. <a href="chapBib.html#biBMM22">[MM22]</a> for the information needed here. The elements of <span class="SimpleMath">G</span> chosen to provide the basis of subsequent quotients of dimension subgroups are recorded in <code class="code">T.pre.jen.pcgs</code>. Let us call these elements <span class="SimpleMath">g_1,...,g_m</span>. Note that <span class="SimpleMath">|G| = p^m</span>. The weights of the elements <span class="SimpleMath">g_1-1,... ,g_m-1</span> are recorded in <code class="code">T.pre.jen.weights</code>. If now <span class="SimpleMath">r</span> is an integer smaller than <code class="code">T.dim</code>+1, then the <span class="SimpleMath">r</span>-th element of the basis of <span class="SimpleMath">I(FG)/I(FG)^n+1</span> is <span class="SimpleMath">(g_1-1)^e_1 ⋅ ... (g_m-1)^e_m</span> where <span class="SimpleMath">[e_1,...,e_m]</span> = <code class="code">T.pre.exps[r]</code>. The weight of this element is recorded in <code class="code">T.wgs[r]</code> and also <code class="code">T.pre.weights[r]</code>. Moreover, the positions of <span class="SimpleMath">g_1-1,... ,g_m-1</span> in the chosen basis of <span class="SimpleMath">T</span> are recorded in <code class="code">T.pre.poswone</code>. We elaborate using an example.</p>
+
+<p>We consider the group <span class="SimpleMath">G</span> = <code class="code">SmallGroup(3^7, 19)</code>. The following calculation shows that <span class="SimpleMath">I(FG)/I(FG)^9</span> has dimension <span class="SimpleMath">135</span> and that the full augmentation ideal <span class="SimpleMath">I(FG)</span> has dimension <span class="SimpleMath">2186</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(3^7, 19);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := ModIsomTable(G, 8);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.dim;</span>
+135
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FG := GroupRing(GF(3), G);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TT := TableOfRadQuotient(FG, 8);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TT.dim;</span>
+135
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := ModIsomTable(G, 38);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.dim;</span>
+2186
+</pre></div>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := ModIsomTable(G, 39);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.dim;</span>
+2186
+</pre></div>
+
+<p>We next consider an example of how the basis used can be recognized.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := DihedralGroup(8);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := ModIsomTable(G, 4);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.dim;</span>
+7
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pcgs := T.pre.jen.pcgs;</span>
+Pcgs([ f1, f2, f3 ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">List(pcgs, Order);</span>
+[ 2, 4, 2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">pcgs[3] in Center(G);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.pre.exps{[1..7]};</span>
+[ [ 1, 0, 0 ], [ 0, 1, 0 ], [ 1, 1, 0 ], [ 0, 0, 1 ], [ 1, 0, 1 ], 
+  [ 0, 1, 1 ], [ 1, 1, 1 ] ]
+</pre></div>
+
+<p>We conclude that <span class="SimpleMath">I(FG)/I(FG)^5</span> is <span class="SimpleMath">7</span>-dimensional and if we denote by <span class="SimpleMath">a</span> a reflection and by <span class="SimpleMath">b</span> a non-central rotation in <span class="SimpleMath">G</span>, then the basis used by <span class="SimpleMath">T</span> is, in this order: <span class="SimpleMath">(a-1)</span>, <span class="SimpleMath">(b-1)</span>, <span class="SimpleMath">(a-1)(b-1)</span>, <span class="SimpleMath">(b^2-1)</span>, <span class="SimpleMath">(a-1)(b^2-1)</span>, <span class="SimpleMath">(b-1)(b^2-1)</span>, <span class="SimpleMath">(a-1)(b-1)(b^2-1)</span>.</p>
+
+<p>Continuing the previous example, say we want to multiply <span class="SimpleMath">(b-1)+(a-1)(b-1)+(a-1)(b^2-1)</span> and <span class="SimpleMath">(a-1)+(b-1)+(b^2-1)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">v := Z(2)^0*[0,1,1,0,1,0,0];</span>
+[ 0*Z(2), Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">w := Z(2)^0*[1,1,0,1,0,0,0];</span>
+[ Z(2)^0, Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2), 0*Z(2) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MultByTable(T,v,w);</span>
+[ 0*Z(2), 0*Z(2), Z(2)^0, 0*Z(2), Z(2)^0, 0*Z(2), 0*Z(2) ]
+</pre></div>
+
+<p>So the result is <span class="SimpleMath">(a-1)(b-1) + (a-1)(b^2-1)</span>.</p>
+
+<p>To facilitate the translation of elements of the group algebra and a corresponding table of a quotient of the augmentation ideal the functions</p>
+
+<p><a id="X7AE5F6C180BA1AC9" name="X7AE5F6C180BA1AC9"></a></p>
+
+<h5>2.3-3 MIPElementTableToAlgebra</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPElementTableToAlgebra</code>( <var class="Arg">v</var>, <var class="Arg">T</var>, <var class="Arg">FG</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>and</p>
+
+<p><a id="X7A4BC2737C1FC678" name="X7A4BC2737C1FC678"></a></p>
+
+<h5>2.3-4 MIPElementAlgebraToTable</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; MIPElementAlgebraToTable</code>( <var class="Arg">el</var>, <var class="Arg">FG</var>, <var class="Arg">T</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>can be used. In the second function of course only a possible representative of <span class="SimpleMath">v</span> in <span class="SimpleMath">FG</span> is provided. Also, only elements from the augmentation ideal of <span class="SimpleMath">FG</span> can be represented using <code class="func">MIPElementAlgebraToTable</code>. These functions can be used for instance to obtain representatives in the same class modulo a power of the augmentation ideal which are more practical to work with, as the following example shows.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(3^7, 19);</span>
+&lt;pc group of size 2187 with 7 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T := ModIsomTable(G, 4);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">FG := GroupRing(GF(3), G);</span>
+&lt;algebra-with-one over GF(3), with 7 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">iota := Embedding(G, FG);</span>
+&lt;mapping: Group( [ f1, f2, f3, f4, f5, f6, f7 
+ ] ) -&gt; AlgebraWithOne( GF(3), ... ) &gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a := (T.pre.jen.pcgs[1])^iota;</span>
+(Z(3)^0)*f1
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">b := (T.pre.jen.pcgs[2])^iota;</span>
+(Z(3)^0)*f2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">z := One(FG);</span>
+(Z(3)^0)*&lt;identity&gt; of ...
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">r := (z + (a-z)*(b-z) )^-1;;  </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Size(Support(r-z));</span>
+1376
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">el := MIPElementAlgebraToTable(r-z, FG, T);</span>
+[ 0*Z(3), 0*Z(3), 0*Z(3), Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), Z(3)^0, 0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">MIPElementTableToAlgebra(el, T, FG);</span>
+(Z(3))*&lt;identity&gt; of ...+(Z(3)^0)*f3+(Z(3)^0)*f1^2+(Z(3))*f1*f2+(Z(3))*f1*f3+(
+Z(3)^0)*f2^2+(Z(3))*f2*f3+(Z(3)^0)*f1^2*f2+(Z(3)^0)*f1*f2^2+(Z(3)^
+0)*f1*f2*f3+(Z(3)^0)*f1^2*f2^2
+</pre></div>
+
+<p>We illustrate the information in <code class="code">T.pre.poswone</code>:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d := (T.pre.jen.pcgs[4])^iota;</span>
+(Z(3)^0)*f4
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">el := MIPElementAlgebraToTable(d-z, FG, T);</span>
+[ 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), Z(3)^0, 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 
+  0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3), 0*Z(3) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Position(last, Z(3)^0);</span>
+11
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">T.pre.poswone[4];</span>
+11
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chap6.html">6</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
