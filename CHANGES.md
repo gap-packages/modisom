@@ -1,6 +1,6 @@
 # CHANGES to the 'ModIsom' GAP package
 
-## 3.2.0 (unreleased)
+## 3.2.0 (2026-10-06)
 
  - prefixed the global variables defined in `read.g` with `MIP_`, e.g.
    `COVER_LIMIT` is now `MIP_COVER_LIMIT`
